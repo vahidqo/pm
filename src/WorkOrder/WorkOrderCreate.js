@@ -4,22 +4,32 @@ import {
     ReferenceInput,
     SelectInput,
     TextInput,
-    Create
+    Create,
+    Toolbar
 }
 from 'react-admin';
+import { parse } from 'query-string';
+import { DateInput } from '../Components/JalaliDatePicker';
+import { DateInputtoday } from '../Components/JalaliDatePickertoday';
 
+const WorkOrderCreate = props => {
+    var today = new Date();
 
-const AssetClassCreate = props => (
-    <Create {...props} title="ایجاد کلاس تجهیز">
-        <SimpleForm>
-            <TextInput label="کد کلاس تجهیز" textAlgin="right" source="AssetClassCode" />
-            <TextInput label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" />
-            <ReferenceInput label="خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
-                <SelectInput optionText="AssetCategoryName" />
-            </ReferenceInput>
+    const { WorkRequestID: WorkRequestID_string } = parse(props.location.search);
+    const WorkRequestID = WorkRequestID_string ? parseInt(WorkRequestID_string, 10) : '';
+    const redirect = WorkRequestID ? `/PMWorks/WorkRequest/${WorkRequestID}/show/PMWorks/WordOrder` : false;
+
+    return (
+    <Create {...props} title="ایجاد دستور کار">
+        <SimpleForm initialValues={{ WODateOfRegistration: today, WorkRequestID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
+            <DateInputtoday label="تاریخ ثبت" source="WODateOfRegistration" disabled/>
+            <DateInput label="تاریخ شروع" source="DateOfPlanStart" />
+            <DateInput label="تاریخ پایان" source="DateOfPlanFinish" />
+            <TextInput multiline label="توضیحات" textAlgin="right" source="WODescription"/>
         </SimpleForm>
     </Create>
 );
+};
 
 
-export default AssetClassCreate;
+export default WorkOrderCreate;

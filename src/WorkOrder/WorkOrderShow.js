@@ -26,10 +26,8 @@ import AddSparePartButton from './AddSparePartButton';
 import AddTaskButton from './AddTaskButton';
 
 
-const WorkOrderShow = props => {
-    const controllerProps = useShowController(props);
-    return (
-    <ShowView {...controllerProps} title={<WorkOrderTitle />}>
+const WorkOrderShow = (props) => (
+    <Show {...props} title={<WorkOrderTitle />}>
         <TabbedShowLayout>
             <Tab label="تامین کننده" path="PMWorks/WOSupplier">
                 <ReferenceManyField
@@ -122,10 +120,10 @@ const WorkOrderShow = props => {
                 >
                     <Datagrid>
                         <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
-                            <TextField source="AssetClassName" />
+                            <TextField source="TaskName" />
                         </ReferenceField>
                         <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
-                            <TextField source="AssetClassCode" />
+                            <TextField source="TaskCode" />
                         </ReferenceField>
                         <TextField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" />
                         <ShowButton />
@@ -135,9 +133,8 @@ const WorkOrderShow = props => {
                 <AddTaskButton />
             </Tab>
         </TabbedShowLayout>
-    </ShowView>
+    </Show>
 );
-    };
 
 
 export default WorkOrderShow;

@@ -4,12 +4,12 @@ import {
     Toolbar,
     Create,
     required,
-    NumberInput 
+    NumberInput,
+    TextInput
 }
 from 'react-admin';
 import { parse } from 'query-string';
 import DelayRefrenceInput from './DelayRefrenceInput';
-import RichTextInput from 'ra-input-rich-text';
 
 
 const WODelayCreate = props => {
@@ -24,7 +24,7 @@ const WODelayCreate = props => {
             <DelayRefrenceInput label="کد تاخیر" textAlgin="right" source="DelayID" reference="PMWorks/Delay" allowEmpty validate={required()} perPage={10000} />
             <NumberInput textAlgin="right" label="روز" source="DayAmount" />
             <NumberInput textAlgin="right" label="ساعت" source="HourAmount" />
-            <RichTextInput label="توضیحات علت تاخیر" textAlgin="right" source="WODelayDescription" toolbar={[ ['bold', 'italic', 'underline', 'link'] ]} />
+            <TextInput multiline label="توضیحات علت تاخیر" textAlgin="right" source="WODelayDescription"/>
         </SimpleForm>
     </Create>
     );

@@ -5,7 +5,8 @@ import {
     Create,
     TextInput,
     ReferenceInput,
-    SelectInput
+    SelectInput,
+    FormDataConsumer
 }
 from 'react-admin';
 import { parse } from 'query-string';
@@ -20,9 +21,13 @@ const WOTaskCreate = props => {
     return (
     <Create {...props} title="ایجاد وظیفه دستور کار">
         <SimpleForm initialValues={{ WorkOrderID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput label="کد وظیفه" source="TaskID" reference="PMWorks/AssetClassTask">
-                <SelectInput optionText="TaskCode" />
-            </ReferenceInput>
+            <FormDataConsumer>
+                {({ formData, ...rest }) => formData.WorkOrderID &&
+                        <ReferenceInput label="کد وظیفه" source="TaskID" reference="PMWorks/WRTask" filter={{ WorkOrderID: formData.WorkOrderID }} {...rest}>
+                            <SelectInput optionText="TaskCode" />
+                        </ReferenceInput>
+                }
+            </FormDataConsumer>
             <TextInput textAlgin="right" label="وضعیت" source="WOTaskSituationOfDo" />
         </SimpleForm>
     </Create>

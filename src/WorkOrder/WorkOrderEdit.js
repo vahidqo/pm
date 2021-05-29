@@ -7,21 +7,21 @@ import {
     TextInput,
 }
 from 'react-admin';
-import AssetClassTitle from './AssetClassTitle';
+import WorkOrderTitle from './WorkOrderTitle';
+import { DateInputtoday } from '../Components/JalaliDatePickertoday';
+import { DateInput } from '../Components/JalaliDatePicker';
 
 
-const AssetClassEdit = props => (
-    <Edit title={<AssetClassTitle />} {...props}>
+const WorkOrderEdit = props => (
+    <Edit title={<WorkOrderTitle />} {...props}>
         <SimpleForm>
-            <TextInput label="آی دی" textAlgin="right" disabled source="id" />
-            <TextInput label="کد کلاس تجهیز" textAlgin="right" source="AssetClassCode" />
-            <TextInput label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" />
-            <ReferenceInput label="خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
-                <SelectInput optionText="AssetCategoryName" />
-            </ReferenceInput>
+            <DateInputtoday label="تاریخ ثبت" source="WODateOfRegistration" disabled/>
+            <DateInput label="تاریخ شروع" source="DateOfPlanStart" />
+            <DateInput label="تاریخ پایان" source="DateOfPlanFinish" />
+            <TextInput multiline label="توضیحات" textAlgin="right" source="WODescription"/>
         </SimpleForm>
     </Edit>
 );
 
 
-export default AssetClassEdit;
+export default WorkOrderEdit;

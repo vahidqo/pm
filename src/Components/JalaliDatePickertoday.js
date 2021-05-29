@@ -37,12 +37,13 @@ const Picker = ({ PickerComponent, ...fieldProps }) => {
         clearLabel="پاک کردن"
         todayLabel="امروز"
         labelFunc={(date) => (date ? date.format("jDD jMMMM jYYYY") : "")}
-        value={input.value ? new Date(input.value) : today}
+        value={today}
         onChange={(date) => handleChange(date)}
         inputVariant="filled"
         margin="dense"
         disabled
         className={classes.width}
+        defaultValue={today}
       />
     </MuiPickersUtilsProvider>
   );

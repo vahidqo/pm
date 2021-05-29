@@ -43,6 +43,11 @@ import FailureModeCreate from './FailureMode/FailureModeCreate';
 import FailureModeEdit from './FailureMode/FailureModeEdit';
 import FailureModeShow from './FailureMode/FailureModeShow';
 
+import FailureCauseList from './FailureCause/FailureCauseList';
+import FailureCauseCreate from './FailureCause/FailureCauseCreate';
+import FailureCauseEdit from './FailureCause/FailureCauseEdit';
+import FailureCauseShow from './FailureCause/FailureCauseShow';
+
 import AssetClassList from './AssetClass/AssetClassList';
 import AssetClassCreate from './AssetClass/AssetClassCreate';
 import AssetClassEdit from './AssetClass/AssetClassEdit';
@@ -191,6 +196,16 @@ import WOTaskList from './WOTask/WOTaskList';
 import WOTaskCreate from './WOTask/WOTaskCreate';
 import WOTaskEdit from './WOTask/WOTaskEdit';
 import WOTaskShow from './WOTask/WOTaskShow';
+
+import WorkOrderList from './WorkOrder/WorkOrderList';
+import WorkOrderCreate from './WorkOrder/WorkOrderCreate';
+import WorkOrderEdit from './WorkOrder/WorkOrderEdit';
+import WorkOrderShow from './WorkOrder/WorkOrderShow';
+
+import WorkRequestFailureCauseList from './WorkRequestFailureCause/WorkRequestFailureCauseList';
+import WorkRequestFailureCauseCreate from './WorkRequestFailureCause/WorkRequestFailureCauseCreate';
+import WorkRequestFailureCauseEdit from './WorkRequestFailureCause/WorkRequestFailureCauseEdit';
+import WorkRequestFailureCauseShow from './WorkRequestFailureCause/WorkRequestFailureCauseShow';
 
 import customRoutes from './customRoutes';
 
@@ -346,6 +361,7 @@ const App = () => (
         <Resource name="PMWorks/SpecificData" icon={SettingsOutlinedIcon} options={{ label: 'ویژگی های خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate}/>
         <Resource name="PMWorks/AssetClassSpecificData"  edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={SettingsOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
+        <Resource name="PMWorks/FailureCause" icon={SettingsOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
         <Resource name="PMWorks/AssetClassSubdivision" edit={AssetClassSubdivisionEdit} create={AssetClassSubdivisionCreate} show={AssetClassSubdivisionShow} />
         <Resource name="PMWorks/Location" icon={SettingsOutlinedIcon} options={{ label: 'مکان ها', "menuParent": "makan"}} list={LocationList} edit={LocationEdit} create={LocationCreate} show={LocationShow}/>
         <Resource name="PMWorks/AssetPriority" icon={SettingsOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
@@ -371,12 +387,18 @@ const App = () => (
         <Resource name="PMWorks/SupplierSpecificData" icon={ListIcon} options={{ label: 'ویژگی های تامین کنندگان'}} edit={SupplierSpecificDataEdit} create={SupplierSpecificDataCreate} show={SupplierSpecificDataShow}/>
         <Resource name="PMWorks/AssetClassTask" icon={ListIcon} options={{ label: 'فعالیت ها'}} list={AssetClassTaskList} edit={AssetClassTaskEdit} create={AssetClassTaskCreate} show={AssetClassTaskShow}/>
         <Resource name="PMWorks/AssetClassTaskAdd" icon={ListIcon} options={{ label: 'فعالیت های فرعی'}} create={AssetClassTaskAddCreate} />
-        <Resource name="PMWorks/WorkRequest" icon={SettingsOutlinedIcon} options={{ label: 'درخواست کار', "menuParent": "modiriat" }} list={WorkRequestList} create={WorkRequestCreate} />
+        <Resource name="PMWorks/WorkRequest" icon={SettingsOutlinedIcon} options={{ label: 'درخواست کار', "menuParent": "modiriat" }} list={WorkRequestList} edit={WorkRequestEdit} create={WorkRequestCreate} show={WorkRequestShow} />
+        <Resource name="PMWorks/WorkOrder" icon={SettingsOutlinedIcon} options={{ label: 'دستور کار', "menuParent": "modiriat" }} list={WorkOrderList} edit={WorkOrderEdit} create={WorkOrderCreate} show={WorkOrderShow} />
         <Resource name="PMWorks/WOSupplier" icon={ListIcon} options={{ label: 'تامین کننده دستور کارها'}} edit={WOSupplierEdit} create={WOSupplierCreate} show={WOSupplierShow}/>
         <Resource name="PMWorks/WOPersonnel" icon={ListIcon} options={{ label: 'پرسنل دستور کارها'}} edit={WOPersonnelEdit} create={WOPersonnelCreate} show={WOPersonnelShow}/>
         <Resource name="PMWorks/WODelay" icon={ListIcon} options={{ label: 'تاخیرات دستور کارها'}} edit={WODelayEdit} create={WODelayCreate} show={WODelayShow}/>
         <Resource name="PMWorks/WOSparePart" icon={ListIcon} options={{ label: 'قطعات دستور کارها'}} edit={WOSparePartEdit} create={WOSparePartCreate} show={WOSparePartShow}/>
         <Resource name="PMWorks/WOTask" icon={ListIcon} options={{ label: 'وظایف دستور کارها'}} edit={WOTaskEdit} create={WOTaskCreate} show={WOTaskShow}/>
+        <Resource name="PMWorks/WorkRequestFailureCause" icon={SettingsOutlinedIcon} options={{ label: 'علت خرابی دستورکار'}} edit={WorkRequestFailureCauseEdit} create={WorkRequestFailureCauseCreate} show={WorkRequestFailureCauseShow}/>
+        <Resource name="PMWorks/FailureAsset" />
+        <Resource name="PMWorks/WRCause" />
+        <Resource name="PMWorks/WRSpare" />
+        <Resource name="PMWorks/WRTask" />
 
     </Admin>
 );
