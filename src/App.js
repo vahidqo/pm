@@ -207,6 +207,27 @@ import WorkRequestFailureCauseCreate from './WorkRequestFailureCause/WorkRequest
 import WorkRequestFailureCauseEdit from './WorkRequestFailureCause/WorkRequestFailureCauseEdit';
 import WorkRequestFailureCauseShow from './WorkRequestFailureCause/WorkRequestFailureCauseShow';
 
+import WOTemplateList from './WOTemplate/WOTemplateList';
+import WOTemplateCreate from './WOTemplate/WOTemplateCreate';
+import WOTemplateEdit from './WOTemplate/WOTemplateEdit';
+import WOTemplateShow from './WOTemplate/WOTemplateShow';
+
+import WOTemplateTypeList from './WOTemplateType/WOTemplateTypeList';
+import WOTemplateTypeCreate from './WOTemplateType/WOTemplateTypeCreate';
+import WOTemplateTypeEdit from './WOTemplateType/WOTemplateTypeEdit';
+import WOTemplateTypeShow from './WOTemplateType/WOTemplateTypeShow';
+
+import WOActivityTemplateList from './WOActivityTemplate/WOActivityTemplateList';
+import WOActivityTemplateCreate from './WOActivityTemplate/WOActivityTemplateCreate';
+import WOActivityTemplateEdit from './WOActivityTemplate/WOActivityTemplateEdit';
+import WOActivityTemplateShow from './WOActivityTemplate/WOActivityTemplateShow';
+
+import WOTemplateSchualingList from './WOTemplateSchualing/WOTemplateSchualingList';
+import WOTemplateSchualingCreate from './WOTemplateSchualing/WOTemplateSchualingCreate';
+import WOTemplateSchualingEdit from './WOTemplateSchualing/WOTemplateSchualingEdit';
+import WOTemplateSchualingShow from './WOTemplateSchualing/WOTemplateSchualingShow';
+
+
 import customRoutes from './customRoutes';
 
 
@@ -340,6 +361,32 @@ const theme = createMuiTheme({
                 fontFamily: ' !important',
             },
         },
+        MuiPickerModal:{
+                dialogRoot:{
+                    direction: 'ltr'
+                },
+        },
+        MuiSwitch: {
+            switchBase: {
+                // Controls default (unchecked) color for the thumb
+                color: "#243261"
+            },
+            colorSecondary: {
+              "&$checked": {
+                // Controls checked color for the thumb
+                color: "#243261",
+              }
+            },
+            track: {
+              // Controls default (unchecked) color for the track
+              backgroundColor: "#243261",
+              "$checked$checked + &": {
+                // Controls checked color for the track
+                opacity: 0.2,
+                backgroundColor: "#243261"
+              }
+            },
+          },
     },
 });
 
@@ -399,6 +446,13 @@ const App = () => (
         <Resource name="PMWorks/WRCause" />
         <Resource name="PMWorks/WRSpare" />
         <Resource name="PMWorks/WRTask" />
+        <Resource name="PMWorks/Frequency" />
+        <Resource name="PMWorks/WOTemplate" icon={SettingsOutlinedIcon} options={{ label: 'برنامه‌ریزی دستورکار'}} list={WOTemplateList} edit={WOTemplateEdit} create={WOTemplateCreate} show={WOTemplateShow}/>
+        <Resource name="PMWorks/WOTemplateType" icon={SettingsOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی دستورکار'}} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
+        <Resource name="PMWorks/WOActivityTemplate" icon={ListIcon} options={{ label: 'فعالیت برنامه ها'}} edit={WOActivityTemplateEdit} create={WOActivityTemplateCreate} show={WOActivityTemplateShow}/>
+        <Resource name="PMWorks/WOTemplateSchualing" icon={ListIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
+        <Resource name="PMWorks/TemplateSchualingDate" />
+        <Resource name="PMWorks/TaskTemp" />
 
     </Admin>
 );
