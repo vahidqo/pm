@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import IconImageEye from '@material-ui/icons/RemoveRedEye';
 import IconKeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { Button, SimpleShowLayout, TextField, useGetOne } from 'react-admin';
+import { Button, SimpleShowLayout, TextField, useGetOne, BooleanField } from 'react-admin';
 
 const useStyles = makeStyles({
     field: {
@@ -17,10 +17,12 @@ const useStyles = makeStyles({
     }
 });
 
-const QuickPreviewAssetClassSpecificDataButton = ({ id }) => {
+const QuickPreviewUserButton = ({ id }) => {
     const [showPanel, setShowPanel] = useState(false);
     const classes = useStyles();
-    const { data } = useGetOne('PMWorks/SpecificData', id);
+    const { data } = useGetOne('PMWorks/User', id);
+    console.log(data);
+    
 
     const handleClick = () => {
         setShowPanel(true);
@@ -43,17 +45,19 @@ const QuickPreviewAssetClassSpecificDataButton = ({ id }) => {
                 </div>
                 <SimpleShowLayout
                     record={data}
-                    basePath="/PMWorks/SpecificData"
-                    resource="PMWorks/SpecificData"
+                    basePath="/PMWorks/User"
+                    resource="PMWorks/User"
                 >
                     <TextField source="id" />
-                    <TextField label="کد ویژگی" textAlgin="right" source="SpecificDataCode" className={classes.field} />
-                    <TextField label="نام ویژگی" textAlgin="right" source="SpecificDataName" className={classes.field} />
-                    <TextField label="واحد اندازه گیری" textAlgin="right" source="Measurment"  className={classes.field}/>
+                    <TextField label="یوزر" textAlgin="right" source="username" className={classes.field}/>
+                    <TextField label="پسورد" textAlgin="right" source="password" className={classes.field}/>
+                    <BooleanField label="پرسنل" textAlgin="right" source="is_staff" className={classes.field}/>
+                    <BooleanField label="فعال" textAlgin="right" source="is_active" className={classes.field}/>
+                    <BooleanField label="دسترسی تمام" textAlgin="right" source="is_superuser" className={classes.field}/>
                 </SimpleShowLayout>
             </Drawer>
         </>
     );
 };
 
-export default QuickPreviewAssetClassSpecificDataButton;
+export default QuickPreviewUserButton;

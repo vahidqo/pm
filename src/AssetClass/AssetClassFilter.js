@@ -1,18 +1,25 @@
 import * as React from "react";
 import {
-    ReferenceInput,
-    SelectInput,
-    Filter,
+    TextInput,
+    Filter
 }
 from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
-const AssetClassFilter = (props) => (
+const useStyles = makeStyles({
+    width: { width: 205 }
+});
+
+const AssetClassFilter = (props) =>{
+    const classes = useStyles();
+    return (
     <Filter {...props}>
-        <ReferenceInput label="نام خانواده تجهیز" source="id" reference="PMWorks/AssetCategory" allowEmpty>
-            <SelectInput optionText="AssetCategoryName" />
-        </ReferenceInput>
+        <TextInput className={classes.width} source="AssetClassCode" label="کد خانواده تجهیز" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetClassName" label="نام خانواده تجهیز" textAlgin="right" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetCategoryID__AssetCategoryName" label="گروه خانواده تجهیز" alwaysOn resettable />
     </Filter>
 );
+};
 
 
 export default AssetClassFilter;

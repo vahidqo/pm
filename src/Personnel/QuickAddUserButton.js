@@ -7,7 +7,8 @@ import {
     TextInput,
     useCreate,
     useNotify,
-    FormWithRedirect
+    FormWithRedirect,
+    BooleanInput
 } from 'react-admin';
 import IconContentAdd from '@material-ui/icons/Add';
 import IconCancel from '@material-ui/icons/Cancel';
@@ -17,9 +18,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
-function QuickAddAssetClassSpecificDataButton({ onChange }) {
+function QuickAddUserButton({ onChange }) {
     const [showDialog, setShowDialog] = useState(false);
-    const [create, { loading }] = useCreate('PMWorks/SpecificData');
+    const [create, { loading }] = useCreate('PMWorks/User');
     const notify = useNotify();
     const form = useForm();
 
@@ -39,7 +40,7 @@ function QuickAddAssetClassSpecificDataButton({ onChange }) {
                     setShowDialog(false);
                     // Update the comment form to target the newly created post
                     // Updating the ReferenceInput value will force it to reload the available posts
-                    form.change('SpecificDataID', data.id);
+                    form.change('user', data.id);
                     onChange();
                 },
                 onFailure: ({ error }) => {
@@ -58,12 +59,12 @@ function QuickAddAssetClassSpecificDataButton({ onChange }) {
                 fullWidth
                 open={showDialog}
                 onClose={handleCloseClick}
-                aria-label="ایجاد ویژگی"
+                aria-label="ایجاد کاربر"
             >
-                <DialogTitle>ایجاد ویژگی</DialogTitle>
+                <DialogTitle>ایجاد کاربر</DialogTitle>
 
                 <FormWithRedirect
-                    resource="PMWorks/SpecificData"
+                    resource="PMWorks/User"
                     save={handleSubmit}
                     render={({
                         handleSubmitWithRedirect,
@@ -72,19 +73,11 @@ function QuickAddAssetClassSpecificDataButton({ onChange }) {
                     }) => (
                         <>
                             <DialogContent>
-                                <TextInput
-                                    label="کد ویژگی"
-                                    textAlgin="right"
-                                    source="SpecificDataCode"
-                                    validate={required()}
-                                />
-                                <TextInput
-                                    label="نام ویژگی"
-                                    textAlgin="right"
-                                    source="SpecificDataName"
-                                    validate={required()}
-                                />
-                                <TextInput label="واحد اندازه گیری" textAlgin="right" source="Measurment"  validate={required()}/>
+                                <TextInput label="یوزر" textAlgin="right" source="username" validate={required()} fullWidth/>
+                                <TextInput label="پسورد" textAlgin="right" source="password" validate={required()} fullWidth/>
+                                <BooleanInput label="پرسنل" textAlgin="right" source="is_staff" validate={required()} fullWidth/>
+                                <BooleanInput label="فعال" textAlgin="right" source="is_active" validate={required()} fullWidth/>
+                                <BooleanInput label="دسترسی تمام" textAlgin="right" source="is_superuser" validate={required()} fullWidth/>
                             </DialogContent>
                             <DialogActions>
                                 <Button
@@ -111,4 +104,4 @@ function QuickAddAssetClassSpecificDataButton({ onChange }) {
     );
 }
 
-export default QuickAddAssetClassSpecificDataButton;
+export default QuickAddUserButton;

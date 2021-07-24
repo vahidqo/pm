@@ -16,8 +16,8 @@ const AddFailureModeButton = ({ classes, record }) => (
     variant="raised"
     component={Link}
     to={`/PMWorks/FailureMode/create?AssetClassID=${record.id}`}
-    label="اضافه کردن نوع خرابی"
-    title="اضافه کردن نوع خرابی"
+    label="اضافه کردن حالت خرابی"
+    title="اضافه کردن حالت خرابی"
   >
     <ChatBubbleIcon />
   </Button>

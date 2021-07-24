@@ -1,20 +1,19 @@
 import * as React from "react";
-import { Admin, Resource, Layout  } from 'react-admin';
+import { fetchUtils, Admin, Resource, Layout  } from 'react-admin';
 
-import { AssetcategoryEdit, AssetcategoryCreate } from './assetcategory';
-//import AssetcategoryList from './list';
-//import AssetcategoryList from './Assetcat';
-//import {AssetcategoryList} from './assettree';
-import AssetcategoryList from './loctree';
+import { AssetcategoryEdit, AssetcategoryCreate } from './AssetCategory/assetcategory';
+import AssetcategoryList from './AssetCategory/loctree';
 
 import { SpecificDataList, SpecificDataEdit, SpecificDataCreate } from './specificdata';
 
 import { reducer as tree } from 'ra-tree-ui-materialui';
 
-//import myDataProvider from './MyDataProvider'
-import drfProvider from './dataProvider';
+//import drfProvider from './dataProvider';
+import drfProvider, { tokenAuthProvider, fetchJsonWithAuthToken, jwtTokenAuthProvider, fetchJsonWithAuthJWTToken } from 'ra-data-django-rest-framework';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
+import MyAppBar from './MyAppBar';
+
 import MyLoginPage from './MyLoginPage';
 //import authProvider from './authProvider';
 //import MyLayout  from './Layout'
@@ -227,6 +226,10 @@ import WOTemplateSchualingCreate from './WOTemplateSchualing/WOTemplateSchualing
 import WOTemplateSchualingEdit from './WOTemplateSchualing/WOTemplateSchualingEdit';
 import WOTemplateSchualingShow from './WOTemplateSchualing/WOTemplateSchualingShow';
 
+import UserList from './User/UserList';
+import UserCreate from './User/UserCreate';
+import UserEdit from './User/UserEdit';
+import UserShow from './User/UserShow';
 
 import customRoutes from './customRoutes';
 
@@ -308,11 +311,11 @@ const theme = createMuiTheme({
         },
         MuiInputLabel:{
             marginDense:{
-                transform: "translate(40%, 17px) scale(1) !important",
-                left: '35%',
+                transform: "translate(10%, 17px) scale(1) !important",
+                right: '25px',
             },
             shrink:{
-                transform: "translate(65%, 7px) scale(0.75) !important",
+                transform: "translate(35%, 7px) scale(0.75) !important",
             },
             root:{
                fontFamily: ' !important',
@@ -353,7 +356,7 @@ const theme = createMuiTheme({
         },
         MuiFormControl:{
             marginDense:{
-                marginRight: '80px'
+                marginRight: '20px'
             },
         },
         MuiTab:{
@@ -386,15 +389,21 @@ const theme = createMuiTheme({
                 backgroundColor: "#243261"
               }
             },
-          },
+        },
+        RaTabbedShowLayout:{
+            content:{
+                paddingTop: '0px',
+                paddingRight: '0px'
+            }
+        }
     },
 });
 
 const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'fa');
-
+let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8000/PMWorks/token/"});
 
 const App = () => (
-    <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu}  />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" dataProvider={drfProvider('http://127.0.0.1:8000')} i18nProvider={i18nProvider} >
+    <Admin disableTelemetry theme={theme} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTToken)} i18nProvider={i18nProvider} >
         <Resource name="modiriat" icon={ListIcon} options={{ "label": "مدیریت کارها", "isMenuParent": true }} />
         <Resource name="barnamenet" icon={ListIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
         <Resource name="tajhiz" icon={ListIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
@@ -403,8 +412,8 @@ const App = () => (
         <Resource name="makan" icon={ListIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
         <Resource name="fani" icon={ListIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
         <Resource name="paye" icon={ListIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
-        <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate}  />
         <Resource name="PMWorks/AssetClass" icon={SettingsOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
+        <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate}  />
         <Resource name="PMWorks/SpecificData" icon={SettingsOutlinedIcon} options={{ label: 'ویژگی های خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate}/>
         <Resource name="PMWorks/AssetClassSpecificData"  edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={SettingsOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
@@ -453,6 +462,8 @@ const App = () => (
         <Resource name="PMWorks/WOTemplateSchualing" icon={ListIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
         <Resource name="PMWorks/TemplateSchualingDate" />
         <Resource name="PMWorks/TaskTemp" />
+        <Resource name="PMWorks/User" icon={SettingsOutlinedIcon} options={{ label: 'کاربران', "menuParent": "paye" }} list={UserList} edit={UserEdit} create={UserCreate} show={UserShow} />
+
 
     </Admin>
 );

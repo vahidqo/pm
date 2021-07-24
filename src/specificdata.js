@@ -37,6 +37,7 @@ export const SpecificDataList = props => (
                 <Datagrid>
                     <TextField label="کد ویژگی" textAlgin="right" source="SpecificDataCode" />
                     <TextField label="نام ویژگی" textAlgin="right" source="SpecificDataName" />
+                    <TextField label="واحد اندازه گیری" textAlgin="right" source="Measurment" />
                     <ShowButton />
                 </Datagrid>
             }
@@ -50,16 +51,18 @@ export const SpecificDataEdit = props => (
         <SimpleForm>
             <TextInput label="کد ویژگی" textAlgin="right" source="SpecificDataCode" />
             <TextInput label="نام ویژگی" textAlgin="right" source="SpecificDataName" />
+            <TextInput label="واحد اندازه گیری" textAlgin="right" source="Measurment" />
         </SimpleForm>
     </Edit>
 );
 
 
 export const SpecificDataCreate = props => (
-    <Create {...props} title="ایجاد کلاس تجهیز">
+    <Create {...props} title="ایجاد ویژگی کلاس تجهیز">
         <SimpleForm>
             <TextInput label="کد ویژگی" textAlgin="right" source="SpecificDataCode" />
             <TextInput label="نام ویژگی" textAlgin="right" source="SpecificDataName" />
+            <TextInput label="واحد اندازه گیری" textAlgin="right" source="Measurment" />
         </SimpleForm>
     </Create>
 );

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import IconImageEye from '@material-ui/icons/RemoveRedEye';
 import IconKeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { Button, SimpleShowLayout, TextField, useGetOne } from 'react-admin';
+import { Button, SimpleShowLayout, TextField, useGetOne, ReferenceField } from 'react-admin';
 
 const useStyles = makeStyles({
     field: {
@@ -17,10 +17,10 @@ const useStyles = makeStyles({
     }
 });
 
-const QuickPreviewAssetClassSpecificDataButton = ({ id }) => {
+const QuickPreviewAssetClassButton = ({ id }) => {
     const [showPanel, setShowPanel] = useState(false);
     const classes = useStyles();
-    const { data } = useGetOne('PMWorks/SpecificData', id);
+    const { data } = useGetOne('PMWorks/AssetClass', id);
 
     const handleClick = () => {
         setShowPanel(true);
@@ -43,17 +43,19 @@ const QuickPreviewAssetClassSpecificDataButton = ({ id }) => {
                 </div>
                 <SimpleShowLayout
                     record={data}
-                    basePath="/PMWorks/SpecificData"
-                    resource="PMWorks/SpecificData"
+                    basePath="/PMWorks/AssetClass"
+                    resource="PMWorks/AssetClass"
                 >
                     <TextField source="id" />
-                    <TextField label="کد ویژگی" textAlgin="right" source="SpecificDataCode" className={classes.field} />
-                    <TextField label="نام ویژگی" textAlgin="right" source="SpecificDataName" className={classes.field} />
-                    <TextField label="واحد اندازه گیری" textAlgin="right" source="Measurment"  className={classes.field}/>
+                    <TextField label="کد کلاس تجهیز" textAlgin="right" source="AssetClassCode" />
+                    <TextField label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" />
+                    <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
+                        <TextField source="AssetCategoryName" />
+                    </ReferenceField>
                 </SimpleShowLayout>
             </Drawer>
         </>
     );
 };
 
-export default QuickPreviewAssetClassSpecificDataButton;
+export default QuickPreviewAssetClassButton;

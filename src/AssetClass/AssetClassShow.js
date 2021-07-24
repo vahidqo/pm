@@ -6,7 +6,7 @@ import {
     TextField,
     ReferenceField,
     ShowButton,
-    ShowView,
+    ListButton,
     TabbedShowLayout,
     ReferenceManyField,
     Tab,
@@ -14,7 +14,9 @@ import {
     CardActions,
     Show,
     List,
-    NumberField
+    NumberField,
+    TopToolbar,
+    EditButton
 }
 from 'react-admin';
 import AssetClassTitle from './AssetClassTitle';
@@ -24,6 +26,13 @@ import AddAssetClassSubdivisionButton from './AddAssetClassSubdivisionButton';
 import AddDocumentButton from './AddDocumentButton';
 import AddTaskButton from './AddTaskButton';
 import { makeStyles } from '@material-ui/core';
+
+const ShowActions = ({ basePath, record, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} />
+    </TopToolbar>
+);
+
 
 const useStyles = makeStyles({
     head: {
@@ -152,16 +161,35 @@ const AssetClassChildShow = props => {
 
 
 const AssetClassShow = props => (
-    <Show {...props} title={<AssetClassTitle />}>
+    <Show actions={<ShowActions/>} {...props} title={<AssetClassTitle />}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <TextField label="کد کلاس تجهیز" textAlgin="right" source="AssetClassCode" />
-                <TextField label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" />
-                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
+                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
+                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
+                <ReferenceField label="گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
                     <TextField source="AssetCategoryName" />
                 </ReferenceField>
             </Tab>
-            <Tab label="ویژگی ها" path="PMWorks/AssetClassSpecificData">
+            <Tab label="درخت خانواده تجهیز" path="PMWorks/AssetClassSubdivision">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/AssetClassSubdivision"
+                    target="AssetClassFatherID"
+                >
+                    <Datagrid expand={<AssetClassChildShow/>}>
+                        <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                            <TextField source="AssetClassCode" />
+                        </ReferenceField>
+                        <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                            <TextField source="AssetClassName" />
+                        </ReferenceField>
+                        <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                        <DeleteButton redirect={false}/>
+                    </Datagrid>
+                </ReferenceManyField>
+                <AddAssetClassSubdivisionButton />
+            </Tab>
+            <Tab label="پروفایل" path="PMWorks/AssetClassSpecificData">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassSpecificData"
@@ -174,13 +202,16 @@ const AssetClassShow = props => (
                         <ReferenceField label="کد ویژگی" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
                             <TextField source="SpecificDataCode" />
                         </ReferenceField>
+                        <ReferenceField label="واحد اندازه گیری" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
+                            <TextField source="Measurment" />
+                        </ReferenceField>
                         <ShowButton />
-                        <DeleteButton />
+                        <DeleteButton redirect={false}/>
                     </Datagrid>
                 </ReferenceManyField>
                 <AddSpecificDataButton />
             </Tab>
-            <Tab label="نوع خرابی" path="PMWorks/FailureMode">
+            <Tab label="استاندارسازی خرابی" path="PMWorks/FailureMode">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/FailureMode"
@@ -190,29 +221,12 @@ const AssetClassShow = props => (
                         <TextField label="کد نوع خرابی" textAlgin="right" source="FailureModeCode" />
                         <TextField label="نام نوع خرابی" textAlgin="right" source="FailureModeName" />
                         <ShowButton />
-                        <DeleteButton />
+                        <DeleteButton redirect={false}/>
                     </Datagrid>
                 </ReferenceManyField>
                 <AddFailureModeButton />         
             </Tab>
-            <Tab label="زیر کلاس ها" path="PMWorks/AssetClassSubdivision">
-                <ReferenceManyField
-                    addLabel={false}
-                    reference="PMWorks/AssetClassSubdivision"
-                    target="AssetClassFatherID"
-                >
-                    <Datagrid expand={<AssetClassChildShow/>}>
-                        <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                            <TextField source="AssetClassName" />
-                        </ReferenceField>
-                        <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                        <ShowButton />
-                        <DeleteButton />
-                    </Datagrid>
-                </ReferenceManyField>
-                <AddAssetClassSubdivisionButton />
-            </Tab>
-            <Tab label="سند ها" path="PMWorks/AssetClassDocument">
+            <Tab label="آرشیو فنی" path="PMWorks/AssetClassDocument">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassDocument"
@@ -226,12 +240,12 @@ const AssetClassShow = props => (
                             <TextField source="DocumentCode" />
                         </ReferenceField>
                         <ShowButton />
-                        <DeleteButton />
+                        <DeleteButton redirect={false}/>
                     </Datagrid>
                 </ReferenceManyField>
                 <AddDocumentButton />
             </Tab>
-            <Tab label="فعالیت ها" path="PMWorks/AssetClassTask">
+            <Tab label="فعالیت های نگهداشت" path="PMWorks/AssetClassTask">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassTask"
@@ -251,7 +265,7 @@ const AssetClassShow = props => (
                             <TextField source="JobCategoryName" />
                         </ReferenceField>
                         <ShowButton />
-                        <DeleteButton />
+                        <DeleteButton redirect={false}/>
                     </Datagrid>
                 </ReferenceManyField>
                 <AddTaskButton />

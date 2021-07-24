@@ -30,6 +30,9 @@ const PersonnelList = props => (
                     <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                         <TextField source="DepartmentName" />
                     </ReferenceField>
+                    <ReferenceField label="کاربر" textAlgin="right" source="user" reference="PMWorks/User">
+                        <TextField source="username" />
+                    </ReferenceField>
                     <ShowButton />
                 </Datagrid>
             }

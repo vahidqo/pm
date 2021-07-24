@@ -4,7 +4,6 @@ import {
     TextField,
     SimpleShowLayout,
     Show,
-    RichTextField
 }
 from 'react-admin';
 import AssetClassSubdivisionTitle from './AssetClassSubdivisionTitle';

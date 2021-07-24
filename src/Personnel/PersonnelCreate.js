@@ -8,6 +8,7 @@ import {
 }
 from 'react-admin';
 import DepartmentRefrenceInput from './DepartmentRefrenceInput';
+import UserRefrenceInput from './UserRefrenceInput';
 
 
 const PersonnelCreate = props => (
@@ -19,6 +20,7 @@ const PersonnelCreate = props => (
             <TextInput label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
             <TextInput label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
             <DepartmentRefrenceInput label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" perPage={10000} />
+            <UserRefrenceInput label="کاربر" textAlgin="right" source="user" reference="PMWorks/User" perPage={10000} />
         </SimpleForm>
     </Create>
 );
