@@ -25,7 +25,7 @@ const AssetCategoryRefrenceInput = props => {
 
     return (
         <div className={classes.root}>
-            <ReferenceInput key={version} {...props}>
+            <ReferenceInput key={version} allowEmpty {...props}>
                 <SelectInput optionText="AssetCategoryName" />
             </ReferenceInput>
             <QuickPreviewAssetCategoryButton {...props} id={values.AssetCategoryID} setId={(id) => onChange(id)} />        

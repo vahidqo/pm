@@ -6,13 +6,22 @@ import {
     TextInput
 }
 from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
-const AssetClassSpecificDataFilter = (props) => (
+const useStyles = makeStyles({
+    width: { width: 220 }
+});
+
+const AssetClassSpecificDataFilter = (props) => {
+    const classes = useStyles();
+    return (
     <Filter {...props}>
-        <TextInput label="کد کلاس تجهیز" textAlgin="right" source="AssetClassID" />
-        <TextInput label="نام کلاس تجهیز" textAlgin="right" source="SpecificDataID" />
+        <TextInput className={classes.width} source="SpecificDataID__SpecificDataName__icontains" label="نام ویژگی" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="SpecificDataID__SpecificDataCode__icontains" label="کد ویژگی" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="SpecificDataID__Measurment__icontains" label="واحد اندازه‌گیری" textAlgin="right" alwaysOn resettable />
     </Filter>
 );
+    };
 
 
 export default AssetClassSpecificDataFilter;

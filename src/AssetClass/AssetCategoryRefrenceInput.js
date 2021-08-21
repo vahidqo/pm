@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     root: {
         display: 'flex',
         alignItems: 'center'
-    }
+    },
 });
 
 const spySubscription = { values: true };
@@ -26,7 +26,7 @@ const AssetCategoryRefrenceInput = props => {
     return (
         <div className={classes.root}>
             <ReferenceInput key={version} {...props}>
-                <SelectInput optionText="AssetCategoryName" />
+                <SelectInput disabled optionText="AssetCategoryName" />
             </ReferenceInput>
             <QuickPreviewAssetCategoryButton {...props} id={values.AssetCategoryID} setId={(id) => onChange(id)} />        
         </div>

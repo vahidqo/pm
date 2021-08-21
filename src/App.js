@@ -3,6 +3,7 @@ import { fetchUtils, Admin, Resource, Layout  } from 'react-admin';
 
 import { AssetcategoryEdit, AssetcategoryCreate } from './AssetCategory/assetcategory';
 import AssetcategoryList from './AssetCategory/loctree';
+import AssetCategoryShow from './AssetCategory/AssetCategoryShow';
 
 import { SpecificDataList, SpecificDataEdit, SpecificDataCreate } from './specificdata';
 
@@ -394,8 +395,18 @@ const theme = createMuiTheme({
             content:{
                 paddingTop: '0px',
                 paddingRight: '0px'
-            }
-        }
+            },
+        },
+        RaLabeled:{
+            value:{
+                fontFamily: ' !important',
+            },
+        },
+        MuiDialog:{
+            paperWidthSm:{
+                maxWidth: '800px',
+            },
+        },
     },
 });
 
@@ -403,7 +414,7 @@ const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'fa');
 let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8000/PMWorks/token/"});
 
 const App = () => (
-    <Admin disableTelemetry theme={theme} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTToken)} i18nProvider={i18nProvider} >
+    <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTToken)} i18nProvider={i18nProvider} >
         <Resource name="modiriat" icon={ListIcon} options={{ "label": "مدیریت کارها", "isMenuParent": true }} />
         <Resource name="barnamenet" icon={ListIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
         <Resource name="tajhiz" icon={ListIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
@@ -413,7 +424,7 @@ const App = () => (
         <Resource name="fani" icon={ListIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
         <Resource name="paye" icon={ListIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
         <Resource name="PMWorks/AssetClass" icon={SettingsOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
-        <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate}  />
+        <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
         <Resource name="PMWorks/SpecificData" icon={SettingsOutlinedIcon} options={{ label: 'ویژگی های خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate}/>
         <Resource name="PMWorks/AssetClassSpecificData"  edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={SettingsOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />

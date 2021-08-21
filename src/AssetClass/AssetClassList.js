@@ -7,13 +7,28 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
-    EditButton
+    EditButton,
+    TopToolbar,
+    CreateButton,
+    ExportButton
 }
 from 'react-admin';
 import AssetClassFilter from './AssetClassFilter';
+import { ImportButton } from "react-admin-import-csv";
+
+const ListActions = (props) => {
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const AssetClassList = props => (
-    <List filters={<AssetClassFilter />} {...props} title="خانواده تجهیز">
+    <List actions={<ListActions />} filters={<AssetClassFilter />} {...props} title="خانواده تجهیز">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.AssetClassName} />
@@ -26,7 +41,6 @@ const AssetClassList = props => (
                         <TextField source="AssetCategoryName" />
                     </ReferenceField>
                     <ShowButton />
-                    <EditButton />
                 </Datagrid>
             }
          />

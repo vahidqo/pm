@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useState } from 'react';
+
 import {
     SimpleForm,
     Toolbar,
@@ -7,7 +9,8 @@ import {
     TextInput,
     SelectInput,
     NumberInput,
-    RadioButtonGroupInput
+    RadioButtonGroupInput,
+    ReferenceInput,
 }
 from 'react-admin';
 import { parse } from 'query-string';
@@ -15,11 +18,12 @@ import JobCategoryRefrenceInput from './JobCategoryRefrenceInput';
 import TaskTypeRefrenceInput from './TaskTypeRefrenceInput';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
+import CodeInput from '../Components/CodeInput';
 
 const useStyles = makeStyles({
     fir: { display: 'inline-block' },
     sec: { display: 'inline-block', marginRight: 120 },
-    width: { width: 712 },
+    width: { width: 652 },
     last: { display: 'inline-block', marginRight: 0 },
 
 });
@@ -41,7 +45,8 @@ const Separator = () => <Box pt="0em" />;
 
 const AssetClassTaskAddCreate = props => {
     const classes = useStyles();
-
+    const {source, ...rest} = props;
+    const [Value, setValue] = useState('');
     const { AssetClassID: AssetClassID_string } = parse(props.location.search);
     const AssetClassID = AssetClassID_string ? parseInt(AssetClassID_string, 10) : '';
     const redirect = AssetClassID ? `/PMWorks/AssetClass/${AssetClassID}/show/PMWorks/AssetClassTask` : false;
@@ -49,7 +54,19 @@ const AssetClassTaskAddCreate = props => {
     return (
     <Create {...props} title="ایجاد فعالیت">
         <SimpleForm initialValues={{ AssetClassID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <TextInput formClassName={classes.fir} label="کد فعالیت" textAlgin="right" source="TaskCode" />
+            <ReferenceInput disabled formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+                <SelectInput optionText="AssetClassCode" />
+            </ReferenceInput>
+            <ReferenceInput disabled formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+                <SelectInput optionText="AssetClassName" />
+            </ReferenceInput>
+            <Separator/>
+            <CodeInput formClassName={classes.fir} value={Value}  onChange={event => { let val = event.target.value;
+                                                    val = val.replace(/[^\x00-\x7F]/ig, "");
+                                                    setValue(val)
+                                                    }}
+                label="کد فعالیت"
+                source="TaskCode" {...rest}/>
             <TextInput formClassName={classes.sec} label="نام فعالیت" textAlgin="right" source="TaskName" />
             <TextInput className={classes.width} multiline label="توضیحات فعالیت" textAlgin="right" source="TaskDescription"/>
             <Separator />

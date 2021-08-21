@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-admin';
 
 const styles = {
   button: {
-    marginTop: '1em'
+    color: '#243261',
+    fontSize: '0.8125rem',
+    paddingLeft: '0px',
+    paddingTop: '3px'
   }
 };
 
@@ -16,11 +19,12 @@ const AddAssetClassSubdivisionButton = ({ classes, record }) => (
     variant="raised"
     component={Link}
     to={`/PMWorks/AssetClassSubdivision/create?AssetClassFatherID=${record.id}`}
-    label="اضافه کردن زیرمجموعه"
-    title="اضافه کردن زیرمجموعه"
+    label="ایجاد"
+    title="اضافه کردن درخت خانواده تجهیز"
   >
-    <ChatBubbleIcon />
+    <AddIcon/>
   </Button>
+
 );
 
 export default withStyles(styles)(AddAssetClassSubdivisionButton);

@@ -9,8 +9,8 @@ from 'react-admin';
 
 const FailureModeFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد کلاس تجهیز" textAlgin="right" source="FailureModeCode" />
-        <TextInput label="نام کلاس تجهیز" textAlgin="right" source="FailureModeName" />
+        <TextInput label="کد نوع خرابی" textAlgin="right" source="FailureModeCode__icontains" alwaysOn resettable/>
+        <TextInput label="نام نوع خرابی" textAlgin="right" source="FailureModeName__icontains" alwaysOn resettable/>
     </Filter>
 );
 

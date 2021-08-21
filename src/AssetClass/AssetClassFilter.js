@@ -14,9 +14,9 @@ const AssetClassFilter = (props) =>{
     const classes = useStyles();
     return (
     <Filter {...props}>
-        <TextInput className={classes.width} source="AssetClassCode" label="کد خانواده تجهیز" textAlgin="right" alwaysOn resettable />
-        <TextInput className={classes.width} source="AssetClassName" label="نام خانواده تجهیز" textAlgin="right" textAlgin="right" alwaysOn resettable />
-        <TextInput className={classes.width} source="AssetCategoryID__AssetCategoryName" label="گروه خانواده تجهیز" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetClassCode__icontains" label="کد خانواده تجهیز" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetClassName__icontains" label="نام خانواده تجهیز" textAlgin="right" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetCategoryID__AssetCategoryName__icontains" label="گروه خانواده تجهیز" alwaysOn resettable />
     </Filter>
 );
 };

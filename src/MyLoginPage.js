@@ -1,24 +1,23 @@
 import React from 'react';
+import { useState } from 'react';
+import { useLogin, useNotify, Notification, defaultTheme } from 'react-admin';
 import { Paper, withStyles, Grid, Button, FormControlLabel, Checkbox } from '@material-ui/core';
 
 import MyPassField from "./MyPassField";
 import MyUserField from "./MyUserField";
 import MyCarousel from './CarouselNew';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-    margin: {
-        margin: theme.spacing.unit * 2,
-    },
-    padding: {
-        padding: theme.spacing.unit
-    },
+const useStyles = makeStyles({
      root: {
-        margin: '50px 225px 0 0',
-    display: 'flex',
-    height: '530px',
-    '& > *': {
-      margin: theme.spacing(0.1),
-    },
+        margin: '0',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
   },
   Paper1: {
     width: '554px',
@@ -37,11 +36,21 @@ const styles = theme => ({
         margin: '5px 5px 0 5px',
     },
 });
+const MyLoginPage = ({ theme }) => {
+        const classes = useStyles();
 
-class MyLoginPage extends React.Component {
-    render() {
-        const { classes } = this.props;
+        const [username, setUsername] = useState('');
+        const [password, setPassword] = useState('');
+        const login = useLogin();
+        const notify = useNotify();
+        const submit = e => {
+            e.preventDefault();
+            login({ username, password }).catch(() =>
+                notify('Invalid username or password')
+            );
+        };
         return (
+            <ThemeProvider theme={createMuiTheme(defaultTheme)}>
             <div className={classes.root} dir="rtl">
                 <Paper className={classes.Paper2}>
                     <div>
@@ -56,10 +65,20 @@ class MyLoginPage extends React.Component {
                                     <p className={classes.p}>برای ورود لطفا نام کاربری و رمز عبور خود را وارد کنید.</p>
                                 </Grid>
                                         <Grid item>
-                                            <MyUserField />
-                                        </Grid>
-                                        <Grid item >
-                                            <MyPassField />
+                                            <form onSubmit={submit}>
+                                                <input
+                                                    name="username"
+                                                    type="text"
+                                                    value={username}
+                                                    onChange={e => setUsername(e.target.value)}
+                                                />
+                                                <input
+                                                    name="password"
+                                                    type="password"
+                                                    value={password}
+                                                    onChange={e => setPassword(e.target.value)}
+                                                />
+                                            </form>
                                         </Grid>
                             </Grid>
                                     <Grid container alignItems="center" justify="space-between">
@@ -72,7 +91,8 @@ class MyLoginPage extends React.Component {
                                         </Grid>
                                     </Grid>
                                     <Grid container justify="center" style={{ marginTop: '10px' }}>
-                                        <Button variant="outlined" color="primary" style={{ textTransform: "none" }}>ورود</Button>
+                                        <Notification />
+                                        <Button variant="outlined" onClick={submit} color="primary" style={{ textTransform: "none" }}>ورود</Button>
                                     </Grid>
                     </div>
                 </Paper>
@@ -81,8 +101,8 @@ class MyLoginPage extends React.Component {
                     </box>
                 </Paper>
             </div>
+            </ThemeProvider>
         );
-    }
 }
 
-export default withStyles(styles)(MyLoginPage);
+export default MyLoginPage;

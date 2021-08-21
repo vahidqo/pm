@@ -4,8 +4,11 @@ import {
     Datagrid,
     TextField,
     Show,
-    EditButton,
-    CardActions 
+    ShowButton,
+    CardActions,
+    TopToolbar,
+    ExportButton,
+    CreateButton
 }
 from 'react-admin';
 import Button from '@material-ui/core/Button';
@@ -13,6 +16,18 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
 import AssetCategoryFilter from './AssetCategoryFilter';
+import { ImportButton } from "react-admin-import-csv";
+
+const ListActions = (props) => {
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const useStyles = makeStyles({
     head: {
@@ -60,7 +75,7 @@ const AssetcategoryShow5 = props => {
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
-                <EditButton />
+                <ShowButton />
             </Datagrid>
         </List>
     </Show>
@@ -81,7 +96,7 @@ const AssetcategoryShow4 = props => {
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
-                <EditButton />
+                <ShowButton />
             </Datagrid>
         </List>
     </Show>
@@ -102,7 +117,7 @@ const AssetcategoryShow3 = props => {
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
-                <EditButton />
+                <ShowButton />
             </Datagrid>
         </List>
     </Show>
@@ -123,7 +138,7 @@ const AssetcategoryShow2 = props => {
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
-                <EditButton />
+                <ShowButton />
             </Datagrid>
         </List>
     </Show>
@@ -144,7 +159,7 @@ const AssetcategoryShow = props => {
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
-                <EditButton />
+                <ShowButton />
             </Datagrid>
         </List>
     </Show>
@@ -152,12 +167,12 @@ const AssetcategoryShow = props => {
 };
 
 const AssetcategoryList = props => (
-    <List {...props} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
+    <List {...props} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
         <Datagrid expand={<AssetcategoryShow />}>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
             <CreateChildButton />
-            <EditButton />
+            <ShowButton />
         </Datagrid>
     </List>
 );

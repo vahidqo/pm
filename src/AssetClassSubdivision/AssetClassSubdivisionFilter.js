@@ -9,8 +9,8 @@ from 'react-admin';
 
 const AssetClassSubdivisionFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کلاس تجهیز پدر" textAlgin="right" source="AssetClassFatherID" />
-        <TextInput label="کلاس تجهیز فرزند" textAlgin="right" source="AssetClassChildID" />
+        <TextInput source="AssetClassChildID__AssetClassCode__icontains" label="کد زیرنجهیز" textAlgin="right" alwaysOn resettable />
+        <TextInput source="AssetClassChildID__AssetClassName__icontains" label="عنوان زیرنجهیز" textAlgin="right" alwaysOn resettable />
     </Filter>
 );
 

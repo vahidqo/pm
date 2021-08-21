@@ -9,8 +9,8 @@ from 'react-admin';
 
 const AssetClassDocumentFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد تجهیز" textAlgin="right" source="AssetClassID" />
-        <TextInput label="کد سند" textAlgin="right" source="DocumentID" />
+        <TextInput source="DocumentID__DocumentName__icontains" label="نام سند" textAlgin="right" alwaysOn resettable />
+        <TextInput source="DocumentID__DocumentCode__icontains" label="کد سند" textAlgin="right" alwaysOn resettable />
     </Filter>
 );
 

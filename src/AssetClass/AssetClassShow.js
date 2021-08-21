@@ -1,6 +1,4 @@
 import * as React from "react";
-import { useShowController } from 'ra-core';
-
 import {
     Datagrid,
     TextField,
@@ -16,23 +14,65 @@ import {
     List,
     NumberField,
     TopToolbar,
+    useShowController,
+    ExportButton,
     EditButton
 }
 from 'react-admin';
 import AssetClassTitle from './AssetClassTitle';
 import AddSpecificDataButton from './AddSpecificDataButton';
-import AddFailureModeButton from './AddFailureModeButton';
 import AddAssetClassSubdivisionButton from './AddAssetClassSubdivisionButton';
 import AddDocumentButton from './AddDocumentButton';
 import AddTaskButton from './AddTaskButton';
+import AddFailureModeButton from './AddFailureModeButton';
 import { makeStyles } from '@material-ui/core';
+import { ImportButton } from "react-admin-import-csv";
+import AssetClassSubdivisionFilter from '../AssetClassSubdivision/AssetClassSubdivisionFilter';
+import AssetClassSpecificDataFilter from '../AssetClassSpecificData/AssetClassSpecificDataFilter';
+import FailureModeFilter from '../FailureMode/FailureModeFilter';
+import AssetClassDocumentFilter from '../AssetClassDocument/AssetClassDocumentFilter';
 
-const ShowActions = ({ basePath, record, resource }) => (
+const ShowActions = ({ basePath, data }) => (
     <TopToolbar>
         <ListButton basePath={basePath} />
+        <EditButton basePath={basePath} record={data}/>
     </TopToolbar>
 );
 
+const SpecificActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <AddSpecificDataButton record={data}/>
+        <ExportButton label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+
+const SubdivisionActions =  ({ basePath, data }) => (
+    <TopToolbar>
+        <AddAssetClassSubdivisionButton record={data}/>
+        <ExportButton label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+
+const FailureActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <AddFailureModeButton record={data}/>
+        <ExportButton label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+
+const DocumentActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <AddDocumentButton record={data}/>
+        <ExportButton label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+
+const TaskActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <AddTaskButton record={data} />
+        <ExportButton label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
 
 const useStyles = makeStyles({
     head: {
@@ -160,8 +200,14 @@ const AssetClassChildShow = props => {
 };
 
 
-const AssetClassShow = props => (
-    <Show actions={<ShowActions/>} {...props} title={<AssetClassTitle />}>
+const AssetClassShow = props => {
+
+    const {
+        record
+    } = useShowController(props);
+
+    return(
+    <Show {...props} actions={<ShowActions/>} title={<AssetClassTitle />}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
@@ -175,103 +221,114 @@ const AssetClassShow = props => (
                     addLabel={false}
                     reference="PMWorks/AssetClassSubdivision"
                     target="AssetClassFatherID"
+                    filter={{ AssetClassFatherID: record.id }}
                 >
-                    <Datagrid expand={<AssetClassChildShow/>}>
-                        <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
-                            <TextField source="AssetClassCode" />
-                        </ReferenceField>
-                        <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
-                            <TextField source="AssetClassName" />
-                        </ReferenceField>
-                        <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                        <DeleteButton redirect={false}/>
-                    </Datagrid>
+                    <List empty={false} filters={<AssetClassSubdivisionFilter />} actions={<SubdivisionActions data={record}/>}>
+                        <Datagrid expand={<AssetClassChildShow/>}>
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <DeleteButton redirect={false}/>
+                        </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddAssetClassSubdivisionButton />
             </Tab>
             <Tab label="پروفایل" path="PMWorks/AssetClassSpecificData">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassSpecificData"
                     target="AssetClassID"
+                    filter={{ AssetClassID: record.id }}
                 >
-                    <Datagrid>
-                        <ReferenceField label="نام ویژگی" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
-                            <TextField source="SpecificDataName" />
-                        </ReferenceField>
-                        <ReferenceField label="کد ویژگی" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
-                            <TextField source="SpecificDataCode" />
-                        </ReferenceField>
-                        <ReferenceField label="واحد اندازه گیری" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
-                            <TextField source="Measurment" />
-                        </ReferenceField>
-                        <ShowButton />
-                        <DeleteButton redirect={false}/>
-                    </Datagrid>
+                    <List empty={false} filters={<AssetClassSpecificDataFilter />} actions={<SpecificActions data={record}/>}>
+                        <Datagrid>
+                            <ReferenceField label="نام ویژگی" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
+                                <TextField source="SpecificDataName" />
+                            </ReferenceField>
+                            <ReferenceField label="کد ویژگی" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
+                                <TextField source="SpecificDataCode" />
+                            </ReferenceField>
+                            <ReferenceField label="واحد اندازه‌گیری" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
+                                <TextField source="Measurment" />
+                            </ReferenceField>
+                            <ShowButton />
+                            <DeleteButton redirect={false}/>
+                        </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddSpecificDataButton />
             </Tab>
             <Tab label="استاندارسازی خرابی" path="PMWorks/FailureMode">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/FailureMode"
                     target="AssetClassID"
+                    filter={{ AssetClassID: record.id }}
                 >
-                    <Datagrid>
-                        <TextField label="کد نوع خرابی" textAlgin="right" source="FailureModeCode" />
-                        <TextField label="نام نوع خرابی" textAlgin="right" source="FailureModeName" />
-                        <ShowButton />
-                        <DeleteButton redirect={false}/>
-                    </Datagrid>
+                    <List empty={false} filters={<FailureModeFilter />} actions={<FailureActions data={record}/>}>
+                        <Datagrid>
+                            <TextField label="کد نوع خرابی" textAlgin="right" source="FailureModeCode" />
+                            <TextField label="نام نوع خرابی" textAlgin="right" source="FailureModeName" />
+                            <ShowButton />
+                            <DeleteButton redirect={false}/>
+                        </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddFailureModeButton />         
             </Tab>
             <Tab label="آرشیو فنی" path="PMWorks/AssetClassDocument">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassDocument"
                     target="AssetClassID"
+                    filter={{ AssetClassID: record.id }}
                 >
-                    <Datagrid>
-                        <ReferenceField label="نام سند" textAlgin="right" source="DocumentID" reference="PMWorks/Document">
-                            <TextField source="DocumentName" />
-                        </ReferenceField>
-                        <ReferenceField label="کد سند" textAlgin="right" source="DocumentID" reference="PMWorks/Document">
-                            <TextField source="DocumentCode" />
-                        </ReferenceField>
-                        <ShowButton />
-                        <DeleteButton redirect={false}/>
-                    </Datagrid>
+                    <List empty={false} filters={<AssetClassDocumentFilter />} actions={<DocumentActions data={record}/>}>
+                        <Datagrid>
+                            <ReferenceField label="نام سند" textAlgin="right" source="DocumentID" reference="PMWorks/Document">
+                                <TextField source="DocumentName" />
+                            </ReferenceField>
+                            <ReferenceField label="کد سند" textAlgin="right" source="DocumentID" reference="PMWorks/Document">
+                                <TextField source="DocumentCode" />
+                            </ReferenceField>
+                            <ShowButton />
+                            <DeleteButton redirect={false}/>
+                        </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddDocumentButton />
             </Tab>
             <Tab label="فعالیت های نگهداشت" path="PMWorks/AssetClassTask">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassTask"
                     target="AssetClassID"
+                    filter={{ AssetClassID: record.id }}
                 >
-                    <Datagrid>
-                        <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
-                        <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />
-                        <TextField label="تناوب" textAlgin="right" source="FrequencyName" />
-                        <NumberField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
-                        <NumberField label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />
-                        <TextField label="مسئول" textAlgin="right" source="Functor" />
-                        <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType">
-                            <TextField source="TaskTypeName" />
-                        </ReferenceField>
-                        <ReferenceField label="شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
-                            <TextField source="JobCategoryName" />
-                        </ReferenceField>
-                        <ShowButton />
-                        <DeleteButton redirect={false}/>
-                    </Datagrid>
+                    <List empty={false} actions={<TaskActions data={record}/>}>
+                        <Datagrid>
+                            <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
+                            <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />
+                            <TextField label="تناوب" textAlgin="right" source="FrequencyName" />
+                            <NumberField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
+                            <NumberField label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />
+                            <TextField label="مسئول" textAlgin="right" source="Functor" />
+                            <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType">
+                                <TextField source="TaskTypeName" />
+                            </ReferenceField>
+                            <ReferenceField label="شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
+                                <TextField source="JobCategoryName" />
+                            </ReferenceField>
+                            <ShowButton />
+                            <DeleteButton redirect={false}/>
+                        </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddTaskButton />
             </Tab>
         </TabbedShowLayout>
     </Show>
 );
+    };
 
 export default AssetClassShow;

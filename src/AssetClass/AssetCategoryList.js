@@ -1,23 +1,13 @@
 import React, { useState } from 'react';
-import { cloneElement } from 'react';
 import {
     List,
     Datagrid,
     TextField,
     Show,
-    EditButton,
     CardActions,
-    ReferenceField,
-    useListContext,
-    TopToolbar,
-    CreateButton,
-    ExportButton,
-    sanitizeListRestProps,
-    ShowButton,
 }
 from 'react-admin';
 import { makeStyles } from '@material-ui/core';
-import { useForm } from 'react-final-form';
 import Button from "@material-ui/core/Button";
 
 
@@ -34,6 +24,9 @@ const SelectButton = ({ record, setId }) =>{
 const useStyles = makeStyles({
     head: {
         display: 'none',
+    },
+    list:{
+        width: 700,
     },
 });
 
@@ -145,8 +138,11 @@ const AssetCategory = ({ setId, ...props }) => {
 );
 };
 
-const AssetCategoryList = ({ setId, ...props }) => (
-    <List {...props} actions={<NoneActions />} filter={{ AssetClassFather__isnull: true }} title="تجهیزات ">
+const AssetCategoryList = ({ setId, ...props }) => {
+    const classes = useStyles();
+
+return(
+    <List className={classes.list} {...props} actions={<NoneActions />} filter={{ AssetClassFather__isnull: true }} title="تجهیزات ">
         <Datagrid expand={<AssetCategory setId={setId} />}>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
@@ -154,5 +150,6 @@ const AssetCategoryList = ({ setId, ...props }) => (
         </Datagrid>
     </List>
 );
+};
 
 export default AssetCategoryList;

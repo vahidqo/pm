@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "react-admin";
 import { Dialog } from "@material-ui/core";
 import IconImageEye from "@material-ui/icons/RemoveRedEye";
-
 import AssetCategoryList from "./AssetCategoryList";
 
 const QuickPreviewAssetCategoryButton = ({ id, setId, ...props }) => {

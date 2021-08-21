@@ -215,7 +215,7 @@ const AssetSubdivision = props => {
 };
 
 const AssetSubdivisionList = props => (
-    <List {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
+    <List empty={false} {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
         <Datagrid expand={<AssetSubdivision />}>
             <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />

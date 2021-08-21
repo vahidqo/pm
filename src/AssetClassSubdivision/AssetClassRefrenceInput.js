@@ -25,7 +25,7 @@ const AssetClassRefrenceInput = props => {
 
     return (
         <div className={classes.root}>
-            <ReferenceInput key={version} {...props}>
+            <ReferenceInput disabled key={version} {...props}>
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <QuickPreviewAssetClassButton {...props} id={values.AssetClassID} setId={(id) => onChange(id)} />        

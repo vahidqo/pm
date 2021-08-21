@@ -1,20 +1,37 @@
 import * as React from "react";
+import { useState } from 'react';
+
 import {
     SimpleForm,
     ReferenceInput,
-    SelectInput,
     TextInput,
     Toolbar,
     Create,
-    required,
     useNotify,
     useRefresh,
-    useRedirect
+    useRedirect,
+    SelectInput
 }
 from 'react-admin';
 import { parse } from 'query-string';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
+import CodeInput from '../Components/CodeInput';
+
+const useStyles = makeStyles({
+    fir: { display: 'inline-block' },
+    sec: { display: 'inline-block' },
+    width: { width: 533 },
+    last: { display: 'inline-block', marginRight: 0 },
+
+});
+
+const Separator = () => <Box pt="0em" />;
 
 const FailureModeCreate = props => {
+    const classes = useStyles();
+    const {source, ...rest} = props;
+    const [Value, setValue] = useState('');
 
     const notify = useNotify();
     const refresh = useRefresh();
@@ -33,9 +50,22 @@ const FailureModeCreate = props => {
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد نوع خرابی">
         <SimpleForm initialValues={{ AssetClassID}} redirect={redirectt} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <TextInput label="کد نوع خرابی" textAlgin="right" source="FailureModeCode" />
-            <TextInput label="نام نام خرابی" textAlgin="right" source="FailureModeName" />
-            <TextInput multiline label="توضیحات نوع خرابی" textAlgin="right" source="FailureModeDescription" />
+            <ReferenceInput disabled formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+                <SelectInput optionText="AssetClassCode" />
+            </ReferenceInput>
+            <ReferenceInput disabled formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+                <SelectInput optionText="AssetClassName" />
+            </ReferenceInput>
+            <Separator/>
+            <CodeInput formClassName={classes.fir} value={Value}  onChange={event => { let val = event.target.value;
+                                                    val = val.replace(/[^\x00-\x7F]/ig, "");
+                                                    setValue(val)
+                                                    }}
+                label="کد نوع خرابی"
+                source="FailureModeCode" {...rest}/>
+            <TextInput formClassName={classes.sec} label="نام نام خرابی" textAlgin="right" source="FailureModeName" />
+            <Separator/>
+            <TextInput className={classes.width} multiline label="توضیحات نوع خرابی" textAlgin="right" source="FailureModeDescription" />
         </SimpleForm>
     </Create>
     );

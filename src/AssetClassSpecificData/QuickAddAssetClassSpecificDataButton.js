@@ -16,12 +16,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import CodeInput from '../Components/CodeInput';
 
-function QuickAddAssetClassSpecificDataButton({ onChange }) {
+function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
     const [showDialog, setShowDialog] = useState(false);
     const [create, { loading }] = useCreate('PMWorks/SpecificData');
     const notify = useNotify();
     const form = useForm();
+    const [Value, setValue] = useState('');
+    const {source, ...rest} = props;
 
     const handleClick = () => {
         setShowDialog(true);
@@ -69,15 +72,16 @@ function QuickAddAssetClassSpecificDataButton({ onChange }) {
                         handleSubmitWithRedirect,
                         pristine,
                         saving
-                    }) => (
+                    }) => (                        
                         <>
                             <DialogContent>
-                                <TextInput
-                                    label="کد ویژگی"
-                                    textAlgin="right"
-                                    source="SpecificDataCode"
-                                    validate={required()}
-                                />
+                                <CodeInput value={Value}  onChange={event => { let val = event.target.value;
+                                                        val = val.replace(/[^\x00-\x7F]/ig, "");
+                                                        setValue(val)
+                                                        }}
+                                                        label="کد ویژگی"
+                                                        source="SpecificDataCode"
+                                                        validate={required()} {...rest}/>
                                 <TextInput
                                     label="نام ویژگی"
                                     textAlgin="right"
