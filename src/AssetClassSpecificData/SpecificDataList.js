@@ -8,7 +8,7 @@ import {
 }
 from 'react-admin';
 import Button from "@material-ui/core/Button";
-import AssetClassFilter from '../AssetClass/AssetClassFilter';
+import SpecificDataFilter from '../SpecificData/SpecificDataFilter';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -33,20 +33,18 @@ const NoneActions = props => (
     <CardActions />
 ); 
 
-const AssetClassList = ({ setId, setShowPanel, ...props }) => {
+const SpecificDataList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<AssetClassFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List filters={<SpecificDataFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
-            <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
-            <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
-            <ReferenceField label="گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory" sortBy="AssetCategoryID__AssetCategoryName">
-                <TextField source="AssetCategoryName" />
-            </ReferenceField>
+            <TextField label="کد ویژگی" textAlgin="right" source="SpecificDataCode" />
+            <TextField label="نام ویژگی" textAlgin="right" source="SpecificDataName" />
+            <TextField label="واحد اندازه گیری" textAlgin="right" source="Measurment" />
             <SelectButton setId={setId} setShowPanel={setShowPanel} />
         </Datagrid>
     </List>
 );
     };
 
-export default AssetClassList;
+export default SpecificDataList;

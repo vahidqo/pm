@@ -15,13 +15,22 @@ import {
 from 'react-admin';
 import AssetClassFilter from './AssetClassFilter';
 import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
 
 const ListActions = (props) => {
+
+    const classes = useStyles();
   
   return (
     <TopToolbar>
       <CreateButton/>
-      <ExportButton label="خروجی"/>
+      <ExportButton className={classes.ex} label="خروجی"/>
       <ImportButton label="ورودی" {...props}/>
     </TopToolbar>
   );

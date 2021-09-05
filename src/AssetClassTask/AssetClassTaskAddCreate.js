@@ -23,8 +23,9 @@ import CodeInput from '../Components/CodeInput';
 const useStyles = makeStyles({
     fir: { display: 'inline-block' },
     sec: { display: 'inline-block', marginRight: 120 },
-    width: { width: 652 },
+    width: { width: 652, '& label': {marginRight: '36px'} },
     last: { display: 'inline-block', marginRight: 0 },
+    sel: { '& svg': {display: 'none' }},
 
 });
 
@@ -54,10 +55,10 @@ const AssetClassTaskAddCreate = props => {
     return (
     <Create {...props} title="ایجاد فعالیت">
         <SimpleForm initialValues={{ AssetClassID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <ReferenceInput disabled formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <Separator/>

@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
-import { cloneElement } from 'react';
+import React from 'react';
 import {
     List,
     Datagrid,
     TextField,
     Show,
-    EditButton,
     CardActions,
-    ReferenceField,
-    useListContext,
-    TopToolbar,
-    CreateButton,
-    ExportButton,
-    sanitizeListRestProps,
-    ShowButton,
 }
 from 'react-admin';
 import { makeStyles } from '@material-ui/core';
-import { useForm } from 'react-final-form';
 import Button from "@material-ui/core/Button";
+import AssetCategoryFilter from './AssetCategoryFilter';
 
 
-const SelectButton = ({ record, setId }) =>{
-    
+const SelectButton = ({ record, setId, setShowPanel }) =>{
+    const classes = useStyles();
+    const toggleDrawer = () => {setShowPanel((showPanel) => !showPanel); setId(record.id)};
+
     return(
-    <Button onClick={() => setId(record.id)} color="secondary">
+    <Button className={classes.fir} onClick={toggleDrawer} color="secondary">
      انتخاب
     </Button>
   );
@@ -35,6 +28,7 @@ const useStyles = makeStyles({
     head: {
         display: 'none',
     },
+    fir: { fontFamily: 'inherit' },
 });
 
 const NoneActions = props => (
@@ -45,7 +39,7 @@ const AssetCategoryTitle = ({...props}) => {
     return <span>زیر مجموعه {props ? `"${props.record.id}"` : ''}</span>;
 };
 
-const AssetCategory5 = ({ setId, ...props }) => {
+const AssetCategory5 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -54,18 +48,18 @@ const AssetCategory5 = ({ setId, ...props }) => {
         title={<AssetCategoryTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
+        <List empty={false} {...props} bulkActionButtons={false} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-                <SelectButton setId={setId} />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetCategory4 = ({ setId, ...props }) => {
+const AssetCategory4 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -74,18 +68,18 @@ const AssetCategory4 = ({ setId, ...props }) => {
         title={<AssetCategoryTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory5 setId={setId} />}>
+        <List empty={false} {...props} bulkActionButtons={false} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory5 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-                <SelectButton setId={setId} />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetCategory3 = ({ setId, ...props }) => {
+const AssetCategory3 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -94,18 +88,18 @@ const AssetCategory3 = ({ setId, ...props }) => {
         title={<AssetCategoryTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory4 setId={setId} />}>
+        <List empty={false} {...props} bulkActionButtons={false} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory4 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-                <SelectButton setId={setId} />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetCategory2 = ({ setId, ...props }) => {
+const AssetCategory2 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -114,18 +108,18 @@ const AssetCategory2 = ({ setId, ...props }) => {
         title={<AssetCategoryTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory3 setId={setId} />}>
+        <List empty={false} {...props} bulkActionButtons={false} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory3 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-                <SelectButton setId={setId} />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetCategory = ({ setId, ...props }) => {
+const AssetCategory = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -134,23 +128,23 @@ const AssetCategory = ({ setId, ...props }) => {
         title={<AssetCategoryTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory2 setId={setId} />}>
+        <List empty={false} {...props} bulkActionButtons={false} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetCategory2 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                 <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-                <SelectButton setId={setId} />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetCategoryList = ({ setId, ...props }) => (
-    <List {...props} actions={<NoneActions />} filter={{ AssetClassFather__isnull: true }} title="تجهیزات ">
-        <Datagrid expand={<AssetCategory setId={setId} />}>
+const AssetCategoryList = ({ setId, setShowPanel, ...props }) => (
+    <List {...props} bulkActionButtons={false} actions={<NoneActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="تجهیزات ">
+        <Datagrid expand={<AssetCategory setId={setId} setShowPanel={setShowPanel}/>}>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
-            <SelectButton setId={setId} />
+            <SelectButton setId={setId} setShowPanel={setShowPanel}/>
         </Datagrid>
     </List>
 );

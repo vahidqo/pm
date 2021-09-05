@@ -5,11 +5,10 @@ import { AssetcategoryEdit, AssetcategoryCreate } from './AssetCategory/assetcat
 import AssetcategoryList from './AssetCategory/loctree';
 import AssetCategoryShow from './AssetCategory/AssetCategoryShow';
 
-import { SpecificDataList, SpecificDataEdit, SpecificDataCreate } from './specificdata';
-
+import { SpecificDataList, SpecificDataEdit, SpecificDataCreate } from './SpecificData/specificdata';
 import { reducer as tree } from 'ra-tree-ui-materialui';
 
-//import drfProvider from './dataProvider';
+import myDataProvider from './dataProvider';
 import drfProvider, { tokenAuthProvider, fetchJsonWithAuthToken, jwtTokenAuthProvider, fetchJsonWithAuthJWTToken } from 'ra-data-django-rest-framework';
 import Dashboard from './Dashboard';
 import NotFound from './NotFound';
@@ -414,7 +413,7 @@ const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'fa');
 let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8000/PMWorks/token/"});
 
 const App = () => (
-    <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTToken)} i18nProvider={i18nProvider} >
+    <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >
         <Resource name="modiriat" icon={ListIcon} options={{ "label": "مدیریت کارها", "isMenuParent": true }} />
         <Resource name="barnamenet" icon={ListIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
         <Resource name="tajhiz" icon={ListIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
@@ -426,14 +425,14 @@ const App = () => (
         <Resource name="PMWorks/AssetClass" icon={SettingsOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
         <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
         <Resource name="PMWorks/SpecificData" icon={SettingsOutlinedIcon} options={{ label: 'ویژگی های خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate}/>
-        <Resource name="PMWorks/AssetClassSpecificData"  edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
+        <Resource name="PMWorks/AssetClassSpecificData"  options={{ "label": "داده‌های ویژه" }} edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={SettingsOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
         <Resource name="PMWorks/FailureCause" icon={SettingsOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
-        <Resource name="PMWorks/AssetClassSubdivision" edit={AssetClassSubdivisionEdit} create={AssetClassSubdivisionCreate} show={AssetClassSubdivisionShow} />
+        <Resource name="PMWorks/AssetClassSubdivision" options={{ "label": "درخت خانواده تجهیز" }} edit={AssetClassSubdivisionEdit} create={AssetClassSubdivisionCreate} show={AssetClassSubdivisionShow} />
         <Resource name="PMWorks/Location" icon={SettingsOutlinedIcon} options={{ label: 'مکان ها', "menuParent": "makan"}} list={LocationList} edit={LocationEdit} create={LocationCreate} show={LocationShow}/>
         <Resource name="PMWorks/AssetPriority" icon={SettingsOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
         <Resource name="PMWorks/Document" icon={SettingsOutlinedIcon} options={{ label: 'فایل ها', "menuParent": "paye"}} list={DocumentList} edit={DocumentEdit} create={DocumentCreate} show={DocumentShow}/>
-        <Resource name="PMWorks/AssetClassDocument" icon={ListIcon} options={{ label: 'فایل های کلاس تجهیز'}} edit={AssetClassDocumentEdit} create={AssetClassDocumentCreate} show={AssetClassDocumentShow}/>
+        <Resource name="PMWorks/AssetClassDocument" icon={ListIcon} options={{ label: 'آرشیو فنی'}} edit={AssetClassDocumentEdit} create={AssetClassDocumentCreate} show={AssetClassDocumentShow}/>
         <Resource name="PMWorks/Asset" icon={ListIcon} options={{ label: 'تجهیزات فرعی'}} edit={AssetEdit} create={AssetCreate} show={AssetShow}/>
         <Resource name="PMWorks/AssetSubdivision" icon={SettingsOutlinedIcon} options={{ label: 'تجهیزات', "menuParent": "tajhiz" }} list={AssetSubdivisionList} edit={AssetSubdivisionEdit} show={AssetSubdivisionShow}/>
         <Resource name="PMWorks/AssetSpecificData" icon={ListIcon} options={{ label: 'ویژگی تجهیزات'}} edit={AssetSpecificDataEdit} show={AssetSpecificDataShow}/>

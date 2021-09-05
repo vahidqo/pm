@@ -21,12 +21,24 @@ import CodeInput from '../Components/CodeInput';
 const useStyles = makeStyles({
     fir: { display: 'inline-block' },
     sec: { display: 'inline-block' },
-    width: { width: 533 },
+    width: { width: 533, '& label': {marginRight: '25px'} },
     last: { display: 'inline-block', marginRight: 0 },
+    sel: { '& svg': {display: 'none' }},
 
 });
 
 const Separator = () => <Box pt="0em" />;
+
+const validateError = (values) => {
+    const errors = {};
+    if (!values.FailureModeCode) {
+        errors.FailureModeCode = 'کد را وارد کنید';
+    }
+    if (!values.FailureModeName) {
+        errors.FailureModeName = 'نام را وارد کنید';
+    }
+    return errors
+};
 
 const FailureModeCreate = props => {
     const classes = useStyles();
@@ -49,11 +61,11 @@ const FailureModeCreate = props => {
 
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد نوع خرابی">
-        <SimpleForm initialValues={{ AssetClassID}} redirect={redirectt} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+        <SimpleForm validate={validateError} initialValues={{ AssetClassID}} redirect={redirectt} toolbar={<Toolbar alwaysEnableSaveButton />}>
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <ReferenceInput disabled formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <Separator/>

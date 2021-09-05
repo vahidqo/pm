@@ -7,7 +7,7 @@ import {
     TextInput,
     useCreate,
     useNotify,
-    FormWithRedirect
+    FormWithRedirect,
 } from 'react-admin';
 import IconContentAdd from '@material-ui/icons/Add';
 import IconCancel from '@material-ui/icons/Cancel';
@@ -17,6 +17,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import CodeInput from '../Components/CodeInput';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    but: { fontFamily: 'inherit',
+           marginBottom: '16px'
+    }
+});
 
 function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
     const [showDialog, setShowDialog] = useState(false);
@@ -25,6 +32,7 @@ function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
     const form = useForm();
     const [Value, setValue] = useState('');
     const {source, ...rest} = props;
+    const classes = useStyles();
 
     const handleClick = () => {
         setShowDialog(true);
@@ -51,14 +59,24 @@ function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
             }
         );
     };
-
+    const validateError = (values) => {
+        const errors = {};
+        if (!values.SpecificDataCode) {
+            errors.SpecificDataCode = 'کد را وارد کنید';
+        }
+        if (!values.SpecificDataName) {
+            errors.SpecificDataName = 'نام را وارد کنید';
+        }
+        return errors
+    };
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.create">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.create">
                 <IconContentAdd />
             </Button>
             <Dialog
                 fullWidth
+                validate={validateError}
                 open={showDialog}
                 onClose={handleCloseClick}
                 aria-label="ایجاد ویژگی"
@@ -68,6 +86,7 @@ function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
                 <FormWithRedirect
                     resource="PMWorks/SpecificData"
                     save={handleSubmit}
+                    validate={validateError}
                     render={({
                         handleSubmitWithRedirect,
                         pristine,
@@ -81,12 +100,12 @@ function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
                                                         }}
                                                         label="کد ویژگی"
                                                         source="SpecificDataCode"
-                                                        validate={required()} {...rest}/>
+                                                        validate={required('کد را وارد کنید')} {...rest}/>
                                 <TextInput
                                     label="نام ویژگی"
                                     textAlgin="right"
                                     source="SpecificDataName"
-                                    validate={required()}
+                                    validate={required('نام را وارد کنید')}
                                 />
                                 <TextInput label="واحد اندازه گیری" textAlgin="right" source="Measurment"  validate={required()}/>
                             </DialogContent>
@@ -105,6 +124,7 @@ function QuickAddAssetClassSpecificDataButton(props, { onChange }) {
                                     pristine={pristine}
                                     saving={saving}
                                     disabled={loading}
+                                    validate={validateError}
                                 />
                             </DialogActions>
                         </>

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Button } from "react-admin";
 import { Dialog } from "@material-ui/core";
 import TouchAppIcon from '@material-ui/icons/TouchApp';
-import AssetCategoryList from "./AssetCategoryList";
+import SpecificDataList from "./SpecificDataList";
+
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles({
 
 });
 
-const QuickPreviewAssetCategoryButton = ({ id, setId, ...props }) => {
+const QuickPreviewAssetClassSpecificDataSelectButton = ({ id, setId, ...props }) => {
   const [showPanel, setShowPanel] = useState(false);
   const classes = useStyles();
 
@@ -22,10 +23,10 @@ const QuickPreviewAssetCategoryButton = ({ id, setId, ...props }) => {
         <TouchAppIcon />
       </Button>
       <Dialog fullWidth open={showPanel} onClose={toggleDrawer}>
-        <AssetCategoryList style={{width: '780px'}} {...props} resource="PMWorks/AssetCategory" setId={setId} setShowPanel={setShowPanel}/>
+        <SpecificDataList style={{width: '780px'}} {...props} resource="PMWorks/SpecificData" setId={setId} setShowPanel={setShowPanel} />
       </Dialog>
     </>
   );
 };
 
-export default QuickPreviewAssetCategoryButton;
+export default QuickPreviewAssetClassSpecificDataSelectButton;

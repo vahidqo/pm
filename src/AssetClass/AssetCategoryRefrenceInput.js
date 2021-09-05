@@ -4,6 +4,7 @@ import { ReferenceInput, SelectInput, useInput  } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
 import QuickPreviewAssetCategoryButton from './QuickPreviewAssetCategoryButton';
+import QuickPreviewAssetCatButton from './QuickPreviewAssetCatButton';
 
 const useStyles = makeStyles({
     root: {
@@ -25,10 +26,11 @@ const AssetCategoryRefrenceInput = props => {
 
     return (
         <div className={classes.root}>
-            <ReferenceInput key={version} {...props}>
-                <SelectInput disabled optionText="AssetCategoryName" />
+            <ReferenceInput disabled key={version} {...props}>
+                <SelectInput optionText="AssetCategoryName" />
             </ReferenceInput>
             <QuickPreviewAssetCategoryButton {...props} id={values.AssetCategoryID} setId={(id) => onChange(id)} />        
+            <QuickPreviewAssetCatButton id={values.AssetCategoryID} />
         </div>
     );
 };

@@ -3,24 +3,16 @@ import {
     List,
     Datagrid,
     TextField,
-    EditButton,
     Edit,
     SimpleForm,
-    ReferenceInput,
-    SelectInput,
     TextInput,
     Create,
-    ReferenceField,
-    Filter,
     Responsive,
     ShowButton,
     SimpleList,
-    Show,
-    TabbedShowLayout,
-    ReferenceManyField,
-    Tab
 }
 from 'react-admin';
+import SpecificDataFilter from './SpecificDataFilter';
 
 const SpecificDataTitle = ({ record }) => {
     return <span> {record ? `"${record.SpecificDataName}"` : ''}</span>;
@@ -28,7 +20,7 @@ const SpecificDataTitle = ({ record }) => {
 
 
 export const SpecificDataList = props => (
-    <List {...props} title="ویژگی ها">
+    <List {...props} filters={<SpecificDataFilter />} title="ویژگی ها">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.title} />

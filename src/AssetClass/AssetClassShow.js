@@ -31,6 +31,9 @@ import AssetClassSubdivisionFilter from '../AssetClassSubdivision/AssetClassSubd
 import AssetClassSpecificDataFilter from '../AssetClassSpecificData/AssetClassSpecificDataFilter';
 import FailureModeFilter from '../FailureMode/FailureModeFilter';
 import AssetClassDocumentFilter from '../AssetClassDocument/AssetClassDocumentFilter';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
 const ShowActions = ({ basePath, data }) => (
     <TopToolbar>
@@ -39,45 +42,74 @@ const ShowActions = ({ basePath, data }) => (
     </TopToolbar>
 );
 
-const SpecificActions = ({ basePath, data }) => (
+const SpecificActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
     <TopToolbar>
         <AddSpecificDataButton record={data}/>
-        <ExportButton label="خروجی" basePath={basePath} />
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
+};
 
-const SubdivisionActions =  ({ basePath, data }) => (
+const SubdivisionActions =  ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
     <TopToolbar>
         <AddAssetClassSubdivisionButton record={data}/>
-        <ExportButton label="خروجی" basePath={basePath} />
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
+};
 
-const FailureActions = ({ basePath, data }) => (
+const FailureActions = ({ basePath, data }) =>{
+
+    const classes = useStyles();
+  
+  return (
     <TopToolbar>
         <AddFailureModeButton record={data}/>
-        <ExportButton label="خروجی" basePath={basePath} />
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
+};
 
-const DocumentActions = ({ basePath, data }) => (
+const DocumentActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
     <TopToolbar>
         <AddDocumentButton record={data}/>
-        <ExportButton label="خروجی" basePath={basePath} />
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
+};
 
-const TaskActions = ({ basePath, data }) => (
+const TaskActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
     <TopToolbar>
         <AddTaskButton record={data} />
-        <ExportButton label="خروجی" basePath={basePath} />
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
+};
 
 const useStyles = makeStyles({
     head: {
         display: 'none',
     },
+    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
+    ex: {
+        fontFamily: 'inherit',
+    }
 });
 
 const NoneActions = props => (
@@ -95,12 +127,14 @@ const AssetClassChildShow5 = props => {
     >
         <List {...props} filter={{ AssetClassFatherID: props.record.AssetClassChildID }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
-                <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                <ShowButton />
-                <DeleteButton />
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <CreateChildButton />
             </Datagrid>
         </List>
     </Show>
@@ -118,12 +152,14 @@ const AssetClassChildShow4 = props => {
     >
         <List {...props} filter={{ AssetClassFatherID: props.record.AssetClassChildID }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetClassChildShow5 />}>
-                <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                <ShowButton />
-                <DeleteButton />
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <CreateChildButton />
             </Datagrid>
         </List>
     </Show>
@@ -141,12 +177,14 @@ const AssetClassChildShow3 = props => {
     >
         <List {...props} filter={{ AssetClassFatherID: props.record.AssetClassChildID }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetClassChildShow4 />}>
-                <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                <ShowButton />
-                <DeleteButton />
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <CreateChildButton />
             </Datagrid>
         </List>
     </Show>
@@ -164,12 +202,14 @@ const AssetClassChildShow2 = props => {
     >
         <List {...props} filter={{ AssetClassFatherID: props.record.AssetClassChildID }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetClassChildShow3 />}>
-                <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                <ShowButton />
-                <DeleteButton />
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <CreateChildButton />
             </Datagrid>
         </List>
     </Show>
@@ -187,17 +227,35 @@ const AssetClassChildShow = props => {
     >
         <List {...props} filter={{ AssetClassFatherID: props.record.AssetClassChildID }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetClassChildShow2 />}>
-                <ReferenceField label="کلاس تجیز فرزند" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                <ShowButton />
-                <DeleteButton />
+                            <ReferenceField label="کد زیرنجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassCode" />
+                            </ReferenceField>
+                            <ReferenceField label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" link="show">
+                                <TextField source="AssetClassName" />
+                            </ReferenceField>
+                            <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+                            <CreateChildButton />
             </Datagrid>
         </List>
     </Show>
 );
 };
+
+const CreateChildButton = ({ record }) => (
+    <Button
+        component={Link}
+        to={{
+            pathname: '/PMWorks/AssetClassSubdivision/create',
+            state: { record: { AssetClassFatherID: record.id } },
+        }}
+        label="اضافه کردن زیرمجموعه"
+        title="اضافه کردن زیرمجموعه"
+        color="secondary"
+    >
+        <AddIcon color="secondary" />
+        زیرمجموعه
+    </Button>
+);
 
 
 const AssetClassShow = props => {
@@ -206,13 +264,15 @@ const AssetClassShow = props => {
         record
     } = useShowController(props);
 
+    const classes = useStyles();
+
     return(
     <Show {...props} actions={<ShowActions/>} title={<AssetClassTitle />}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
-                <ReferenceField label="گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
+                <TextField className={classes.sho} label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
+                <TextField className={classes.sho} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
+                <ReferenceField className={classes.sho} label="گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
                     <TextField source="AssetCategoryName" />
                 </ReferenceField>
             </Tab>
@@ -232,7 +292,7 @@ const AssetClassShow = props => {
                                 <TextField source="AssetClassName" />
                             </ReferenceField>
                             <TextField label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
-                            <DeleteButton redirect={false}/>
+                            <CreateChildButton />
                         </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -255,8 +315,6 @@ const AssetClassShow = props => {
                             <ReferenceField label="واحد اندازه‌گیری" textAlgin="right" source="SpecificDataID" reference="PMWorks/SpecificData">
                                 <TextField source="Measurment" />
                             </ReferenceField>
-                            <ShowButton />
-                            <DeleteButton redirect={false}/>
                         </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -270,10 +328,12 @@ const AssetClassShow = props => {
                 >
                     <List empty={false} filters={<FailureModeFilter />} actions={<FailureActions data={record}/>}>
                         <Datagrid>
-                            <TextField label="کد نوع خرابی" textAlgin="right" source="FailureModeCode" />
-                            <TextField label="نام نوع خرابی" textAlgin="right" source="FailureModeName" />
-                            <ShowButton />
-                            <DeleteButton redirect={false}/>
+                            <ReferenceField label="کد نوع خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeCode">
+                                <TextField source="FailureModeCode" />
+                            </ReferenceField>
+                            <ReferenceField label="نام نوع خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeName">
+                                <TextField source="FailureModeName" />
+                            </ReferenceField>
                         </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -293,8 +353,6 @@ const AssetClassShow = props => {
                             <ReferenceField label="کد سند" textAlgin="right" source="DocumentID" reference="PMWorks/Document">
                                 <TextField source="DocumentCode" />
                             </ReferenceField>
-                            <ShowButton />
-                            <DeleteButton redirect={false}/>
                         </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -320,8 +378,6 @@ const AssetClassShow = props => {
                             <ReferenceField label="شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
                                 <TextField source="JobCategoryName" />
                             </ReferenceField>
-                            <ShowButton />
-                            <DeleteButton redirect={false}/>
                         </Datagrid>
                     </List>
                 </ReferenceManyField>

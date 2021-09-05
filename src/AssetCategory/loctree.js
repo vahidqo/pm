@@ -19,11 +19,12 @@ import AssetCategoryFilter from './AssetCategoryFilter';
 import { ImportButton } from "react-admin-import-csv";
 
 const ListActions = (props) => {
+    const classes = useStyles();
   
   return (
     <TopToolbar>
       <CreateButton/>
-      <ExportButton label="خروجی"/>
+      <ExportButton className={classes.ex} label="خروجی"/>
       <ImportButton label="ورودی" {...props}/>
     </TopToolbar>
   );
@@ -33,6 +34,9 @@ const useStyles = makeStyles({
     head: {
         display: 'none',
     },
+    ex: {
+        fontFamily: 'inherit',
+    }
 });
 
 const CreateChildButton = ({ record }) => (

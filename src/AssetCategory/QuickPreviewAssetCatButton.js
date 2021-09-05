@@ -20,10 +20,10 @@ const useStyles = makeStyles({
     }
 });
 
-const QuickPreviewAssetClasButton = ({ id }) => {
+const QuickPreviewAssetCatButton = ({ id }) => {
     const [showPanel, setShowPanel] = useState(false);
     const classes = useStyles();
-    const { data } = useGetOne('PMWorks/AssetClass', id);
+    const { data } = useGetOne('PMWorks/AssetCategory', id);
 
     const handleClick = () => {
         setShowPanel(true);
@@ -46,13 +46,13 @@ const QuickPreviewAssetClasButton = ({ id }) => {
                 </div>
                 <SimpleShowLayout
                     record={data}
-                    basePath="/PMWorks/AssetClass"
-                    resource="PMWorks/AssetClass"
+                    basePath="/PMWorks/AssetCategory"
+                    resource="PMWorks/AssetCategory"
                 >
                     <TextField source="id" />
-                    <TextField label="کد کلاس تجهیز" textAlgin="right" source="AssetClassCode" className={classes.field}/>
-                    <TextField label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" className={classes.field}/>
-                    <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory" className={classes.field}>
+                    <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" className={classes.field}/>
+                    <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" className={classes.field}/>
+                    <ReferenceField label="خانواده تجهیز پدر" textAlgin="right" source="AssetClassFather" reference="PMWorks/AssetCategory" className={classes.field}>
                         <TextField source="AssetCategoryName" />
                     </ReferenceField>
                 </SimpleShowLayout>
@@ -61,4 +61,4 @@ const QuickPreviewAssetClasButton = ({ id }) => {
     );
 };
 
-export default QuickPreviewAssetClasButton;
+export default QuickPreviewAssetCatButton;

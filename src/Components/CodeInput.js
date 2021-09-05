@@ -20,6 +20,7 @@ const CodeInput = props => {
 
     return (
         <TextField
+            required
             name={name}
             label={props.label}
             onChange={props.onChange}
