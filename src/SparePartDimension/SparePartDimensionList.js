@@ -6,12 +6,36 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
+    TopToolbar,
+    CreateButton,
+    ExportButton
 }
 from 'react-admin';
 import SparePartDimensionFilter from './SparePartDimensionFilter';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const SparePartDimensionList = props => (
-    <List filters={<SparePartDimensionFilter />} {...props} title="سطح قطعات">
+    <List actions={<ListActions />} filters={<SparePartDimensionFilter />} {...props} title="سطح قطعات">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.SparePartDimensionName} />

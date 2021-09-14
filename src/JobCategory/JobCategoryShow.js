@@ -4,20 +4,37 @@ import {
     TextField,
     SimpleShowLayout,
     Show,
-    RichTextField
+    TopToolbar,
+    EditButton,
+    ListButton
 }
 from 'react-admin';
 import JobCategoryTitle from './JobCategoryTitle';
+import { makeStyles } from '@material-ui/core';
 
+const ShowActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} />
+        <EditButton basePath={basePath} record={data}/>
+    </TopToolbar>
+);
 
-const JobCategoryShow = (props) => (
-    <Show title={<JobCategoryTitle />} {...props}>
+const useStyles = makeStyles({
+    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
+});
+
+const JobCategoryShow = (props) => {
+    const classes = useStyles();
+
+    return(
+    <Show actions={<ShowActions/>} title={<JobCategoryTitle />} {...props}>
         <SimpleShowLayout>
-                <TextField label="کد شغل" textAlgin="right" source="JobCategoryCode" />
-                <TextField label="نام شغل" textAlgin="right" source="JobCategoryName" />
+                <TextField className={classes.sho} label="کد شغل" textAlgin="right" source="JobCategoryCode" />
+                <TextField className={classes.sho} label="نام شغل" textAlgin="right" source="JobCategoryName" />
         </SimpleShowLayout>
     </Show>
 );
+};
 
 
 export default JobCategoryShow;

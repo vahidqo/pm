@@ -3,16 +3,39 @@ import {
     List,
     Datagrid,
     TextField,
-    ReferenceField,
+    ExportButton,
     Responsive,
     ShowButton,
     SimpleList,
+    CreateButton,
+    TopToolbar
 }
 from 'react-admin';
 import TaskTypeFilter from './TaskTypeFilter';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const TaskTypeList = props => (
-    <List filters={<TaskTypeFilter />} {...props} title="انواع وظیفه">
+    <List actions={<ListActions />} filters={<TaskTypeFilter />} {...props} title="انواع وظیفه">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.TaskTypeName} />

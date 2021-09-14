@@ -6,12 +6,36 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
+    TopToolbar,
+    ExportButton,
+    CreateButton
 }
 from 'react-admin';
 import JobCategoryFilter from './JobCategoryFilter';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const JobCategoryList = props => (
-    <List filters={<JobCategoryFilter />} {...props} title="شغل">
+    <List actions={<ListActions />} filters={<JobCategoryFilter />} {...props} title="شغل">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.JobCategoryName} />

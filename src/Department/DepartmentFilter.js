@@ -7,8 +7,8 @@ from 'react-admin';
 
 const DepartmentFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد دپارتمان" textAlgin="right" source="DepartmentCode" />
-        <TextInput label="نام دپارتمان" textAlgin="right" source="DepartmentName" />
+        <TextInput label="کد دپارتمان" textAlgin="right" source="DepartmentCode__icontains" alwaysOn resettable/>
+        <TextInput label="نام دپارتمان" textAlgin="right" source="DepartmentName__icontains" alwaysOn resettable/>
     </Filter>
 );
 

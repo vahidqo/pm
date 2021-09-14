@@ -2,21 +2,40 @@ import * as React from "react";
 import {
     Edit,
     SimpleForm,
-    ReferenceInput,
-    SelectInput,
+    Toolbar,
+    ShowButton,
     TextInput,
+    ListButton,
+    TopToolbar
 }
 from 'react-admin';
 import TaskTypeTitle from './TaskTypeTitle';
-import RichTextInput from 'ra-input-rich-text';
+
+const EditActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} />
+        <ShowButton basePath={basePath} record={data} />
+    </TopToolbar>
+);
+
+const validateError = (values) => {
+    const errors = {};
+    if (!values.TaskTypeCode) {
+        errors.TaskTypeCode = 'کد را وارد کنید';
+    }
+    if (!values.TaskTypeName) {
+        errors.TaskTypeName = 'نام را وارد کنید';
+    }
+    return errors
+};
 
 
 const TaskTypeEdit = props => (
-    <Edit title={<TaskTypeTitle />} {...props}>
-        <SimpleForm>
+    <Edit actions={<EditActions />} title={<TaskTypeTitle />} {...props}>
+        <SimpleForm validate={validateError} toolbar={<Toolbar alwaysEnableSaveButton />} redirect="show">
             <TextInput label="کد نوع وظیفه" textAlgin="right" source="TaskTypeCode" />
             <TextInput label="نام نوع وظیفه" textAlgin="right" source="TaskTypeName" />
-            <RichTextInput label="توضیحات نوع وظیفه" textAlgin="right" source="TaskTypeDescription" toolbar={[ ['bold', 'italic', 'underline', 'link'] ]} />
+            <TextInput label="توضیحات نوع وظیفه" textAlgin="right" source="TaskTypeDescription" multiline />
         </SimpleForm>
     </Edit>
 );

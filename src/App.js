@@ -5,7 +5,7 @@ import { AssetcategoryEdit, AssetcategoryCreate } from './AssetCategory/assetcat
 import AssetcategoryList from './AssetCategory/loctree';
 import AssetCategoryShow from './AssetCategory/AssetCategoryShow';
 
-import { SpecificDataList, SpecificDataEdit, SpecificDataCreate } from './SpecificData/specificdata';
+import { SpecificDataList, SpecificDataEdit, SpecificDataCreate, SpecificDataShow } from './SpecificData/specificdata';
 import { reducer as tree } from 'ra-tree-ui-materialui';
 
 import myDataProvider from './dataProvider';
@@ -26,6 +26,18 @@ import polyglotI18nProvider from 'ra-i18n-polyglot';
 
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
 import ListIcon from '@material-ui/icons/List';
+import EventAvailableOutlinedIcon from '@material-ui/icons/EventAvailableOutlined';
+import PeopleOutlinedIcon from '@material-ui/icons/PeopleOutlined';
+import EditLocationOutlinedIcon from '@material-ui/icons/EditLocationOutlined';
+import SettingsInputSvideoOutlinedIcon from '@material-ui/icons/SettingsInputSvideoOutlined';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
+import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import SettingsInputComponentOutlinedIcon from '@material-ui/icons/SettingsInputComponentOutlined';
+import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
+import ArrowLeftOutlinedIcon from '@material-ui/icons/ArrowLeftOutlined';
 
 import AssetClassSubdivisionList from './AssetClassSubdivision/AssetClassSubdivisionList';
 import AssetClassSubdivisionCreate from './AssetClassSubdivision/AssetClassSubdivisionCreate';
@@ -406,6 +418,11 @@ const theme = createMuiTheme({
                 maxWidth: '800px',
             },
         },
+        RaMenuItemLink:{
+            active:{
+                backgroundColor: 'ghostwhite',
+            },
+        },
     },
 });
 
@@ -414,65 +431,70 @@ let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8
 
 const App = () => (
     <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >
-        <Resource name="modiriat" icon={ListIcon} options={{ "label": "مدیریت کارها", "isMenuParent": true }} />
-        <Resource name="barnamenet" icon={ListIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
-        <Resource name="tajhiz" icon={ListIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
-        <Resource name="gozaresh" icon={ListIcon} options={{ "label": "گزارشات", "isMenuParent": true }} />
-        <Resource name="standard" icon={ListIcon} options={{ "label": "استاندارسازی نت", "isMenuParent": true }} />
-        <Resource name="makan" icon={ListIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
-        <Resource name="fani" icon={ListIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
-        <Resource name="paye" icon={ListIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
-        <Resource name="PMWorks/AssetClass" icon={SettingsOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
-        <Resource name="PMWorks/AssetCategory" icon={SettingsOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
-        <Resource name="PMWorks/SpecificData" icon={SettingsOutlinedIcon} options={{ label: 'ویژگی های خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate}/>
+        <Resource name="modiriat" icon={AddBoxOutlinedIcon} options={{ "label": "کارتابل کاربری", "isMenuParent": true }} />
+        <Resource name="barnamenet" icon={EventAvailableOutlinedIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
+        <Resource name="tajhiz" icon={SettingsInputComponentOutlinedIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
+        <Resource name="gozaresh" icon={AssessmentOutlinedIcon} options={{ "label": "گزارشات و شاخص‌ها", "isMenuParent": true }} />
+        <Resource name="standard" icon={AssignmentOutlinedIcon} options={{ "label": "استاندارسازی نت", "isMenuParent": true }} />
+        <Resource name="hazine" icon={ListIcon} options={{ "label": "هزینه‌های نت", "isMenuParent": true }} />
+        <Resource name="makan" icon={EditLocationOutlinedIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
+        <Resource name="fani" icon={ArchiveOutlinedIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
+        <Resource name="niro" icon={PermIdentityOutlinedIcon} options={{ "label": "نیروی انسانی", "isMenuParent": true }} />
+        <Resource name="yadak" icon={SettingsInputSvideoOutlinedIcon} options={{ "label": "قطعات یدکی", "isMenuParent": true }} />
+        <Resource name="tamin" icon={PeopleOutlinedIcon} options={{ "label": "تامین‌کنندگان", "isMenuParent": true }} />
+        <Resource name="paye" icon={SettingsOutlinedIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
+        <Resource name="dast" icon={PersonAddOutlinedIcon} options={{ "label": "دسترسی", "isMenuParent": true }} />
+        <Resource name="PMWorks/AssetClass" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
+        <Resource name="PMWorks/AssetCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
+        <Resource name="PMWorks/SpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate} show={SpecificDataShow}/>
         <Resource name="PMWorks/AssetClassSpecificData"  options={{ "label": "داده‌های ویژه" }} edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
-        <Resource name="PMWorks/FailureMode" icon={SettingsOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
-        <Resource name="PMWorks/FailureCause" icon={SettingsOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
+        <Resource name="PMWorks/FailureMode" icon={ArrowLeftOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
+        <Resource name="PMWorks/FailureCause" icon={ArrowLeftOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
         <Resource name="PMWorks/AssetClassSubdivision" options={{ "label": "درخت خانواده تجهیز" }} edit={AssetClassSubdivisionEdit} create={AssetClassSubdivisionCreate} show={AssetClassSubdivisionShow} />
-        <Resource name="PMWorks/Location" icon={SettingsOutlinedIcon} options={{ label: 'مکان ها', "menuParent": "makan"}} list={LocationList} edit={LocationEdit} create={LocationCreate} show={LocationShow}/>
-        <Resource name="PMWorks/AssetPriority" icon={SettingsOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
-        <Resource name="PMWorks/Document" icon={SettingsOutlinedIcon} options={{ label: 'فایل ها', "menuParent": "paye"}} list={DocumentList} edit={DocumentEdit} create={DocumentCreate} show={DocumentShow}/>
-        <Resource name="PMWorks/AssetClassDocument" icon={ListIcon} options={{ label: 'آرشیو فنی'}} edit={AssetClassDocumentEdit} create={AssetClassDocumentCreate} show={AssetClassDocumentShow}/>
-        <Resource name="PMWorks/Asset" icon={ListIcon} options={{ label: 'تجهیزات فرعی'}} edit={AssetEdit} create={AssetCreate} show={AssetShow}/>
-        <Resource name="PMWorks/AssetSubdivision" icon={SettingsOutlinedIcon} options={{ label: 'تجهیزات', "menuParent": "tajhiz" }} list={AssetSubdivisionList} edit={AssetSubdivisionEdit} show={AssetSubdivisionShow}/>
-        <Resource name="PMWorks/AssetSpecificData" icon={ListIcon} options={{ label: 'ویژگی تجهیزات'}} edit={AssetSpecificDataEdit} show={AssetSpecificDataShow}/>
-        <Resource name="PMWorks/AssetSubdivisionSparePart" icon={ListIcon} options={{ label: 'قطعات تجهیز'}} edit={AssetSubdivisionSparePartEdit} create={AssetSubdivisionSparePartCreate} show={AssetSubdivisionSparePartShow}/>
-        <Resource name="PMWorks/SparePartDimension" icon={SettingsOutlinedIcon} options={{ label: 'سطح قطعات', "menuParent": "paye"}} list={SparePartDimensionList} edit={SparePartDimensionEdit} create={SparePartDimensionCreate} show={SparePartDimensionShow}/>
-        <Resource name="PMWorks/SparePartCategory" icon={SettingsOutlinedIcon} options={{ label: 'خانواده قطعات', "menuParent": "paye"}} list={SparePartCategoryList} edit={SparePartCategoryEdit} create={SparePartCategoryCreate} show={SparePartCategoryShow}/>
-        <Resource name="PMWorks/SparePart" icon={SettingsOutlinedIcon} options={{ label: 'قطعات یدکی', "menuParent": "standard" }} list={SparePartList} edit={SparePartEdit} create={SparePartCreate} show={SparePartShow}/>
-        <Resource name="PMWorks/TaskType" icon={SettingsOutlinedIcon} options={{ label: 'وظایف', "menuParent": "paye"}} list={TaskTypeList} edit={TaskTypeEdit} create={TaskTypeCreate} show={TaskTypeShow}/>
-        <Resource name="PMWorks/JobCategory" icon={SettingsOutlinedIcon} options={{ label: 'شغل', "menuParent": "paye"}} list={JobCategoryList} edit={JobCategoryEdit} create={JobCategoryCreate} show={JobCategoryShow}/>
-        <Resource name="PMWorks/Department" icon={SettingsOutlinedIcon} options={{ label: 'دپارتمان', "menuParent": "paye"}} list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} show={DepartmentShow}/>
-        <Resource name="PMWorks/Personnel" icon={SettingsOutlinedIcon} options={{ label: 'پرسنل', "menuParent": "paye"}} list={PersonnelList} edit={PersonnelEdit} create={PersonnelCreate} show={PersonnelShow}/>
-        <Resource name="PMWorks/PersonnelJobCategory" icon={SettingsOutlinedIcon} options={{ label: 'شغل پرسنل'}} edit={PersonnelJobCategoryEdit} create={PersonnelJobCategoryCreate} show={PersonnelJobCategoryShow}/>
-        <Resource name="PMWorks/TypeWr" icon={SettingsOutlinedIcon} options={{ label: 'انواع درخواست کار', "menuParent": "paye"}} list={TypeWrList} edit={TypeWrEdit} create={TypeWrCreate} show={TypeWrShow}/>
-        <Resource name="PMWorks/Delay" icon={SettingsOutlinedIcon} options={{ label: 'تاخیرات', "menuParent": "paye"}} list={DelayList} edit={DelayEdit} create={DelayCreate} show={DelayShow}/>
-        <Resource name="PMWorks/WorkPriority" icon={SettingsOutlinedIcon} options={{ label: 'اولویت درخواست کار', "menuParent": "paye"}} list={WorkPriorityList} edit={WorkPriorityEdit} create={WorkPriorityCreate} show={WorkPriorityShow}/>
-        <Resource name="PMWorks/Supplier" icon={ListIcon} options={{ label: 'تامین کنندگان'}} list={SupplierList} edit={SupplierEdit} create={SupplierCreate} show={SupplierShow}/>
-        <Resource name="PMWorks/SupplierSpecific" icon={ListIcon} options={{ label: 'ویژگی تامین کنندگان'}} list={SupplierSpecificList} edit={SupplierSpecificEdit} create={SupplierSpecificCreate} show={SupplierSpecificShow}/>
-        <Resource name="PMWorks/SupplierSpecificData" icon={ListIcon} options={{ label: 'ویژگی های تامین کنندگان'}} edit={SupplierSpecificDataEdit} create={SupplierSpecificDataCreate} show={SupplierSpecificDataShow}/>
-        <Resource name="PMWorks/AssetClassTask" icon={ListIcon} options={{ label: 'فعالیت ها'}} list={AssetClassTaskList} edit={AssetClassTaskEdit} create={AssetClassTaskCreate} show={AssetClassTaskShow}/>
-        <Resource name="PMWorks/AssetClassTaskAdd" icon={ListIcon} options={{ label: 'فعالیت های فرعی'}} create={AssetClassTaskAddCreate} />
-        <Resource name="PMWorks/WorkRequest" icon={SettingsOutlinedIcon} options={{ label: 'درخواست کار', "menuParent": "modiriat" }} list={WorkRequestList} edit={WorkRequestEdit} create={WorkRequestCreate} show={WorkRequestShow} />
-        <Resource name="PMWorks/WorkOrder" icon={SettingsOutlinedIcon} options={{ label: 'دستور کار', "menuParent": "modiriat" }} list={WorkOrderList} edit={WorkOrderEdit} create={WorkOrderCreate} show={WorkOrderShow} />
-        <Resource name="PMWorks/WOSupplier" icon={ListIcon} options={{ label: 'تامین کننده دستور کارها'}} edit={WOSupplierEdit} create={WOSupplierCreate} show={WOSupplierShow}/>
-        <Resource name="PMWorks/WOPersonnel" icon={ListIcon} options={{ label: 'پرسنل دستور کارها'}} edit={WOPersonnelEdit} create={WOPersonnelCreate} show={WOPersonnelShow}/>
-        <Resource name="PMWorks/WODelay" icon={ListIcon} options={{ label: 'تاخیرات دستور کارها'}} edit={WODelayEdit} create={WODelayCreate} show={WODelayShow}/>
-        <Resource name="PMWorks/WOSparePart" icon={ListIcon} options={{ label: 'قطعات دستور کارها'}} edit={WOSparePartEdit} create={WOSparePartCreate} show={WOSparePartShow}/>
-        <Resource name="PMWorks/WOTask" icon={ListIcon} options={{ label: 'وظایف دستور کارها'}} edit={WOTaskEdit} create={WOTaskCreate} show={WOTaskShow}/>
-        <Resource name="PMWorks/WorkRequestFailureCause" icon={SettingsOutlinedIcon} options={{ label: 'علت خرابی دستورکار'}} edit={WorkRequestFailureCauseEdit} create={WorkRequestFailureCauseCreate} show={WorkRequestFailureCauseShow}/>
+        <Resource name="PMWorks/Location" icon={ArrowLeftOutlinedIcon} options={{ label: 'مکان ها', "menuParent": "makan"}} list={LocationList} edit={LocationEdit} create={LocationCreate} show={LocationShow}/>
+        <Resource name="PMWorks/AssetPriority" icon={ArrowLeftOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
+        <Resource name="PMWorks/Document" icon={ArrowLeftOutlinedIcon} options={{ label: 'فایل ها', "menuParent": "paye"}} list={DocumentList} edit={DocumentEdit} create={DocumentCreate} show={DocumentShow}/>
+        <Resource name="PMWorks/AssetClassDocument" icon={ArrowLeftOutlinedIcon} options={{ label: 'آرشیو فنی'}} edit={AssetClassDocumentEdit} create={AssetClassDocumentCreate} show={AssetClassDocumentShow}/>
+        <Resource name="PMWorks/Asset" icon={ArrowLeftOutlinedIcon} options={{ label: 'تجهیزات فرعی'}} edit={AssetEdit} create={AssetCreate} show={AssetShow}/>
+        <Resource name="PMWorks/AssetSubdivision" icon={ArrowLeftOutlinedIcon} options={{ label: 'تجهیزات', "menuParent": "tajhiz" }} list={AssetSubdivisionList} edit={AssetSubdivisionEdit} show={AssetSubdivisionShow}/>
+        <Resource name="PMWorks/AssetSpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی تجهیزات'}} edit={AssetSpecificDataEdit} show={AssetSpecificDataShow}/>
+        <Resource name="PMWorks/AssetSubdivisionSparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات تجهیز'}} edit={AssetSubdivisionSparePartEdit} create={AssetSubdivisionSparePartCreate} show={AssetSubdivisionSparePartShow}/>
+        <Resource name="PMWorks/SparePartDimension" icon={ArrowLeftOutlinedIcon} options={{ label: 'سطح قطعات', "menuParent": "yadak"}} list={SparePartDimensionList} edit={SparePartDimensionEdit} create={SparePartDimensionCreate} show={SparePartDimensionShow}/>
+        <Resource name="PMWorks/SparePartCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده قطعات', "menuParent": "yadak"}} list={SparePartCategoryList} edit={SparePartCategoryEdit} create={SparePartCategoryCreate} show={SparePartCategoryShow}/>
+        <Resource name="PMWorks/SparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات یدکی', "menuParent": "yadak" }} list={SparePartList} edit={SparePartEdit} create={SparePartCreate} show={SparePartShow}/>
+        <Resource name="PMWorks/TaskType" icon={ArrowLeftOutlinedIcon} options={{ label: 'وظایف', "menuParent": "niro"}} list={TaskTypeList} edit={TaskTypeEdit} create={TaskTypeCreate} show={TaskTypeShow}/>
+        <Resource name="PMWorks/JobCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'شغل', "menuParent": "niro"}} list={JobCategoryList} edit={JobCategoryEdit} create={JobCategoryCreate} show={JobCategoryShow}/>
+        <Resource name="PMWorks/Department" icon={ArrowLeftOutlinedIcon} options={{ label: 'دپارتمان', "menuParent": "niro"}} list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} show={DepartmentShow}/>
+        <Resource name="PMWorks/Personnel" icon={ArrowLeftOutlinedIcon} options={{ label: 'پرسنل', "menuParent": "niro"}} list={PersonnelList} edit={PersonnelEdit} create={PersonnelCreate} show={PersonnelShow}/>
+        <Resource name="PMWorks/PersonnelJobCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'شغل پرسنل'}} edit={PersonnelJobCategoryEdit} create={PersonnelJobCategoryCreate} show={PersonnelJobCategoryShow}/>
+        <Resource name="PMWorks/TypeWr" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع درخواست کار', "menuParent": "paye"}} list={TypeWrList} edit={TypeWrEdit} create={TypeWrCreate} show={TypeWrShow}/>
+        <Resource name="PMWorks/Delay" icon={ArrowLeftOutlinedIcon} options={{ label: 'تاخیرات', "menuParent": "paye"}} list={DelayList} edit={DelayEdit} create={DelayCreate} show={DelayShow}/>
+        <Resource name="PMWorks/WorkPriority" icon={ArrowLeftOutlinedIcon} options={{ label: 'اولویت درخواست کار', "menuParent": "paye"}} list={WorkPriorityList} edit={WorkPriorityEdit} create={WorkPriorityCreate} show={WorkPriorityShow}/>
+        <Resource name="PMWorks/Supplier" icon={ArrowLeftOutlinedIcon} options={{ label: 'تامین کنندگان', "menuParent": "tamin"}} list={SupplierList} edit={SupplierEdit} create={SupplierCreate} show={SupplierShow}/>
+        <Resource name="PMWorks/SupplierSpecific" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی تامین کنندگان', "menuParent": "tamin"}} list={SupplierSpecificList} edit={SupplierSpecificEdit} create={SupplierSpecificCreate} show={SupplierSpecificShow}/>
+        <Resource name="PMWorks/SupplierSpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی های تامین کنندگان'}} edit={SupplierSpecificDataEdit} create={SupplierSpecificDataCreate} show={SupplierSpecificDataShow}/>
+        <Resource name="PMWorks/AssetClassTask" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت ها'}} edit={AssetClassTaskEdit} create={AssetClassTaskCreate} show={AssetClassTaskShow}/>
+        <Resource name="PMWorks/AssetClassTaskAdd" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت های فرعی'}} create={AssetClassTaskAddCreate} />
+        <Resource name="PMWorks/WorkRequest" icon={ArrowLeftOutlinedIcon} options={{ label: 'درخواست کار', "menuParent": "modiriat" }} list={WorkRequestList} edit={WorkRequestEdit} create={WorkRequestCreate} show={WorkRequestShow} />
+        <Resource name="PMWorks/WorkOrder" icon={ArrowLeftOutlinedIcon} options={{ label: 'دستور کار', "menuParent": "modiriat" }} list={WorkOrderList} edit={WorkOrderEdit} create={WorkOrderCreate} show={WorkOrderShow} />
+        <Resource name="PMWorks/WOSupplier" icon={ArrowLeftOutlinedIcon} options={{ label: 'تامین کننده دستور کارها'}} edit={WOSupplierEdit} create={WOSupplierCreate} show={WOSupplierShow}/>
+        <Resource name="PMWorks/WOPersonnel" icon={ArrowLeftOutlinedIcon} options={{ label: 'پرسنل دستور کارها'}} edit={WOPersonnelEdit} create={WOPersonnelCreate} show={WOPersonnelShow}/>
+        <Resource name="PMWorks/WODelay" icon={ArrowLeftOutlinedIcon} options={{ label: 'تاخیرات دستور کارها'}} edit={WODelayEdit} create={WODelayCreate} show={WODelayShow}/>
+        <Resource name="PMWorks/WOSparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات دستور کارها'}} edit={WOSparePartEdit} create={WOSparePartCreate} show={WOSparePartShow}/>
+        <Resource name="PMWorks/WOTask" icon={ArrowLeftOutlinedIcon} options={{ label: 'وظایف دستور کارها'}} edit={WOTaskEdit} create={WOTaskCreate} show={WOTaskShow}/>
+        <Resource name="PMWorks/WorkRequestFailureCause" icon={ArrowLeftOutlinedIcon} options={{ label: 'علت خرابی دستورکار'}} edit={WorkRequestFailureCauseEdit} create={WorkRequestFailureCauseCreate} show={WorkRequestFailureCauseShow}/>
         <Resource name="PMWorks/FailureAsset" />
         <Resource name="PMWorks/WRCause" />
         <Resource name="PMWorks/WRSpare" />
         <Resource name="PMWorks/WRTask" />
         <Resource name="PMWorks/Frequency" />
-        <Resource name="PMWorks/WOTemplate" icon={SettingsOutlinedIcon} options={{ label: 'برنامه‌ریزی دستورکار'}} list={WOTemplateList} edit={WOTemplateEdit} create={WOTemplateCreate} show={WOTemplateShow}/>
-        <Resource name="PMWorks/WOTemplateType" icon={SettingsOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی دستورکار'}} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
-        <Resource name="PMWorks/WOActivityTemplate" icon={ListIcon} options={{ label: 'فعالیت برنامه ها'}} edit={WOActivityTemplateEdit} create={WOActivityTemplateCreate} show={WOActivityTemplateShow}/>
-        <Resource name="PMWorks/WOTemplateSchualing" icon={ListIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
+        <Resource name="PMWorks/WOTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه‌ریزی دستورکار', "menuParent": "barnamenet" }} list={WOTemplateList} edit={WOTemplateEdit} create={WOTemplateCreate} show={WOTemplateShow}/>
+        <Resource name="PMWorks/WOTemplateType" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی دستورکار', "menuParent": "barnamenet" }} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
+        <Resource name="PMWorks/WOActivityTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت برنامه ها'}} edit={WOActivityTemplateEdit} create={WOActivityTemplateCreate} show={WOActivityTemplateShow}/>
+        <Resource name="PMWorks/WOTemplateSchualing" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
         <Resource name="PMWorks/TemplateSchualingDate" />
         <Resource name="PMWorks/TaskTemp" />
-        <Resource name="PMWorks/User" icon={SettingsOutlinedIcon} options={{ label: 'کاربران', "menuParent": "paye" }} list={UserList} edit={UserEdit} create={UserCreate} show={UserShow} />
+        <Resource name="PMWorks/User" icon={ArrowLeftOutlinedIcon} options={{ label: 'کاربران', "menuParent": "dast" }} list={UserList} edit={UserEdit} create={UserCreate} show={UserShow} />
 
 
     </Admin>
