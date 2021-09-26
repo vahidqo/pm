@@ -10,6 +10,7 @@ import {
 }
 from 'react-admin';
 import AssetRefrenceInput from './AssetRefrenceInput';
+import AssetSubdivisionTitle from './AssetSubdivisionTitle';
 
 const AssetSubdivisionEditActions = ({ basePath, data }) => (
     <TopToolbar>
@@ -20,7 +21,7 @@ const AssetSubdivisionEditActions = ({ basePath, data }) => (
 
 
 const AssetSubdivisionEdit = props => (
-    <Edit actions={<AssetSubdivisionEditActions />} {...props}>
+    <Edit actions={<AssetSubdivisionEditActions />} title={<AssetSubdivisionTitle />} {...props}>
         <SimpleForm>
             <TextField label="آی دی" textAlgin="right" disabled source="id" />
             <AssetRefrenceInput label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset" perPage={10000} />

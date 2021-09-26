@@ -1,26 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-admin';
 
 const styles = {
   button: {
-    marginTop: '1em'
+    color: '#243261',
+    fontSize: '0.8125rem',
+    paddingLeft: '0px',
+    paddingTop: '3px'
   }
 };
 
-const AddSparePartButton = ({ classes, record }) => (
+const AddAssetSubdivisionSparePartDataButton = ({ classes, record }) => (
   <Button
     className={classes.button}
     variant="raised"
     component={Link}
     to={`/PMWorks/AssetSubdivisionSparePart/create?AssetSubdivisionID=${record.id}`}
-    label="اضافه کردن قطعه"
+    label="ایجاد"
     title="اضافه کردن قطعه"
   >
-    <ChatBubbleIcon />
+    <AddIcon />
   </Button>
 );
 
-export default withStyles(styles)(AddSparePartButton);
+export default withStyles(styles)(AddAssetSubdivisionSparePartDataButton);

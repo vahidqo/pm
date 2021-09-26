@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import IconImageEye from '@material-ui/icons/RemoveRedEye';
 import IconKeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import { Button, SimpleShowLayout, TextField, useGetOne } from 'react-admin';
+import { Button, SimpleShowLayout, TextField, useGetOne, ReferenceField } from 'react-admin';
 
 const useStyles = makeStyles({
     field: {
@@ -16,14 +16,14 @@ const useStyles = makeStyles({
         }
     },
     but: { fontFamily: 'inherit',
-           marginBottom: '30px'
+           marginBottom: '16px'
     }
 });
 
-const QuickPreviewAssetPriorityButton = ({ id }) => {
+const QuickPreviewLocButton = ({ id }) => {
     const [showPanel, setShowPanel] = useState(false);
     const classes = useStyles();
-    const { data } = useGetOne('PMWorks/AssetPriority', id);
+    const { data } = useGetOne('PMWorks/Location', id);
 
     const handleClick = () => {
         setShowPanel(true);
@@ -46,17 +46,19 @@ const QuickPreviewAssetPriorityButton = ({ id }) => {
                 </div>
                 <SimpleShowLayout
                     record={data}
-                    basePath="/PMWorks/AssetPriority"
-                    resource="PMWorks/AssetPriority"
+                    basePath="/PMWorks/Location"
+                    resource="PMWorks/Location"
                 >
                     <TextField source="id" />
-                    <TextField label="کد اولویت" textAlgin="right" source="AssetPriorityCode" className={classes.field} />
-                    <TextField label="نام اولویت" textAlgin="right" source="AssetPriorityName" className={classes.field} />
-                    <TextField label="نام اولویت" textAlgin="right" source="AssetPriorityValue" className={classes.field} />
+                    <TextField label="کد مکان" textAlgin="right" source="LocationCode" className={classes.field}/>
+                    <TextField label="نام مکان" textAlgin="right" source="LocationName" className={classes.field}/>
+                    <ReferenceField label="مکان پدر" textAlgin="right" source="LocationFatherID" reference="PMWorks/Location" className={classes.field}>
+                        <TextField source="LocationName" />
+                    </ReferenceField>
                 </SimpleShowLayout>
             </Drawer>
         </>
     );
 };
 
-export default QuickPreviewAssetPriorityButton;
+export default QuickPreviewLocButton;

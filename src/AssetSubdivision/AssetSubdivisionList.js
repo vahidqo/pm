@@ -20,11 +20,15 @@ from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
+import { ImportButton } from "react-admin-import-csv";
 
 const useStyles = makeStyles({
     head: {
         display: 'none',
     },
+    ex: {
+        fontFamily: 'inherit',
+    }
 });
 
 const ListActions = (props) => {
@@ -43,6 +47,8 @@ const ListActions = (props) => {
         showFilter,
         total,
     } = useListContext();
+    const classes = useStyles();
+
     return (
         <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
             {filters && cloneElement(filters, {
@@ -59,7 +65,9 @@ const ListActions = (props) => {
                 sort={currentSort}
                 filterValues={filterValues}
                 maxResults={maxResults}
+                className={classes.ex} label="خروجی"
             />
+            <ImportButton label="ورودی" {...props}/>
         </TopToolbar>
     );
 };

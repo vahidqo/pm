@@ -1,7 +1,5 @@
 import * as React from "react";
 import {
-    ReferenceInput,
-    SelectInput,
     Filter,
     TextInput
 }
@@ -9,8 +7,8 @@ from 'react-admin';
 
 const PersonnelJobCategoryFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="پرسنل" textAlgin="right" source="PersonnelID" />
-        <TextInput label="شغل" textAlgin="right" source="JobCategoryID" />
+        <TextInput label="کد شغل" textAlgin="right" source="JobCategoryID__JobCategoryCode__icontains" alwaysOn resettable/>
+        <TextInput label="نام شغل" textAlgin="right" source="JobCategoryID__JobCategoryName__icontains" alwaysOn resettable/>
     </Filter>
 );
 

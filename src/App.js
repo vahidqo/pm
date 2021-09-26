@@ -38,6 +38,7 @@ import SettingsInputComponentOutlinedIcon from '@material-ui/icons/SettingsInput
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import ArrowLeftOutlinedIcon from '@material-ui/icons/ArrowLeftOutlined';
+import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 
 import AssetClassSubdivisionList from './AssetClassSubdivision/AssetClassSubdivisionList';
 import AssetClassSubdivisionCreate from './AssetClassSubdivision/AssetClassSubdivisionCreate';
@@ -431,12 +432,12 @@ let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8
 
 const App = () => (
     <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >
-        <Resource name="modiriat" icon={AddBoxOutlinedIcon} options={{ "label": "کارتابل کاربری", "isMenuParent": true }} />
+        <Resource name="modiriat" icon={AddBoxOutlinedIcon} options={{ "label": "پنل کاربری", "isMenuParent": true }} />
         <Resource name="barnamenet" icon={EventAvailableOutlinedIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
         <Resource name="tajhiz" icon={SettingsInputComponentOutlinedIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
-        <Resource name="gozaresh" icon={AssessmentOutlinedIcon} options={{ "label": "گزارشات و شاخص‌ها", "isMenuParent": true }} />
+        <Resource name="gozaresh" icon={AssessmentOutlinedIcon} options={{ "label": "گزارش و شاخص‌", "isMenuParent": true }} />
         <Resource name="standard" icon={AssignmentOutlinedIcon} options={{ "label": "استاندارسازی نت", "isMenuParent": true }} />
-        <Resource name="hazine" icon={ListIcon} options={{ "label": "هزینه‌های نت", "isMenuParent": true }} />
+        <Resource name="hazine" icon={MonetizationOnOutlinedIcon} options={{ "label": "هزینه‌ نت", "isMenuParent": true }} />
         <Resource name="makan" icon={EditLocationOutlinedIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
         <Resource name="fani" icon={ArchiveOutlinedIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
         <Resource name="niro" icon={PermIdentityOutlinedIcon} options={{ "label": "نیروی انسانی", "isMenuParent": true }} />
@@ -452,14 +453,14 @@ const App = () => (
         <Resource name="PMWorks/FailureCause" icon={ArrowLeftOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
         <Resource name="PMWorks/AssetClassSubdivision" options={{ "label": "درخت خانواده تجهیز" }} edit={AssetClassSubdivisionEdit} create={AssetClassSubdivisionCreate} show={AssetClassSubdivisionShow} />
         <Resource name="PMWorks/Location" icon={ArrowLeftOutlinedIcon} options={{ label: 'مکان ها', "menuParent": "makan"}} list={LocationList} edit={LocationEdit} create={LocationCreate} show={LocationShow}/>
-        <Resource name="PMWorks/AssetPriority" icon={ArrowLeftOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
         <Resource name="PMWorks/Document" icon={ArrowLeftOutlinedIcon} options={{ label: 'فایل ها', "menuParent": "paye"}} list={DocumentList} edit={DocumentEdit} create={DocumentCreate} show={DocumentShow}/>
         <Resource name="PMWorks/AssetClassDocument" icon={ArrowLeftOutlinedIcon} options={{ label: 'آرشیو فنی'}} edit={AssetClassDocumentEdit} create={AssetClassDocumentCreate} show={AssetClassDocumentShow}/>
         <Resource name="PMWorks/Asset" icon={ArrowLeftOutlinedIcon} options={{ label: 'تجهیزات فرعی'}} edit={AssetEdit} create={AssetCreate} show={AssetShow}/>
         <Resource name="PMWorks/AssetSubdivision" icon={ArrowLeftOutlinedIcon} options={{ label: 'تجهیزات', "menuParent": "tajhiz" }} list={AssetSubdivisionList} edit={AssetSubdivisionEdit} show={AssetSubdivisionShow}/>
+        <Resource name="PMWorks/AssetPriority" icon={ArrowLeftOutlinedIcon} options={{ label: 'اولویت‌بندی تجهیزات', "menuParent": "tajhiz" }} list={AssetPriorityList} edit={AssetPriorityEdit} create={AssetPriorityCreate} show={AssetPriorityShow}/>
         <Resource name="PMWorks/AssetSpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی تجهیزات'}} edit={AssetSpecificDataEdit} show={AssetSpecificDataShow}/>
         <Resource name="PMWorks/AssetSubdivisionSparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات تجهیز'}} edit={AssetSubdivisionSparePartEdit} create={AssetSubdivisionSparePartCreate} show={AssetSubdivisionSparePartShow}/>
-        <Resource name="PMWorks/SparePartDimension" icon={ArrowLeftOutlinedIcon} options={{ label: 'سطح قطعات', "menuParent": "yadak"}} list={SparePartDimensionList} edit={SparePartDimensionEdit} create={SparePartDimensionCreate} show={SparePartDimensionShow}/>
+        <Resource name="PMWorks/SparePartDimension" icon={ArrowLeftOutlinedIcon} options={{ label: 'واحد اندازه‌گیری', "menuParent": "yadak"}} list={SparePartDimensionList} edit={SparePartDimensionEdit} create={SparePartDimensionCreate} show={SparePartDimensionShow}/>
         <Resource name="PMWorks/SparePartCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده قطعات', "menuParent": "yadak"}} list={SparePartCategoryList} edit={SparePartCategoryEdit} create={SparePartCategoryCreate} show={SparePartCategoryShow}/>
         <Resource name="PMWorks/SparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات یدکی', "menuParent": "yadak" }} list={SparePartList} edit={SparePartEdit} create={SparePartCreate} show={SparePartShow}/>
         <Resource name="PMWorks/TaskType" icon={ArrowLeftOutlinedIcon} options={{ label: 'وظایف', "menuParent": "niro"}} list={TaskTypeList} edit={TaskTypeEdit} create={TaskTypeCreate} show={TaskTypeShow}/>

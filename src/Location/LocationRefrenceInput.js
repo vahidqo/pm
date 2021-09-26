@@ -1,22 +1,22 @@
 import React, { useState, useCallback } from 'react';
 import { useFormState } from 'react-final-form';
-import { ReferenceInput, SelectInput, useInput } from 'react-admin';
+import { ReferenceInput, SelectInput, useInput  } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
-import QuickAddUserButton from './QuickAddUserButton';
-import QuickPreviewUserButton from './QuickPreviewUserButton';
-import QuickUserSelectButton from './QuickUserSelectButton';
+import QuickPreviewLocationButton from './QuickPreviewLocationButton';
+import QuickPreviewLocButton from './QuickPreviewLocButton';
 
 const useStyles = makeStyles({
     root: {
         display: 'flex',
         alignItems: 'center'
-    }
+    },
+    sel: { '& .MuiSelect-icon': {display: 'none' }},
 });
 
 const spySubscription = { values: true };
 
-const UserRefrenceInput = props => {
+const LocationRefrenceInput = props => {
     const classes = useStyles();
     const [version, setVersion] = useState(0);
     const { values } = useFormState({ subscription: spySubscription });
@@ -27,15 +27,13 @@ const UserRefrenceInput = props => {
 
     return (
         <div className={classes.root}>
-            <ReferenceInput disabled key={version} {...props}>
-                <SelectInput optionText="username" />
+            <ReferenceInput disabled key={version} allowEmpty {...props}>
+                <SelectInput className={classes.sel} optionText="LocationName" />
             </ReferenceInput>
-
-            <QuickUserSelectButton {...props} id={values.user} setId={(id) => onChange(id)} />        
-            <QuickAddUserButton onChange={handleChange} />
-            <QuickPreviewUserButton id={values.user} />
+            <QuickPreviewLocationButton {...props} id={values.LocationFatherID} setId={(id) => onChange(id)} />        
+            <QuickPreviewLocButton id={values.LocationFatherID} />
         </div>
     );
 };
 
-export default UserRefrenceInput;
+export default LocationRefrenceInput;

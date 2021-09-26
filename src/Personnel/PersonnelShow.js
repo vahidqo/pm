@@ -1,36 +1,74 @@
 import * as React from "react";
-import { useShowController } from 'ra-core';
-
 import {
     Datagrid,
     TextField,
     ReferenceField,
-    ShowButton,
-    ShowView,
     TabbedShowLayout,
     ReferenceManyField,
     Tab,
-    DeleteButton,
+    TopToolbar,
     EditButton,
     Show,
-    List
+    List,
+    useShowController,
+    ListButton,
+    ExportButton,
 }
 from 'react-admin';
 import AddJobButton from './AddJobButton';
+import PersonnelJobCategoryFilter from '../PersonnelJobCategory/PersonnelJobCategoryFilter';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import { makeStyles } from '@material-ui/core';
 
+const useStyles = makeStyles({
+    head: {
+        display: 'none',
+    },
+    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
 
-const PersonnelShow = props => {
-    const controllerProps = useShowController(props);
-    return (
-    <ShowView {...controllerProps}>
+const ShowActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} />
+        <EditButton basePath={basePath} record={data}/>
+    </TopToolbar>
+);
+
+const JobCategoryActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddJobButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const PersonnelShow = props =>  {
+
+    const {
+        record
+    } = useShowController(props);
+
+    const classes = useStyles();
+
+    return(
+    <Show actions={<ShowActions/>} {...props}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <TextField label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
-                <TextField label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
-                <TextField label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-                <TextField label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
-                <TextField label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
-                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                <TextField className={classes.sho} label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
+                <TextField className={classes.sho} label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
+                <TextField className={classes.sho} label="نام پرسنل" textAlgin="right" source="PersonnelName" />
+                <TextField className={classes.sho} label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
+                <TextField className={classes.sho} label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+                <ReferenceField className={classes.sho} label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                     <TextField source="DepartmentName" />
                 </ReferenceField>
             </Tab>
@@ -39,21 +77,22 @@ const PersonnelShow = props => {
                     addLabel={false}
                     reference="PMWorks/PersonnelJobCategory"
                     target="PersonnelID"
+                    filter={{ PersonnelID: record.id }}
                 >
+                    <List empty={false} filters={<PersonnelJobCategoryFilter />} actions={<JobCategoryActions data={record}/>}>
                     <Datagrid>
-                        <ReferenceField label="نام شغل" textAlgin="right" disabled source="JobCategoryID" reference="PMWorks/JobCategory">
-                            <TextField source="JobCategoryName" />
-                        </ReferenceField>
                         <ReferenceField label="کد شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
                             <TextField source="JobCategoryCode" />
                         </ReferenceField>
-                        <EditButton />
+                        <ReferenceField label="نام شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
+                            <TextField source="JobCategoryName" />
+                        </ReferenceField>
                     </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddJobButton />      
             </Tab>
         </TabbedShowLayout>
-    </ShowView>
+    </Show>
 );
     };
 

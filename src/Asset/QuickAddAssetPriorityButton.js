@@ -16,12 +16,20 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    but: { fontFamily: 'inherit',
+           marginBottom: '30px'
+    }
+});
 
 function QuickAddAssetPriorityButton({ onChange }) {
     const [showDialog, setShowDialog] = useState(false);
     const [create, { loading }] = useCreate('PMWorks/AssetPriority');
     const notify = useNotify();
     const form = useForm();
+    const classes = useStyles();
 
     const handleClick = () => {
         setShowDialog(true);
@@ -51,7 +59,7 @@ function QuickAddAssetPriorityButton({ onChange }) {
 
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.create">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.create">
                 <IconContentAdd />
             </Button>
             <Dialog
@@ -60,7 +68,7 @@ function QuickAddAssetPriorityButton({ onChange }) {
                 onClose={handleCloseClick}
                 aria-label="ایجاد اولویت"
             >
-                <DialogTitle>ایجاد واولویت</DialogTitle>
+                <DialogTitle>ایجاد اولویت</DialogTitle>
 
                 <FormWithRedirect
                     resource="PMWorks/AssetPriority"

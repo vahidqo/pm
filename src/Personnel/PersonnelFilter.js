@@ -2,23 +2,28 @@ import * as React from "react";
 import {
     Filter,
     TextInput,
-    ReferenceInput,
-    SelectInput
 }
 from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
-const PersonnelFilter = (props) => (
+const useStyles = makeStyles({
+    width: { width: 180 },
+});
+
+const PersonnelFilter = (props) => {
+    const classes = useStyles();
+    return(
     <Filter {...props}>
-        <TextInput label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
-        <TextInput label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
-        <TextInput label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-        <TextInput label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
-        <TextInput label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
-        <ReferenceInput label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
-            <SelectInput source="DepartmentName" />
-        </ReferenceInput>
+        <TextInput className={classes.width} label="کد پرسنل" textAlgin="right" source="PersonnelCode__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="نام پرسنل" textAlgin="right" source="PersonnelName__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="شماره پرسنل" textAlgin="right" source="PersonnelMobile__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="دپارتمان" textAlgin="right" source="DepartmentID__DepartmentName__icontains" alwaysOn resettable/>
+        <TextInput className={classes.width} label="کاربر" source="user__username__icontains" alwaysOn resettable />
     </Filter>
 );
+    };
 
 
 export default PersonnelFilter;

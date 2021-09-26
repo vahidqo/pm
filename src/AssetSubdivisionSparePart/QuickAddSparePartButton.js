@@ -19,12 +19,21 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import SparePartCategoryRefrenceInput from '../SparePart/SparePartCategoryRefrenceInput';
 import SparePartDimensionRefrenceInput from '../SparePart/SparePartDimensionRefrenceInput';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    but: { fontFamily: 'inherit',
+           marginBottom: '16px'
+    }
+});
 
 function QuickAddSparePartButton({ onChange }) {
     const [showDialog, setShowDialog] = useState(false);
     const [create, { loading }] = useCreate('PMWorks/SparePart');
     const notify = useNotify();
     const form = useForm();
+    const classes = useStyles();
+
 
     const handleClick = () => {
         setShowDialog(true);
@@ -54,7 +63,7 @@ function QuickAddSparePartButton({ onChange }) {
 
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.create">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.create">
                 <IconContentAdd />
             </Button>
             <Dialog

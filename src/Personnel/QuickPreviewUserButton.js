@@ -14,6 +14,9 @@ const useStyles = makeStyles({
             display: 'inline-block',
             maxWidth: '20em'
         }
+    },
+    but: { fontFamily: 'inherit',
+           marginBottom: '30px'
     }
 });
 
@@ -34,7 +37,7 @@ const QuickPreviewUserButton = ({ id }) => {
 
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.show">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.show">
                 <IconImageEye />
             </Button>
             <Drawer anchor="right" open={showPanel} onClose={handleCloseClick}>

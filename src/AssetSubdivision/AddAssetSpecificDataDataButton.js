@@ -13,17 +13,17 @@ const styles = {
   }
 };
 
-const AddJobButton = ({ classes, record }) => (
+const AddAssetSpecificDataDataButton = ({ classes, record }) => (
   <Button
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/PersonnelJobCategory/create?PersonnelID=${record.id}`}
+    to={`/PMWorks/AssetSpecificDataData/create?AssetSubdivisionID=${record.id}`}
     label="ایجاد"
-    title="اضافه کردن شغل"
+    title="اضافه کردن مشخصات"
   >
-    <AddIcon/>
+    <AddIcon />
   </Button>
 );
 
-export default withStyles(styles)(AddJobButton);
+export default withStyles(styles)(AddAssetSpecificDataDataButton);
