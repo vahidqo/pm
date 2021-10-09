@@ -18,12 +18,20 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import DepartmentRefrenceInput from '../Personnel/DepartmentRefrenceInput';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    but: { fontFamily: 'inherit',
+           marginBottom: '16px'
+    }
+});
 
 function QuickAddPersonnelButton({ onChange }) {
     const [showDialog, setShowDialog] = useState(false);
     const [create, { loading }] = useCreate('PMWorks/Personnel');
     const notify = useNotify();
     const form = useForm();
+    const classes = useStyles();
 
     const handleClick = () => {
         setShowDialog(true);
@@ -53,7 +61,7 @@ function QuickAddPersonnelButton({ onChange }) {
 
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.create">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.create">
                 <IconContentAdd />
             </Button>
             <Dialog

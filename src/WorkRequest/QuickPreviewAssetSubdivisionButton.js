@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import { Button } from "react-admin";
 import { Dialog } from "@material-ui/core";
-import IconImageEye from "@material-ui/icons/RemoveRedEye";
-
+import TouchAppIcon from '@material-ui/icons/TouchApp';
+import { makeStyles } from '@material-ui/core/styles';
 import AssetSubdivisionList from "./AssetSubdivisionList";
+
+const useStyles = makeStyles({
+  fir: { fontFamily: 'system-ui', marginBottom: '16px' },
+
+});
+
 
 const QuickPreviewAssetSubdivisionButton = ({ id, setId, ...props }) => {
   const [showPanel, setShowPanel] = useState(false);
+  const classes = useStyles();
 
   const toggleDrawer = () => setShowPanel((showPanel) => !showPanel);
 
   return (
     <>
-      <Button onClick={toggleDrawer} label="ra.action.show">
-        <IconImageEye />
+      <Button className={classes.fir} onClick={toggleDrawer} label="انتخاب">
+        <TouchAppIcon />
       </Button>
       <Dialog fullWidth open={showPanel} onClose={toggleDrawer}>
-        <AssetSubdivisionList {...props} resource="PMWorks/AssetSubdivision" setId={setId} />
+        <AssetSubdivisionList style={{width: '780px'}} {...props} resource="PMWorks/AssetSubdivision" setId={setId} setShowPanel={setShowPanel}/>
       </Dialog>
     </>
   );

@@ -48,7 +48,7 @@ const Location5 = ({ setId, setShowPanel, ...props }) => {
         title={<LocationTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} perPage={10} {...props} bulkActionButtons={false} filters={<LocationFilter />} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
                 <TextField label="نام مکان" textAlgin="right" source="LocationName" />
@@ -68,7 +68,7 @@ const Location4 = ({ setId, setShowPanel, ...props }) => {
         title={<LocationTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} perPage={10} {...props} bulkActionButtons={false} filters={<LocationFilter />} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location5 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
                 <TextField label="نام مکان" textAlgin="right" source="LocationName" />
@@ -88,7 +88,7 @@ const Location3 = ({ setId, setShowPanel, ...props }) => {
         title={<LocationTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} perPage={10} {...props} bulkActionButtons={false} filters={<LocationFilter />} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location4 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
                 <TextField label="نام مکان" textAlgin="right" source="LocationName" />
@@ -108,7 +108,7 @@ const Location2 = ({ setId, setShowPanel, ...props }) => {
         title={<LocationTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} perPage={10} {...props} bulkActionButtons={false} filters={<LocationFilter />} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location3 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
                 <TextField label="نام مکان" textAlgin="right" source="LocationName" />
@@ -128,7 +128,7 @@ const Location = ({ setId, setShowPanel, ...props }) => {
         title={<LocationTitle />}
         actions={<NoneActions />}
     >
-        <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} perPage={10} {...props} bulkActionButtons={false} filters={<LocationFilter />} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location2 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
                 <TextField label="نام مکان" textAlgin="right" source="LocationName" />
@@ -140,7 +140,7 @@ const Location = ({ setId, setShowPanel, ...props }) => {
 };
 
 const LocationList = ({ setId, setShowPanel, ...props }) => (
-    <List {...props} bulkActionButtons={false} actions={<NoneActions />} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="تجهیزات ">
+    <List {...props} perPage={10} bulkActionButtons={false} actions={<NoneActions />} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان ها">
         <Datagrid expand={<Location setId={setId} setShowPanel={setShowPanel}/>}>
             <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
             <TextField label="نام مکان" textAlgin="right" source="LocationName" />

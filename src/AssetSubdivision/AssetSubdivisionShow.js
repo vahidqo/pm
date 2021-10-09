@@ -74,9 +74,13 @@ const AssetSubdivisionShow = props => {
     <Show {...props} actions={<ShowActions/>} title={<AssetSubdivisionTitle />}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <ReferenceField className={classes.sho} label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField className={classes.sho} label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField className={classes.sho} label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField className={classes.sho} label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField className={classes.sho} label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>

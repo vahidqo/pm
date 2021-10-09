@@ -7,8 +7,8 @@ from 'react-admin';
 
 const WOTemplateTypeFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد کلاس برنامه" textAlgin="right" source="WOTemplateTypeCode" />
-        <TextInput label="نام کلاس برنامه" textAlgin="right" source="WOTemplateTypeName" />
+        <TextInput label="کد نوع برنامه" textAlgin="right" source="WOTemplateTypeCode__icontains" alwaysOn resettable/>
+        <TextInput label="نام نوع برنامه" textAlgin="right" source="WOTemplateTypeName__icontains" alwaysOn resettable/>
     </Filter>
 );
 

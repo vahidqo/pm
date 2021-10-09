@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useFormState } from 'react-final-form';
-import { ReferenceInput, SelectInput } from 'react-admin';
+import { ReferenceInput, SelectInput, useInput  } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
 import QuickPreviewWorkPriorityButton from './QuickPreviewWorkPriorityButton';
+import QuickSelectWorkPriorityButton from './QuickSelectWorkPriorityButton';
 
 const useStyles = makeStyles({
     root: {
@@ -19,13 +20,17 @@ const WorkPriorityRefrenceInput = props => {
     const [version, setVersion] = useState(0);
     const { values } = useFormState({ subscription: spySubscription });
     const handleChange = useCallback(() => setVersion(version + 1), [version]);
+    const {
+        input: { onChange },
+      } = useInput(props);
 
     return (
         <div className={classes.root}>
-            <ReferenceInput key={version} {...props}>
-                <SelectInput optionText="WorkPriorityCode" />
+            <ReferenceInput disabled key={version} {...props}>
+                <SelectInput optionText="WorkPriorityName" />
             </ReferenceInput>
 
+            <QuickSelectWorkPriorityButton {...props} id={values.WorkPriorityID} setId={(id) => onChange(id)} /> 
             <QuickPreviewWorkPriorityButton id={values.WorkPriorityID} />
         </div>
     );

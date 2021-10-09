@@ -89,7 +89,7 @@ return(
             <AssetPriorityRefrenceInput formClassName={classes.sec} label="نام اولویت" textAlgin="right" source="AssetPriorityID" reference="PMWorks/AssetPriority" perPage={10000} />
             <Separator/>
             <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد مکان" textAlgin="right" source="LocationID" reference="PMWorks/Location">
-                <SelectInput optionText="LocationCode" />
+                <SelectInput optionText="LocationCodeChain" />
             </ReferenceInput>
             <LocationRefrenceInput formClassName={classes.sec} label="نام مکان" textAlgin="right" source="LocationID" reference="PMWorks/Location" allowEmpty validate={required()} perPage={10000} />
             <Separator/>

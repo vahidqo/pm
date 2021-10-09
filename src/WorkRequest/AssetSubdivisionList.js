@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
-import { cloneElement } from 'react';
+import React from 'react';
 import {
     List,
     Datagrid,
     TextField,
     Show,
-    EditButton,
     CardActions,
-    ReferenceField,
-    useListContext,
-    TopToolbar,
-    CreateButton,
-    ExportButton,
-    sanitizeListRestProps,
-    ShowButton,
 }
 from 'react-admin';
 import { makeStyles } from '@material-ui/core';
-import { useForm } from 'react-final-form';
 import Button from "@material-ui/core/Button";
+import AssetSubdivisionFilter from '../AssetSubdivision/AssetSubdivisionFilter';
 
 
-const SelectButton = ({ record, setId }) =>{
-    
+const SelectButton = ({ record, setId, setShowPanel }) =>{
+    const classes = useStyles();
+    const toggleDrawer = () => {setShowPanel((showPanel) => !showPanel); setId(record.id)};
+
     return(
-    <Button onClick={() => setId(record.id)} color="secondary">
+    <Button  className={classes.fir} onClick={toggleDrawer} color="secondary">
      انتخاب
     </Button>
   );
@@ -35,6 +28,7 @@ const useStyles = makeStyles({
     head: {
         display: 'none',
     },
+    fir: { fontFamily: 'inherit' },
 });
 
 const NoneActions = props => (
@@ -45,7 +39,7 @@ const AssetSubdivisionTitle = ({...props}) => {
     return <span>زیر مجموعه {props ? `"${props.record.id}"` : ''}</span>;
 };
 
-const AssetSubdivision5 = ({ setId, ...props }) => {
+const AssetSubdivision5 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -54,22 +48,18 @@ const AssetSubdivision5 = ({ setId, ...props }) => {
         title={<AssetSubdivisionTitle />}
         actions={<NoneActions />}
     >
-        <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
+        <List empty={false} bulkActionButtons={false} {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <SelectButton setId={setId} />
+                <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+                <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetSubdivision4 = ({ setId, ...props }) => {
+const AssetSubdivision4 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -78,22 +68,18 @@ const AssetSubdivision4 = ({ setId, ...props }) => {
         title={<AssetSubdivisionTitle />}
         actions={<NoneActions />}
     >
-        <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision5 setId={setId} />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <SelectButton setId={setId} />
+        <List empty={false} bulkActionButtons={false} {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision5 setId={setId} setShowPanel={setShowPanel}/>}>
+                <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+                <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetSubdivision3 = ({ setId, ...props }) => {
+const AssetSubdivision3 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -102,22 +88,18 @@ const AssetSubdivision3 = ({ setId, ...props }) => {
         title={<AssetSubdivisionTitle />}
         actions={<NoneActions />}
     >
-        <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision4 setId={setId} />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <SelectButton setId={setId} />
+        <List empty={false} bulkActionButtons={false} {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision4 setId={setId} setShowPanel={setShowPanel}/>}>
+                <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+                <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetSubdivision2 = ({ setId, ...props }) => {
+const AssetSubdivision2 = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -126,22 +108,18 @@ const AssetSubdivision2 = ({ setId, ...props }) => {
         title={<AssetSubdivisionTitle />}
         actions={<NoneActions />}
     >
-        <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision3 setId={setId} />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <SelectButton setId={setId} />
+        <List empty={false} bulkActionButtons={false} {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision3 setId={setId} setShowPanel={setShowPanel}/>}>
+                <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+                <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetSubdivision = ({ setId, ...props }) => {
+const AssetSubdivision = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
     return (
     <Show
@@ -150,33 +128,29 @@ const AssetSubdivision = ({ setId, ...props }) => {
         title={<AssetSubdivisionTitle />}
         actions={<NoneActions />}
     >
-        <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
-            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision2 setId={setId} />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                    <TextField source="AssetClassName" />
-                </ReferenceField>
-                <SelectButton setId={setId} />
+        <List empty={false} bulkActionButtons={false} {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
+            <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision2 setId={setId} setShowPanel={setShowPanel}/>}>
+                <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+                <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+                <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
     </Show>
 );
 };
 
-const AssetSubdivisionList = ({ setId, ...props }) => (
-    <List {...props} actions={<NoneActions />} filter={{ tree: 1 }} title="تجهیزات ">
-        <Datagrid expand={<AssetSubdivision setId={setId} />}>
-            <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
-                <TextField source="AssetName" />
-            </ReferenceField>
-            <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
-                <TextField source="AssetClassName" />
-            </ReferenceField>
-            <SelectButton setId={setId} />
+const AssetSubdivisionList = ({ setId, setShowPanel, ...props }) => {
+    const classes = useStyles();
+
+return(
+    <List {...props} bulkActionButtons={false} filters={<AssetSubdivisionFilter />} actions={<NoneActions />} filter={{ tree: 1 }} title="تجهیزات ">
+        <Datagrid expand={<AssetSubdivision setId={setId} setShowPanel={setShowPanel}/>}>
+            <TextField label="کد تجهیز" textAlgin="right" source="AssetCode" />
+            <TextField label="نام تجهیز" textAlgin="right" source="AssetName" />
+            <SelectButton setId={setId} setShowPanel={setShowPanel}/>
         </Datagrid>
     </List>
 );
+};
 
 export default AssetSubdivisionList;

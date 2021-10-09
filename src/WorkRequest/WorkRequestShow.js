@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
     TextField,
     Tab,
@@ -7,9 +6,14 @@ import {
     ReferenceField,
     ReferenceManyField,
     TabbedShowLayout,
-    ShowButton,
-    DeleteButton,
-    Datagrid
+    Datagrid,
+    TopToolbar,
+    ListButton,
+    EditButton,
+    useShowController,
+    useRecordContext,
+    ExportButton,
+    List
 }
 from 'react-admin';
 import WorkRequestTitle from './WorkRequestTitle';
@@ -17,15 +21,60 @@ import JalaaliDateField  from '../Components/JalaaliDateField';
 import AddFailureCauseButton from './AddFailureCauseButton';
 import DateField from '../Components/JalaaliDateField';
 import AddWorkOrderButton from './AddWorkOrderButton';
+import { makeStyles } from '@material-ui/core';
+import FailureCauseFilter from '../FailureCause/FailureCauseFilter';
+import WorkOrderFilter from '../WorkOrder/WorkOrderFilter';
 
-const WorkRequestField = ({ record = {} }) => {
+const ShowActions = ({ basePath, data }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} />
+        <EditButton basePath={basePath} record={data}/>
+    </TopToolbar>
+);
+
+const FailureCauseActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddFailureCauseButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const WorkOrderActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddWorkOrderButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const useStyles = makeStyles({
+    head: {
+        display: 'none',
+    },
+    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const WorkRequestField  = (props) => {
+    const record = useRecordContext(props);
     let str = record ? `${record.id}` : '';
     str = str.padStart(4,0);
     let text = "WR0".concat(str);
     return <span> {text} </span>;
 };
-
-WorkRequestField.defaultProps = { label: 'کد' };
+WorkRequestField.defaultProps = { label: 'کد' , addLabel: true};
+JalaaliDateField.defaultProps = { addLabel: true};
 
 const WorkOrderField = ({ record = {} }) => {
     let str = record ? `${record.WorkRequestID}` : '';
@@ -39,23 +88,31 @@ const WorkOrderField = ({ record = {} }) => {
 
 WorkOrderField.defaultProps = { label: 'کد دستور کار' };
 
-const WorkRequestShow = (props) => (
-    <Show title={<WorkRequestTitle />} {...props}>
+const WorkRequestShow = (props) =>  {
+
+    const {
+        record
+    } = useShowController(props);
+
+    const classes = useStyles();
+
+    return(
+    <Show actions={<ShowActions/>} title={<WorkRequestTitle />} {...props}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <WorkRequestField textAlgin="right" source="id"  label="کد" />
-                <JalaaliDateField textAlgin="right" source="WRDateOfRegistration" label="تاریخ ثبت" />
-                <JalaaliDateField textAlgin="right" source="WRDate" label="تاریخ" />
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivisionAsset">
+                <WorkRequestField className={classes.sho} source="id"/>
+                <JalaaliDateField className={classes.sho} textAlgin="right" source="WRDateOfRegistration" label="تاریخ ثبت" />
+                <JalaaliDateField className={classes.sho} textAlgin="right" source="WRDate" label="تاریخ" />
+                <ReferenceField className={classes.sho} label="تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                     <TextField source="AssetID__AssetName" />
                 </ReferenceField>
-                <ReferenceField label="نوع خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
+                <ReferenceField className={classes.sho} label="نوع خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
                     <TextField source="FailureModeCode" />
                 </ReferenceField>
-                <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority">
+                <ReferenceField className={classes.sho} label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority">
                     <TextField source="WorkPriorityCode" />
                 </ReferenceField>
-                <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
+                <ReferenceField className={classes.sho} label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
                     <TextField source="TypeWrName" />
                 </ReferenceField>
             </Tab>
@@ -64,7 +121,9 @@ const WorkRequestShow = (props) => (
                     addLabel={false}
                     reference="PMWorks/WorkRequestFailureCause"
                     target="WorkRequestID"
+                    filter={{ WorkRequestID: record.id }}
                 >
+                <List empty={false} filters={<FailureCauseFilter />} actions={<FailureCauseActions data={record}/>}>
                     <Datagrid>
                         <ReferenceField label="نام علت" textAlgin="right" source="FailureCauseID" reference="PMWorks/FailureCause">
                             <TextField source="FailureCauseName" />
@@ -72,32 +131,30 @@ const WorkRequestShow = (props) => (
                         <ReferenceField label="کد علت" textAlgin="right" source="FailureCauseID" reference="PMWorks/FailureCause">
                             <TextField source="FailureCauseCode" />
                         </ReferenceField>
-                        <ShowButton />
-                        <DeleteButton />
                     </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddFailureCauseButton />         
             </Tab>
             <Tab label="دستور کارها" path="PMWorks/WorkOrder">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/WorkOrder"
                     target="WorkRequestID"
+                    filter={{ WorkRequestID: record.id }}
                 >
+                <List empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
                     <Datagrid>
                         <WorkOrderField textAlgin="right" source="id" />
                         <DateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
                         <DateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                         <DateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
-                        <ShowButton />
-                        <DeleteButton />
                     </Datagrid>
+                    </List>
                 </ReferenceManyField>
-                <AddWorkOrderButton />         
             </Tab>
         </TabbedShowLayout>
     </Show>
 );
-
+    };
 
 export default WorkRequestShow;

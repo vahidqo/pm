@@ -7,10 +7,35 @@ import {
     SimpleList,
     ReferenceField,
     TextField,
-    EditButton
+    TopToolbar,
+    CreateButton,
+    ExportButton,
+    FunctionField
 }
 from 'react-admin';
 import JalaaliDateField  from '../Components/JalaaliDateField';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+import  WorkRequestFilter from './WorkRequestFilter';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const WorkRequestField = ({ record = {} }) => {
     let str = record ? `${record.id}` : '';
@@ -22,7 +47,7 @@ const WorkRequestField = ({ record = {} }) => {
 WorkRequestField.defaultProps = { label: 'کد' };
 
 const WorkRequestList = props => (
-    <List {...props} title="درخواست کار">
+    <List actions={<ListActions />} filters={< WorkRequestFilter />} {...props} title="درخواست کار">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.id} />
@@ -32,23 +57,17 @@ const WorkRequestList = props => (
                     <WorkRequestField textAlgin="right" source="id"  label="کد" />
                     <JalaaliDateField textAlgin="right" source="WRDateOfRegistration" label="تاریخ ثبت" />
                     <JalaaliDateField textAlgin="right" source="WRDate" label="تاریخ" />
-                    <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                        <TextField source="AssetCode" />
-                    </ReferenceField>
                     <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                         <TextField source="AssetName" />
-                    </ReferenceField>
-                    <ReferenceField label="کد کلاس تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                        <TextField source="AssetClassCodeChain" />
                     </ReferenceField>
                     <ReferenceField label="نام کلاس تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                         <TextField source="AssetClassNameChain" />
                     </ReferenceField>
-                    <ReferenceField label="نوع خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
-                        <TextField source="FailureModeCode" />
+                    <ReferenceField label="خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
+                        <TextField source="FailureModeName" />
                     </ReferenceField>
                     <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority">
-                        <TextField source="WorkPriorityCode" />
+                        <TextField source="WorkPriorityName" />
                     </ReferenceField>
                     <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
                         <TextField source="TypeWrName" />

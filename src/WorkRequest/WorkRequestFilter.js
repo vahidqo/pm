@@ -6,13 +6,13 @@ import {
 }
 from 'react-admin';
 
-const WorkPriorityFilter = (props) => (
+const  WorkRequestFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد اولویت" textAlgin="right" source="WorkPriorityCode" />
-        <TextInput label="نام اولویت" textAlgin="right" source="WorkPriorityName" />
-        <NumberInput label="مقدار اولویت" textAlgin="right" source="WorkPriorityValue" />
+        <TextInput label="کد اولویت" textAlgin="right" source=" WorkRequestCode" />
+        <TextInput label="نام اولویت" textAlgin="right" source=" WorkRequestName" />
+        <NumberInput label="مقدار اولویت" textAlgin="right" source=" WorkRequestValue" />
     </Filter>
 );
 
 
-export default WorkPriorityFilter;
+export default  WorkRequestFilter;

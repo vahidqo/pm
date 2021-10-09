@@ -28,7 +28,7 @@ const LocationRefrenceInput = props => {
     return (
         <div className={classes.root}>
             <ReferenceInput disabled key={version} {...props}>
-                <SelectInput optionText="LocationCode" />
+                <SelectInput optionText="LocationNameChain" />
             </ReferenceInput>
 
             <QuickLocationSelectButton {...props} id={values.LocationID} setId={(id) => onChange(id)} />        

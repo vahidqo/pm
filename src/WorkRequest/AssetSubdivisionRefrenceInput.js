@@ -26,10 +26,11 @@ const AssetSubdivisionRefrenceInput = props => {
 
     return (
         <div className={classes.root}>
-            <ReferenceInput key={version} {...props}>
+            <ReferenceInput disabled key={version} {...props}>
                 <SelectInput optionText="AssetName" />
             </ReferenceInput>
             <QuickPreviewAssetSubdivisionButton {...props} id={values.AssetSubdivisionID} setId={(id) => onChange(id)} />        
+            <QuickAddAssetSubdivisionButton id={values.AssetSubdivisionID} />
         </div>
     );
 };

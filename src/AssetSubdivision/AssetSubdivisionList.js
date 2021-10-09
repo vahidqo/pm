@@ -108,9 +108,13 @@ const AssetSubdivision5 = props => {
     >
         <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -133,9 +137,13 @@ const AssetSubdivision4 = props => {
     >
         <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision5 />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -158,9 +166,13 @@ const AssetSubdivision3 = props => {
     >
         <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision4 />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -183,9 +195,13 @@ const AssetSubdivision2 = props => {
     >
         <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision3 />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -208,9 +224,13 @@ const AssetSubdivision = props => {
     >
         <List {...props} filter={{ AssetSubdivisionFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetSubdivision2 />}>
-                <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -225,9 +245,13 @@ const AssetSubdivision = props => {
 const AssetSubdivisionList = props => (
     <List empty={false} {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
         <Datagrid expand={<AssetSubdivision />}>
-            <ReferenceField label="تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+            <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
+                <TextField source="AssetCode" />
+            </ReferenceField>
+            <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>

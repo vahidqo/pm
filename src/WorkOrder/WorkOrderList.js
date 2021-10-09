@@ -2,15 +2,37 @@ import * as React from "react";
 import {
     List,
     Datagrid,
-    TextField,
-    ReferenceField,
+    TopToolbar,
+    ExportButton,
     Responsive,
     ShowButton,
     SimpleList,
+    CreateButton
 }
 from 'react-admin';
 import WorkOrderFilter from './WorkOrderFilter';
 import DateField from '../Components/JalaaliDateField';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props}/>
+    </TopToolbar>
+  );
+};
 
 const WorkOrderField = ({ record = {} }) => {
     let str = record ? `${record.WorkRequestID}` : '';
@@ -25,7 +47,7 @@ const WorkOrderField = ({ record = {} }) => {
 WorkOrderField.defaultProps = { label: 'کد دستور کار' };
 
 const WorkOrderList = props => (
-    <List filters={<WorkOrderFilter />} {...props} title="دستور کار">
+    <List actions={<ListActions />} filters={<WorkOrderFilter />} {...props} title="دستور کار">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.id} />
