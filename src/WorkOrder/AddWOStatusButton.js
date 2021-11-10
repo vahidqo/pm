@@ -13,17 +13,17 @@ const styles = {
   }
 };
 
-const AddSparePartButton = ({ classes, record }) => (
+const AddWOStatusButton = ({ classes, record }) => (
   <Button
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOSparePart/create?WorkOrderID=${record.id}`}
+    to={`/PMWorks/WOStatus/create?WorkOrderID=${record.id}`}
     label="ایجاد"
-    title="اضافه کردن قطعه"
+    title="اضافه کردن وضعیت"
   >
     <AddIcon />
   </Button>
 );
 
-export default withStyles(styles)(AddSparePartButton);
+export default withStyles(styles)(AddWOStatusButton);

@@ -21,6 +21,10 @@ import { DateInput } from '../Components/JalaliDatePicker';
 import { DateInputtoday } from '../Components/JalaliDatePickertoday';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
+import { TimeInput } from '../Components/TimeInput';
+import { TimeInputNow } from '../Components/TimeInputNow';
+
+import moment from "moment";
 
 const CreateActions = ({ basePath, record, resource }) => (
     <TopToolbar>
@@ -51,6 +55,7 @@ const Separator = () => <Box pt="0em" />;
 export const WorkRequestCreate = props => {
     const classes = useStyles();
     var today = new Date();
+    var time = moment().format("HH:mm");
     const notify = useNotify();
     const refresh = useRefresh();
     const redirect = useRedirect();
@@ -63,9 +68,12 @@ export const WorkRequestCreate = props => {
 
     return (
         <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد درخواست کار">
-            <SimpleForm validate={validateError} initialValues={{ WRDateOfRegistration: today}}>
+            <SimpleForm validate={validateError} initialValues={{ WRDateOfRegistration: today, WRDate: today, WRTimeOfRegistration: time, WRTime: time}}>
                 <DateInputtoday formClassName={classes.fir} label="تاریخ ثبت" source="WRDateOfRegistration" disabled/>
-                <DateInput formClassName={classes.sec} label="تاریخ" source="WRDate" />
+                <TimeInputNow formClassName={classes.sec} label="ساعت ثبت" textAlgin="right" source="WRTimeOfRegistration"/>
+                <Separator />
+                <DateInput formClassName={classes.fir} label="تاریخ" source="WRDate" />
+                <TimeInput formClassName={classes.sec} label="ساعت" textAlgin="right" source="WRTime"/>
                 <Separator />
                 <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                     <SelectInput optionText="AssetCode" />

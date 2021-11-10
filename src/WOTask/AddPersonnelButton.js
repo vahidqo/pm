@@ -18,7 +18,7 @@ const AddPersonnelButton = ({ classes, record }) => (
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOPersonnel/create?WorkOrderID=${record.id}`}
+    to={`/PMWorks/WOPersonnel/create?WOTaskID=${record.id}`}
     label="ایجاد"
     title="اضافه کردن پرسنل"
   >

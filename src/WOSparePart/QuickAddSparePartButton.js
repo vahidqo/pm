@@ -11,14 +11,14 @@ import {
 } from 'react-admin';
 import IconContentAdd from '@material-ui/icons/Add';
 import IconCancel from '@material-ui/icons/Cancel';
-import SparePartCategoryRefrenceInput from '../SparePart/SparePartCategoryRefrenceInput';
-import SparePartDimensionRefrenceInput from '../SparePart/SparePartDimensionRefrenceInput';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/core/styles';
+import SparePartCategoryRefrenceInput from '../SparePart/SparePartCategoryRefrenceInput';
+import SparePartDimensionRefrenceInput from '../SparePart/SparePartDimensionRefrenceInput';
 
 const useStyles = makeStyles({
     but: { fontFamily: 'inherit',
@@ -68,9 +68,9 @@ function QuickAddSparePartButton({ onChange }) {
                 fullWidth
                 open={showDialog}
                 onClose={handleCloseClick}
-                aria-label="ایجاد قطعه"
+                aria-label="ایجاد تامین کننده"
             >
-                <DialogTitle>ایجاد قطعه</DialogTitle>
+                <DialogTitle>ایجاد تامین کننده</DialogTitle>
 
                 <FormWithRedirect
                     resource="PMWorks/SparePart"

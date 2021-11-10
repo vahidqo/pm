@@ -20,12 +20,29 @@ import {
     useRefresh,
     useRedirect,
     CreateButton,
-    ExportButton
+    ExportButton,
+    downloadCSV
 }
 from 'react-admin';
 import SpecificDataFilter from './SpecificDataFilter';
 import { makeStyles } from '@material-ui/core';
 import { ImportButton } from "react-admin-import-csv";
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
+
+const exporter = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'SpecificDataList')
+
+  })
+};
 
 const EditActions = ({ basePath, data, resource }) => (
     <TopToolbar>
@@ -80,14 +97,14 @@ const ListActions = (props) => {
     <TopToolbar>
       <CreateButton/>
       <ExportButton className={classes.ex} label="خروجی"/>
-      <ImportButton label="ورودی" {...props}/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
 };
 
 
 export const SpecificDataList = props => (
-    <List actions={<ListActions />} {...props} filters={<SpecificDataFilter />} title="ویژگی ها">
+    <List actions={<ListActions />} exporter={exporter} {...props} filters={<SpecificDataFilter />} title="ویژگی ها">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.title} />

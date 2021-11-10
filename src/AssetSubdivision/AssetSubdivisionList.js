@@ -12,6 +12,7 @@ import {
     TopToolbar,
     CreateButton,
     ExportButton,
+    downloadCSV,
     sanitizeListRestProps,
     ShowButton,
     Button
@@ -20,7 +21,16 @@ from 'react-admin';
 import { makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
-import { ImportButton } from "react-admin-import-csv";
+import jsonExport from 'jsonexport/dist';
+
+const exporter = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'AssetSubdivisionList')
+
+  })
+};
 
 const useStyles = makeStyles({
     head: {
@@ -67,7 +77,6 @@ const ListActions = (props) => {
                 maxResults={maxResults}
                 className={classes.ex} label="خروجی"
             />
-            <ImportButton label="ورودی" {...props}/>
         </TopToolbar>
     );
 };
@@ -243,7 +252,7 @@ const AssetSubdivision = props => {
 };
 
 const AssetSubdivisionList = props => (
-    <List empty={false} {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
+    <List empty={false} exporter={exporter} {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
         <Datagrid expand={<AssetSubdivision />}>
             <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetCode" />

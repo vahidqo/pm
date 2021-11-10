@@ -13,7 +13,9 @@ import {
     useShowController,
     useRecordContext,
     ExportButton,
-    List
+    List,
+    downloadCSV,
+    NumberField
 }
 from 'react-admin';
 import WorkRequestTitle from './WorkRequestTitle';
@@ -24,6 +26,36 @@ import AddWorkOrderButton from './AddWorkOrderButton';
 import { makeStyles } from '@material-ui/core';
 import FailureCauseFilter from '../FailureCause/FailureCauseFilter';
 import WorkOrderFilter from '../WorkOrder/WorkOrderFilter';
+import jsonExport from 'jsonexport/dist';
+import AddWRStatusButton from './AddWRStatusButton';
+import WRStatusFilter from '../WRStatus/WRStatusFilter';
+
+const exporterFailureCause = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'FailureCauseList')
+  
+    })
+};
+
+const exporterWorkOrder = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'WorkOrderList')
+  
+    })
+};
+
+const exporterWRStatus = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'WRStatusList')
+  
+    })
+};
 
 const ShowActions = ({ basePath, data }) => (
     <TopToolbar>
@@ -51,6 +83,18 @@ const WorkOrderActions = ({ basePath, data }) => {
   return (
     <TopToolbar>
         <AddWorkOrderButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const WRStatusActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddWRStatusButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
@@ -123,7 +167,7 @@ const WorkRequestShow = (props) =>  {
                     target="WorkRequestID"
                     filter={{ WorkRequestID: record.id }}
                 >
-                <List empty={false} filters={<FailureCauseFilter />} actions={<FailureCauseActions data={record}/>}>
+                <List exporter={exporterFailureCause} empty={false} filters={<FailureCauseFilter />} actions={<FailureCauseActions data={record}/>}>
                     <Datagrid>
                         <ReferenceField label="نام علت" textAlgin="right" source="FailureCauseID" reference="PMWorks/FailureCause">
                             <TextField source="FailureCauseName" />
@@ -142,12 +186,33 @@ const WorkRequestShow = (props) =>  {
                     target="WorkRequestID"
                     filter={{ WorkRequestID: record.id }}
                 >
-                <List empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
+                <List exporter={exporterWorkOrder} empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
                     <Datagrid>
                         <WorkOrderField textAlgin="right" source="id" />
                         <DateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
                         <DateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                         <DateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+                    </Datagrid>
+                    </List>
+                </ReferenceManyField>
+            </Tab>
+            <Tab label="وضعیت" path="PMWorks/WRStatus">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/WRStatus"
+                    target="WorkRequestID"
+                    filter={{ WorkRequestID: record.id }}
+                >
+                <List exporter={exporterWRStatus} empty={false} filters={<WRStatusFilter />} actions={<WRStatusActions data={record}/>}>
+                    <Datagrid>
+                        <ReferenceField label="کد وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusCode" />
+                        </ReferenceField>
+                        <ReferenceField label="نام وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusName" />
+                        </ReferenceField>
+                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
+                        <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
                     </Datagrid>
                     </List>
                 </ReferenceManyField>

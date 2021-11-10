@@ -10,26 +10,20 @@ const styles = {
     fontSize: '0.8125rem',
     paddingLeft: '0px',
     paddingTop: '3px'
-  },
-  dis:{
-      display: 'none',
-  },
+  }
 };
 
-const AddWorkOrderButton = ({ classes, record }) => (
+const AddWRStatusButton = ({ classes, record }) => (
   <Button
     className={classes.button}
-    className={{
-      [classes.dis]: record.Status == 11 || record.Status == 12,
-    }}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WorkOrder/create?WorkRequestID=${record.id}`}
+    to={`/PMWorks/WRStatus/create?WorkRequestID=${record.id}`}
     label="ایجاد"
-    title="اضافه کردن دستور کار"
+    title="اضافه کردن وضعیت"
   >
     <AddIcon />
   </Button>
 );
 
-export default withStyles(styles)(AddWorkOrderButton);
+export default withStyles(styles)(AddWRStatusButton);

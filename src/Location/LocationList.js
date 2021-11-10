@@ -8,7 +8,8 @@ import {
     CardActions,
     TopToolbar,
     ExportButton,
-    CreateButton
+    CreateButton,
+    downloadCSV
 }
 from 'react-admin';
 import Button from '@material-ui/core/Button';
@@ -17,6 +18,22 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
 import LocationFilter from './LocationFilter';
 import { ImportButton } from "react-admin-import-csv";
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
+  
+const exporter = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'LocationList')
+  
+    })
+};
 
 const ListActions = (props) => {
     const classes = useStyles();
@@ -25,7 +42,7 @@ const ListActions = (props) => {
     <TopToolbar>
       <CreateButton/>
       <ExportButton className={classes.ex} label="خروجی"/>
-      <ImportButton label="ورودی" {...props}/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
 };
@@ -170,7 +187,7 @@ const LocationShow = props => {
 };
 
 const LocationList = props => (
-    <List {...props} actions={<ListActions />} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان">
+    <List {...props} actions={<ListActions />} exporter={exporter} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان">
         <Datagrid expand={<LocationShow />}>
             <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
             <TextField label="نام مکان" textAlgin="right" source="LocationName" />

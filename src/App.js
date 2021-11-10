@@ -179,7 +179,8 @@ import AssetClassTaskEdit from './AssetClassTask/AssetClassTaskEdit';
 import AssetClassTaskShow from './AssetClassTask/AssetClassTaskShow';
 import AssetClassTaskAddCreate from './AssetClassTask/AssetClassTaskAddCreate';
 
-import WorkRequestList from './WorkRequest/WorkRequestList';
+import WorkRequestList from './WorkRequest/wrl';
+//import WorkRequestList from './WorkRequest/WorkRequestList';
 import {WorkRequestCreate} from './WorkRequest/WorkRequestCreate';
 import WorkRequestEdit from './WorkRequest/WorkRequestEdit';
 import WorkRequestShow from './WorkRequest/WorkRequestShow';
@@ -209,7 +210,8 @@ import WOTaskCreate from './WOTask/WOTaskCreate';
 import WOTaskEdit from './WOTask/WOTaskEdit';
 import WOTaskShow from './WOTask/WOTaskShow';
 
-import WorkOrderList from './WorkOrder/WorkOrderList';
+import WorkOrderList from './WorkOrder/wol';
+//import WorkOrderList from './WorkOrder/WorkOrderList';
 import WorkOrderCreate from './WorkOrder/WorkOrderCreate';
 import WorkOrderEdit from './WorkOrder/WorkOrderEdit';
 import WorkOrderShow from './WorkOrder/WorkOrderShow';
@@ -243,6 +245,10 @@ import UserList from './User/UserList';
 import UserCreate from './User/UserCreate';
 import UserEdit from './User/UserEdit';
 import UserShow from './User/UserShow';
+
+import WRStatusCreate from './WRStatus/WRStatusCreate';
+
+import WOStatusCreate from './WOStatus/WOStatusCreate';
 
 import customRoutes from './customRoutes';
 
@@ -376,11 +382,19 @@ const theme = createMuiTheme({
             root:{
                 fontFamily: ' !important',
             },
+            fullWidth:{
+                fontFamily: 'inherit',
+            },
         },
         MuiPickerModal:{
                 dialogRoot:{
                     direction: 'ltr'
                 },
+        },
+        MuiPickersTimePickerToolbar:{
+            hourMinuteLabel:{
+                direction: 'ltr'
+            },
         },
         MuiSwitch: {
             switchBase: {
@@ -433,18 +447,18 @@ let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8
 const App = () => (
     <Admin disableTelemetry theme={theme} loginPage={MyLoginPage} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >
         <Resource name="modiriat" icon={AddBoxOutlinedIcon} options={{ "label": "پنل کاربری", "isMenuParent": true }} />
-        <Resource name="barnamenet" icon={EventAvailableOutlinedIcon} options={{ "label": "برنامه‌ریزی نت", "isMenuParent": true }} />
-        <Resource name="tajhiz" icon={SettingsInputComponentOutlinedIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
+        <Resource name="barnamenet" icon={EventAvailableOutlinedIcon} options={{ "label": "برنامه‌ریزی", "isMenuParent": true }} />
         <Resource name="gozaresh" icon={AssessmentOutlinedIcon} options={{ "label": "گزارش و شاخص‌", "isMenuParent": true }} />
-        <Resource name="standard" icon={AssignmentOutlinedIcon} options={{ "label": "استاندارسازی نت", "isMenuParent": true }} />
-        <Resource name="hazine" icon={MonetizationOnOutlinedIcon} options={{ "label": "هزینه‌ نت", "isMenuParent": true }} />
-        <Resource name="makan" icon={EditLocationOutlinedIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
-        <Resource name="fani" icon={ArchiveOutlinedIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
-        <Resource name="niro" icon={PermIdentityOutlinedIcon} options={{ "label": "نیروی انسانی", "isMenuParent": true }} />
+        <Resource name="tajhiz" icon={SettingsInputComponentOutlinedIcon} options={{ "label": "مدیریت تجهیزات", "isMenuParent": true }} />
         <Resource name="yadak" icon={SettingsInputSvideoOutlinedIcon} options={{ "label": "قطعات یدکی", "isMenuParent": true }} />
-        <Resource name="tamin" icon={PeopleOutlinedIcon} options={{ "label": "تامین‌کنندگان", "isMenuParent": true }} />
-        <Resource name="paye" icon={SettingsOutlinedIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
+        <Resource name="standard" icon={AssignmentOutlinedIcon} options={{ "label": "استانداردسازی", "isMenuParent": true }} />
+        <Resource name="fani" icon={ArchiveOutlinedIcon} options={{ "label": "آرشیو فنی", "isMenuParent": true }} />
+        <Resource name="makan" icon={EditLocationOutlinedIcon} options={{ "label": "مدیریت مکان", "isMenuParent": true }} />
         <Resource name="dast" icon={PersonAddOutlinedIcon} options={{ "label": "دسترسی", "isMenuParent": true }} />
+        <Resource name="niro" icon={PermIdentityOutlinedIcon} options={{ "label": "نیروی انسانی", "isMenuParent": true }} />
+        <Resource name="tamin" icon={PeopleOutlinedIcon} options={{ "label": "تامین‌کنندگان", "isMenuParent": true }} />
+        <Resource name="hazine" icon={MonetizationOnOutlinedIcon} options={{ "label": "هزینه‌ نت", "isMenuParent": true }} />
+        <Resource name="paye" icon={SettingsOutlinedIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
         <Resource name="PMWorks/AssetClass" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
         <Resource name="PMWorks/AssetCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
         <Resource name="PMWorks/SpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate} show={SpecificDataShow}/>
@@ -490,14 +504,20 @@ const App = () => (
         <Resource name="PMWorks/WRTask" />
         <Resource name="PMWorks/Frequency" />
         <Resource name="PMWorks/WOTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه‌ریزی دستورکار', "menuParent": "barnamenet" }} list={WOTemplateList} edit={WOTemplateEdit} create={WOTemplateCreate} show={WOTemplateShow}/>
-        <Resource name="PMWorks/WOTemplateType" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی دستورکار', "menuParent": "barnamenet" }} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
+        <Resource name="PMWorks/WOTemplateType" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی', "menuParent": "barnamenet" }} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
         <Resource name="PMWorks/WOActivityTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت برنامه ها'}} edit={WOActivityTemplateEdit} create={WOActivityTemplateCreate} show={WOActivityTemplateShow}/>
         <Resource name="PMWorks/WOTemplateSchualing" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
         <Resource name="PMWorks/TemplateSchualingDate" />
         <Resource name="PMWorks/TaskTemp" />
         <Resource name="PMWorks/User" icon={ArrowLeftOutlinedIcon} options={{ label: 'کاربران', "menuParent": "dast" }} list={UserList} edit={UserEdit} create={UserCreate} show={UserShow} />
-
-
+        <Resource name="PMWorks/Status" />
+        <Resource name="PMWorks/WRStatus" create={WRStatusCreate}/>
+        <Resource name="PMWorks/WOStatus" create={WOStatusCreate}/>
+        <Resource name="PMWorks/WRWORelationStatus" />
+        <Resource name="PMWorks/WorkflowLevelStatus" />
+        <Resource name="PMWorks/WorkflowLevel" />
+        <Resource name="PMWorks/StatusWR" />
+        <Resource name="PMWorks/StatusWO" />
     </Admin>
 );
 

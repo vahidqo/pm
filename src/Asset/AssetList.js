@@ -7,14 +7,24 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
-    DateField
+    downloadCSV
 }
 from 'react-admin';
 import AssetFilter from './AssetFilter';
 import {JalaliField} from 'ra-hichestan-datetime';
+import jsonExport from 'jsonexport/dist';
+
+const exporter = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'AssetList')
+  
+    })
+  }
 
 const AssetList = props => (
-    <List filters={<AssetFilter />} {...props} title="تجهیز">
+    <List exporter={exporter} filters={<AssetFilter />} {...props} title="تجهیز">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.AssetName} />

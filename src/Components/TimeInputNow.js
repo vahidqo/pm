@@ -47,10 +47,11 @@ const Picker = ({ PickerComponent, ...fieldProps }) => {
         clearLabel="پاک کردن" 
         inputVariant="filled"
         margin="dense"
+        disabled
         className={classes.width}
         />
     </MuiPickersUtilsProvider>
   );
 };
 
-export const TimeInput = (props) => <Picker PickerComponent={TimePicker} {...props} />;
+export const TimeInputNow = (props) => <Picker PickerComponent={TimePicker} {...props} />;

@@ -6,13 +6,54 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
-    ReferenceField
+    ReferenceField,
+    downloadCSV,
+    TopToolbar,
+    CreateButton,
+    ExportButton
 }
 from 'react-admin';
 import SparePartFilter from './SparePartFilter';
+import { ImportButton } from "react-admin-import-csv";
+import { makeStyles } from '@material-ui/core';
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+  parseConfig: {
+      encoding: 'ISO-8859-1'
+  },
+};
+
+const exporter = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'SparePartList')
+
+  })
+};
+
+const useStyles = makeStyles({
+    ex: {
+        fontFamily: 'inherit',
+    }
+});
+
+const ListActions = (props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+      <CreateButton/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
+    </TopToolbar>
+  );
+};
 
 const SparePartList = props => (
-    <List filters={<SparePartFilter />} {...props} title="قطعات">
+    <List actions={<ListActions />} exporter={exporter} filters={<SparePartFilter />} {...props} title="قطعات">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.SparePartName} />

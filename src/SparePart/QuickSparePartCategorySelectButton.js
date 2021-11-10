@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Button } from "react-admin";
 import { Dialog } from "@material-ui/core";
 import TouchAppIcon from '@material-ui/icons/TouchApp';
-import SparePartList from "./SparePartList";
+import SparePartCategoryList from "./SparePartCategoryList";
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-  fir: { fontFamily: 'system-ui', marginBottom: '16px' },
+  fir: { fontFamily: 'system-ui', marginBottom: '30px' },
 
 });
 
-const QuickSelectSparePartButton = ({ id, setId, ...props }) => {
+const QuickSparePartCategorySelectButton = ({ id, setId, ...props }) => {
   const [showPanel, setShowPanel] = useState(false);
   const classes = useStyles();
 
@@ -23,10 +23,10 @@ const QuickSelectSparePartButton = ({ id, setId, ...props }) => {
         <TouchAppIcon />
       </Button>
       <Dialog fullWidth open={showPanel} onClose={toggleDrawer}>
-        <SparePartList style={{width: '780px'}} {...props} resource="PMWorks/WRSpare" setId={setId} setShowPanel={setShowPanel} />
+        <SparePartCategoryList style={{width: '780px'}} {...props} resource="PMWorks/SparePartCategory" setId={setId} setShowPanel={setShowPanel} />
       </Dialog>
     </>
   );
 };
 
-export default QuickSelectSparePartButton;
+export default QuickSparePartCategorySelectButton;

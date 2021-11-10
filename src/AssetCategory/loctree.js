@@ -8,6 +8,7 @@ import {
     CardActions,
     TopToolbar,
     ExportButton,
+    downloadCSV,
     CreateButton
 }
 from 'react-admin';
@@ -17,6 +18,22 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
 import AssetCategoryFilter from './AssetCategoryFilter';
 import { ImportButton } from "react-admin-import-csv";
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
+
+const exporter = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'AssetcategoryList')
+
+  })
+}
 
 const ListActions = (props) => {
     const classes = useStyles();
@@ -25,7 +42,7 @@ const ListActions = (props) => {
     <TopToolbar>
       <CreateButton/>
       <ExportButton className={classes.ex} label="خروجی"/>
-      <ImportButton label="ورودی" {...props}/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
 };
@@ -171,7 +188,7 @@ const AssetcategoryShow = props => {
 };
 
 const AssetcategoryList = props => (
-    <List {...props} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
+    <List {...props} exporter={exporter} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
         <Datagrid expand={<AssetcategoryShow />}>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />

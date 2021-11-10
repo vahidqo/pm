@@ -12,6 +12,7 @@ import {
     useShowController,
     Tab,
     List,
+    downloadCSV,
     TabbedShowLayout
 }
 from 'react-admin';
@@ -20,6 +21,25 @@ import AssetClassFilter from '../AssetClass/AssetClassFilter';
 import AddAssetCategoryButton from './AddAssetCategoryButton';
 import AddAssetClassAssetClassButton from './AddAssetClassAssetClassButton';
 import { makeStyles } from '@material-ui/core/styles';
+import jsonExport from 'jsonexport/dist';
+
+const exporterAssetCategory = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'AssetCategoryList')
+
+  })
+};
+
+const exporterAssetClass = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'AssetClassList')
+  
+    })
+  };
 
 const useStyles = makeStyles({
     sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
@@ -72,7 +92,7 @@ const AssetCategoryShow = (props) => {
                     target="AssetClassFather"
                     filter={{ AssetClassFather: record.id }}
                 >
-                    <List empty={false} filters={<AssetCategoryFilter />} actions={<AssetCategoryActions data={record}/>}>
+                    <List empty={false} exporter={exporterAssetCategory} filters={<AssetCategoryFilter />} actions={<AssetCategoryActions data={record}/>}>
                         <Datagrid>
                             <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
                             <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
@@ -87,7 +107,7 @@ const AssetCategoryShow = (props) => {
                     target="AssetCategoryID"
                     filter={{ AssetCategoryID: record.id }}
                 >
-                    <List empty={false} filters={<AssetClassFilter />} actions={<AssetClassActions data={record}/>}>
+                    <List empty={false} exporter={exporterAssetClass} filters={<AssetClassFilter />} actions={<AssetClassActions data={record}/>}>
                         <Datagrid>
                             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
                             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />

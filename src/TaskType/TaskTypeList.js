@@ -8,12 +8,29 @@ import {
     ShowButton,
     SimpleList,
     CreateButton,
-    TopToolbar
+    TopToolbar,
+    downloadCSV
 }
 from 'react-admin';
 import TaskTypeFilter from './TaskTypeFilter';
 import { ImportButton } from "react-admin-import-csv";
 import { makeStyles } from '@material-ui/core';
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
+  
+const exporter = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'TaskTypeList')
+  
+    })
+};
 
 const useStyles = makeStyles({
     ex: {
@@ -29,13 +46,13 @@ const ListActions = (props) => {
     <TopToolbar>
       <CreateButton/>
       <ExportButton className={classes.ex} label="خروجی"/>
-      <ImportButton label="ورودی" {...props}/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
 };
 
 const TaskTypeList = props => (
-    <List actions={<ListActions />} filters={<TaskTypeFilter />} {...props} title="انواع وظیفه">
+    <List actions={<ListActions />} exporter={exporter} filters={<TaskTypeFilter />} {...props} title="انواع وظیفه">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.TaskTypeName} />

@@ -32,6 +32,7 @@ const SparePartRefrenceInput = props => {
             </ReferenceInput>
 
             <QuickSelectSparePartButton {...props} id={values.SparePartID} setId={(id) => onChange(id)} />        
+            <QuickAddSparePartButton onChange={handleChange} />
             <QuickPreviewSparePartButton id={values.SparePartID} />
         </div>
     );

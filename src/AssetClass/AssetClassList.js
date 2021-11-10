@@ -7,7 +7,7 @@ import {
     Responsive,
     ShowButton,
     SimpleList,
-    EditButton,
+    downloadCSV,
     TopToolbar,
     CreateButton,
     ExportButton
@@ -16,6 +16,22 @@ from 'react-admin';
 import AssetClassFilter from './AssetClassFilter';
 import { ImportButton } from "react-admin-import-csv";
 import { makeStyles } from '@material-ui/core';
+import jsonExport from 'jsonexport/dist';
+
+const importOptions = {
+  parseConfig: {
+      encoding: 'ISO-8859-1'
+  },
+};
+
+const exporter = (data) => {
+  const BOM = '\uFEFF'
+
+  jsonExport(data, (err, csv) => {
+    downloadCSV(`${BOM} ${csv}`, 'AssetClassList')
+
+  })
+};
 
 const useStyles = makeStyles({
     ex: {
@@ -31,13 +47,13 @@ const ListActions = (props) => {
     <TopToolbar>
       <CreateButton/>
       <ExportButton className={classes.ex} label="خروجی"/>
-      <ImportButton label="ورودی" {...props}/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
 };
 
 const AssetClassList = props => (
-    <List actions={<ListActions />} filters={<AssetClassFilter />} {...props} title="خانواده تجهیز">
+    <List actions={<ListActions />} exporter={exporter} filters={<AssetClassFilter />} {...props} title="خانواده تجهیز">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.AssetClassName} />

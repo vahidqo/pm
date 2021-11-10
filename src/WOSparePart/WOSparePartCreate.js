@@ -70,7 +70,7 @@ const WOSparePartCreate = props => {
                 <SelectInput source="WorkRequestID" optionText={<WorkOrderFormat />}/>
             </ReferenceInput>
             <Separator/>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/WRSpare">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/WOSparePart">
                 <SelectInput optionText="SparePartCode" />
             </ReferenceInput>
             <FormDataConsumer formClassName={classes.sec}>
