@@ -203,7 +203,60 @@ const WorkOrderShow = (props) => {
                 <JalaaliDateField className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
                 <JalaaliDateField className={classes.sho} label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                 <JalaaliDateField className={classes.sho} label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                    <TextField source="AssetCode" />
+                </ReferenceField>
+                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                    <TextField source="AssetName" />
+                </ReferenceField>
+                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                    <TextField source="FailureModeName" />
+                </ReferenceField>
+                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                    <TextField source="StatusName" />
+                </ReferenceField>
                 <TextField className={classes.sho} label="توضیحات" textAlgin="right" source="WODescription"/>
+            </Tab>
+            <Tab label="وضعیت" path="PMWorks/WOStatus">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/WOStatus"
+                    target="WorkOrderID"
+                    filter={{ WorkOrderID: record.id }}
+                >
+                <List exporter={exporterWOStatus} empty={false} filters={<WOStatusFilter />} actions={<WOStatusActions data={record}/>}>
+                    <Datagrid>
+                        <ReferenceField label="کد وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusCode" />
+                        </ReferenceField>
+                        <ReferenceField label="نام وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusName" />
+                        </ReferenceField>
+                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
+                        <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
+                    </Datagrid>
+                    </List>
+                </ReferenceManyField>
+            </Tab>
+            <Tab label="فعالیت ها" path="PMWorks/WOTask">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/WOTask"
+                    target="WorkOrderID"
+                    filter={{ WorkOrderID: record.id }}
+                >
+                <List exporter={exporterTask} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
+                    <Datagrid>
+                        <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                            <TextField source="TaskName" />
+                        </ReferenceField>
+                        <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                            <TextField source="TaskCode" />
+                        </ReferenceField>
+                        <TextField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" />
+                    </Datagrid>
+                </List>
+                </ReferenceManyField>
             </Tab>
             <Tab label="تامین کننده" path="PMWorks/WOSupplier">
                 <ReferenceManyField
@@ -243,26 +296,6 @@ const WorkOrderShow = (props) => {
                         </ReferenceField>
                         <NumberField label="روز" textAlgin="right" source="DayAmount" />
                         <NumberField label="ساعت" textAlgin="right" source="HourAmount" />
-                    </Datagrid>
-                </List>
-                </ReferenceManyField>
-            </Tab>
-            <Tab label="فعالیت ها" path="PMWorks/WOTask">
-                <ReferenceManyField
-                    addLabel={false}
-                    reference="PMWorks/WOTask"
-                    target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
-                >
-                <List exporter={exporterTask} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
-                    <Datagrid>
-                        <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
-                            <TextField source="TaskName" />
-                        </ReferenceField>
-                        <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
-                            <TextField source="TaskCode" />
-                        </ReferenceField>
-                        <TextField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" />
                     </Datagrid>
                 </List>
                 </ReferenceManyField>
@@ -307,28 +340,7 @@ const WorkOrderShow = (props) => {
                     </Datagrid>
                 </List>
                 </ReferenceManyField>
-            </Tab>
-            <Tab label="وضعیت" path="PMWorks/WOStatus">
-                <ReferenceManyField
-                    addLabel={false}
-                    reference="PMWorks/WOStatus"
-                    target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
-                >
-                <List exporter={exporterWOStatus} empty={false} filters={<WOStatusFilter />} actions={<WOStatusActions data={record}/>}>
-                    <Datagrid>
-                        <ReferenceField label="کد وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
-                            <TextField source="StatusCode" />
-                        </ReferenceField>
-                        <ReferenceField label="نام وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
-                            <TextField source="StatusName" />
-                        </ReferenceField>
-                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
-                        <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
-                    </Datagrid>
-                    </List>
-                </ReferenceManyField>
-            </Tab>
+            </Tab>   
         </TabbedShowLayout>
     </Show>
 );

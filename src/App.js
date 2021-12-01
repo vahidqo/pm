@@ -491,7 +491,7 @@ const App = () => (
         <Resource name="PMWorks/AssetClassTask" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت ها'}} edit={AssetClassTaskEdit} create={AssetClassTaskCreate} show={AssetClassTaskShow}/>
         <Resource name="PMWorks/AssetClassTaskAdd" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت های فرعی'}} create={AssetClassTaskAddCreate} />
         <Resource name="PMWorks/WorkRequest" icon={ArrowLeftOutlinedIcon} options={{ label: 'درخواست کار', "menuParent": "modiriat" }} list={WorkRequestList} edit={WorkRequestEdit} create={WorkRequestCreate} show={WorkRequestShow} />
-        <Resource name="PMWorks/WorkOrder" icon={ArrowLeftOutlinedIcon} options={{ label: 'دستور کار', "menuParent": "modiriat" }} list={WorkOrderList} edit={WorkOrderEdit} create={WorkOrderCreate} show={WorkOrderShow} />
+        <Resource name="PMWorks/WorkOrder" icon={ArrowLeftOutlinedIcon} options={{ label: 'دستور کار', "menuParent": "modiriat" }} list={WorkOrderList} edit={WorkOrderEdit} show={WorkOrderShow} />
         <Resource name="PMWorks/WOSupplier" icon={ArrowLeftOutlinedIcon} options={{ label: 'تامین کننده دستور کارها'}} edit={WOSupplierEdit} create={WOSupplierCreate} show={WOSupplierShow}/>
         <Resource name="PMWorks/WOPersonnel" icon={ArrowLeftOutlinedIcon} options={{ label: 'پرسنل دستور کارها'}} edit={WOPersonnelEdit} create={WOPersonnelCreate} show={WOPersonnelShow}/>
         <Resource name="PMWorks/WODelay" icon={ArrowLeftOutlinedIcon} options={{ label: 'تاخیرات دستور کارها'}} edit={WODelayEdit} create={WODelayCreate} show={WODelayShow}/>
@@ -511,13 +511,14 @@ const App = () => (
         <Resource name="PMWorks/TaskTemp" />
         <Resource name="PMWorks/User" icon={ArrowLeftOutlinedIcon} options={{ label: 'کاربران', "menuParent": "dast" }} list={UserList} edit={UserEdit} create={UserCreate} show={UserShow} />
         <Resource name="PMWorks/Status" />
-        <Resource name="PMWorks/WRStatus" create={WRStatusCreate}/>
-        <Resource name="PMWorks/WOStatus" create={WOStatusCreate}/>
+        <Resource name="PMWorks/WRStatus" options={{ label: 'وضعیت'}} create={WRStatusCreate}/>
+        <Resource name="PMWorks/WOStatus" options={{ label: 'وضعیت'}} create={WOStatusCreate}/>
         <Resource name="PMWorks/WRWORelationStatus" />
         <Resource name="PMWorks/WorkflowLevelStatus" />
         <Resource name="PMWorks/WorkflowLevel" />
-        <Resource name="PMWorks/StatusWR" />
-        <Resource name="PMWorks/StatusWO" />
+        <Resource name="PMWorks/StatusWR" options={{ label: 'وضعیت'}}/>
+        <Resource name="PMWorks/StatusWO" options={{ label: 'وضعیت'}}/>
+        <Resource name="PMWorks/WorkOrderNew" options={{ label: 'درخواست کار'}} create={WorkOrderCreate} />
     </Admin>
 );
 

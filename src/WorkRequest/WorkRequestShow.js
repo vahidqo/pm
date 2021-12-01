@@ -160,42 +160,6 @@ const WorkRequestShow = (props) =>  {
                     <TextField source="TypeWrName" />
                 </ReferenceField>
             </Tab>
-            <Tab label="علل خرابی" path="PMWorks/WorkRequestFailureCause">
-                <ReferenceManyField
-                    addLabel={false}
-                    reference="PMWorks/WorkRequestFailureCause"
-                    target="WorkRequestID"
-                    filter={{ WorkRequestID: record.id }}
-                >
-                <List exporter={exporterFailureCause} empty={false} filters={<FailureCauseFilter />} actions={<FailureCauseActions data={record}/>}>
-                    <Datagrid>
-                        <ReferenceField label="نام علت" textAlgin="right" source="FailureCauseID" reference="PMWorks/FailureCause">
-                            <TextField source="FailureCauseName" />
-                        </ReferenceField>
-                        <ReferenceField label="کد علت" textAlgin="right" source="FailureCauseID" reference="PMWorks/FailureCause">
-                            <TextField source="FailureCauseCode" />
-                        </ReferenceField>
-                    </Datagrid>
-                    </List>
-                </ReferenceManyField>
-            </Tab>
-            <Tab label="دستور کارها" path="PMWorks/WorkOrder">
-                <ReferenceManyField
-                    addLabel={false}
-                    reference="PMWorks/WorkOrder"
-                    target="WorkRequestID"
-                    filter={{ WorkRequestID: record.id }}
-                >
-                <List exporter={exporterWorkOrder} empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
-                    <Datagrid>
-                        <WorkOrderField textAlgin="right" source="id" />
-                        <DateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
-                        <DateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
-                        <DateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
-                    </Datagrid>
-                    </List>
-                </ReferenceManyField>
-            </Tab>
             <Tab label="وضعیت" path="PMWorks/WRStatus">
                 <ReferenceManyField
                     addLabel={false}
@@ -213,6 +177,23 @@ const WorkRequestShow = (props) =>  {
                         </ReferenceField>
                         <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
                         <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
+                    </Datagrid>
+                    </List>
+                </ReferenceManyField>
+            </Tab>
+            <Tab label="دستور کارها" path="PMWorks/WorkOrder">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/WorkOrder"
+                    target="WorkRequestID"
+                    filter={{ WorkRequestID: record.id }}
+                >
+                <List exporter={exporterWorkOrder} empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
+                    <Datagrid>
+                        <WorkOrderField textAlgin="right" source="id" />
+                        <DateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
+                        <DateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
+                        <DateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
                     </Datagrid>
                     </List>
                 </ReferenceManyField>

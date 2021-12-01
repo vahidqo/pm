@@ -7,7 +7,6 @@ import {
     TextField,
     TopToolbar,
     ExportButton,
-    ReferenceManyField,
     Button,
     downloadCSV
 } from 'react-admin';
@@ -22,6 +21,8 @@ import  WorkOrderFilter from './WorkOrderFilter';
 import jsonExport from 'jsonexport/dist';
 import JalaaliDateField  from '../Components/JalaaliDateField';
 import { ImportButton } from "react-admin-import-csv";
+import AddIcon from '@material-ui/icons/Add';
+import { Link } from 'react-router-dom';
 
 const importOptions = {
     parseConfig: {
@@ -47,6 +48,22 @@ const useStyles = makeStyles({
     },
 });
 
+const WOStatusButton = ({ record }) => {
+  
+    return (
+          <Button
+              component={Link}
+              to={`/PMWorks/WOStatus/create?WorkOrderID=${record.id}`}
+              label="تغییر وضعیت"
+              title="تغییر وضعیت"
+              color="secondary"
+          >
+            <AddIcon />
+          </Button>
+        );
+          };
+
+
 const ListActions = (props) => {
 
     const classes = useStyles();
@@ -69,7 +86,7 @@ const WorkOrderField = ({ record = {} }) => {
     return <span> {text} {texto} </span>;
 };
 
-WorkOrderField.defaultProps = { label: 'کد دستور کار' };
+WorkOrderField.defaultProps = { label: 'کد' };
 
 const useDatagridStyles = makeStyles({
     total: { fontWeight: 'bold' },
@@ -123,18 +140,41 @@ class TabbedDatagrid extends React.Component {
                                 ids={this.state.op}
                             >
                                 <WorkOrderField textAlgin="right" source="id" />
-                                <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
                                 <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                                 <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                    <TextField source="AssetCode" />
+                                </ReferenceField>
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                    <TextField source="AssetName" />
+                                </ReferenceField>
+                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                                    <TextField source="FailureModeName" />
+                                </ReferenceField>
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                    <TextField source="StatusName" />
+                                </ReferenceField>
+                                <WOStatusButton/>                            
                                 <ShowButton />
                             </Datagrid>
                         )}
                         {filterValues.StatusID__OpCl === '2' && (
                             <Datagrid {...props} ids={this.state.cl}>
                                 <WorkOrderField textAlgin="right" source="id" />
-                                <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
                                 <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                                 <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                    <TextField source="AssetCode" />
+                                </ReferenceField>
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                    <TextField source="AssetName" />
+                                </ReferenceField>
+                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                                    <TextField source="FailureModeName" />
+                                </ReferenceField>
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                    <TextField source="StatusName" />
+                                </ReferenceField>
                                 <ShowButton />
                             </Datagrid>
                         )}

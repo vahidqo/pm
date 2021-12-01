@@ -58,7 +58,7 @@ const WRStatusCreate = props => {
     
     const onSuccess = () => {
         notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WorkRequestID/${WorkRequestID}/show/PMWorks/WRStatus`);
+        redirect(`/PMWorks/WorkRequest/${WorkRequestID}/show/PMWorks/WRStatus`);
         refresh();
     };
 

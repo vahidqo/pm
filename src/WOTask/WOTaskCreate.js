@@ -3,7 +3,6 @@ import {
     SimpleForm,
     Toolbar,
     Create,
-    TextInput,
     ReferenceInput,
     SelectInput,
     FormDataConsumer,
@@ -46,6 +45,12 @@ const WorkOrderFormat = ({ record }) => {
     return <span> {text} {texto} </span>;
 };
 
+const freq = [
+    { _id: '1', full_name: 'انجام شده'},
+    { _id: '2', full_name: 'انجام نشده'},
+    { _id: '3', full_name: 'نیاز به انجام نمی‌باشد'}
+];
+
 const WOTaskCreate = props => {
     const classes = useStyles();
     const notify = useNotify();
@@ -79,7 +84,7 @@ const WOTaskCreate = props => {
                 }
             </FormDataConsumer>
             <Separator/>
-            <TextInput formClassName={classes.fir} textAlgin="right" label="وضعیت" source="WOTaskSituationOfDo" />
+            <SelectInput formClassName={classes.fir} label="وضعیت" textAlgin="right" source="WOTaskSituationOfDo" choices={freq} optionText="full_name" optionValue="_id" />
         </SimpleForm>
     </Create>
     );

@@ -81,6 +81,20 @@ const WorkOrderField = ({ record = {} }) => {
 };
 
 WorkRequestField.defaultProps = { label: 'کد' };
+WorkOrderField.defaultProps = { label: 'کد' };
+
+const WOActions = props => {
+
+    const classes = useStyles();
+
+  return (
+    <TopToolbar>
+      <WOButton {...props}/>
+      <ExportButton className={classes.ex} label="خروجی"/>
+      <ImportButton label="ورودی" {...props} {...importOptions}/>
+    </TopToolbar>
+  );
+};
 
 const WorkOrderList = props => {
 
@@ -92,12 +106,15 @@ const WorkOrderList = props => {
                 filter={{ WorkRequestID: props.record.id }}
                 sort={{ field: 'WODateOfRegistration', order: 'ASC' }}
     >
-    <List {...props} actions={null} title=" "  >
+    <List {...props} actions={<WOActions {...props}/>} empty={false} title=" "  >
         <Datagrid>
             <WorkOrderField textAlgin="right" source="id" />
-            <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
             <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
             <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+            <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                <TextField source="StatusName" />
+            </ReferenceField>
+            <WOStatusButton />
             <ShowButton />
         </Datagrid>
     </List>
@@ -105,19 +122,49 @@ const WorkOrderList = props => {
 );
     };
 
-const WOButton = ({ record }) => {
+const WOButton = props => {
 
     const classes = useStyles();
-  
+
   return (
         <Button
             className={{
-                [classes.dis]: record.StatusID == 11 || record.StatusID == 12,
+                [classes.dis]: props.record.StatusID == 11 || props.record.StatusID == 12 || props.record.StatusID == 14,
             }}
             component={Link}
-            to={`/PMWorks/WorkOrder/create?WorkRequestID=${record.id}`}
+            to={`/PMWorks/WorkOrderNew/create?WorkRequestID=${props.record.id}`}
             label="ایجاد دستورکار"
             title="ایجاد دستورکار"
+            color="secondary"
+        >
+          <AddIcon />
+        </Button>
+      );
+        };
+
+const WRStatusButton = ({ record }) => {
+  
+  return (
+        <Button
+            component={Link}
+            to={`/PMWorks/WRStatus/create?WorkRequestID=${record.id}`}
+            label="تغییر وضعیت"
+            title="تغییر وضعیت"
+            color="secondary"
+        >
+          <AddIcon />
+        </Button>
+      );
+        };
+
+const WOStatusButton = ({ record }) => {
+  
+  return (
+        <Button
+            component={Link}
+            to={`/PMWorks/WOStatus/create?WorkOrderID=${record.id}`}
+            label="تغییر وضعیت"
+            title="تغییر وضعیت"
             color="secondary"
         >
           <AddIcon />
@@ -197,7 +244,10 @@ class TabbedDatagrid extends React.Component {
                                 <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
                                     <TextField source="TypeWrName" />
                                 </ReferenceField>
-                                <WOButton />
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                    <TextField source="StatusName" />
+                                </ReferenceField>
+                                <WRStatusButton/>
                                 <ShowButton />
                             </Datagrid>
                         )}
@@ -222,6 +272,9 @@ class TabbedDatagrid extends React.Component {
                                 </ReferenceField>
                                 <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
                                     <TextField source="TypeWrName" />
+                                </ReferenceField>
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                    <TextField source="StatusName" />
                                 </ReferenceField>
                                 <ShowButton />
                             </Datagrid>

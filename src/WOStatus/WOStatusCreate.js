@@ -61,7 +61,7 @@ const WOStatusCreate = props => {
 
     const onSuccess = () => {
         notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WorkOrderID/${WorkOrderID}/show/PMWorks/WOStatus`);
+        redirect(`/PMWorks/WorkOrder/${WorkOrderID}/show/PMWorks/WOStatus`);
         refresh();
     };
 
