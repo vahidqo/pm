@@ -4,36 +4,39 @@ const dataProvider = drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTTo
 
 const myDataProvider = {
     ...dataProvider,
-    update: (resource, params) => {
-        if (resource !== 'posts' || !params.data.pictures) {
+    create: (resource, params) => {
+        if (resource !== 'PMWorks/Document' || !params.data.FileAddress) {
             // fallback to the default implementation
-            return dataProvider.update(resource, params);
+            return dataProvider.create(resource, params);
         }
-        // The posts edition form uses a file upload widget for the pictures field.
-        // Freshly dropped pictures are File objects
-        // and must be converted to base64 strings
-        const newPictures = params.data.pictures.filter(
+        // The PMWorks/Document edition form uses a file upload widget for the FileAddress field.
+        // Freshly dropped FileAddress are File objects Object.values(data)
+        // and must be converted to base64 strings .entries(data)
+        const newFileAddress = Object.values(params.data.FileAddress).filter(
             p => p.rawFile instanceof File
         );
-        const formerPictures = params.data.pictures.filter(
+
+        const formerFileAddress = Object.values(params.data.FileAddress).filter(
             p => !(p.rawFile instanceof File)
         );
+        console.log('llll', newFileAddress);
+        console.log('dd', formerFileAddress[1]);
 
-        return Promise.all(newPictures.map(convertFileToBase64))
-            .then(base64Pictures =>
-                base64Pictures.map(picture64 => ({
-                    src: picture64,
-                    title: `${params.data.title}`,
+        return Promise.all(formerFileAddress[1].map(convertFileToBase64))
+            .then(base64FileAddress =>
+                base64FileAddress.map(FileAddress64 => ({
+                    src: FileAddress64,
+                    title: `${params.data.DocumentCode}`,
                 }))
             )
-            .then(transformedNewPictures =>
-                dataProvider.update(resource, {
+            .then(transformedNewFileAddress =>
+                dataProvider.create(resource, {
                     ...params,
                     data: {
                         ...params.data,
-                        pictures: [
-                            ...transformedNewPictures,
-                            ...formerPictures,
+                        FileAddress: [
+                            ...transformedNewFileAddress,
+                            ...formerFileAddress,
                         ],
                     },
                 })
@@ -49,6 +52,7 @@ const myDataProvider = {
 const convertFileToBase64 = file =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
+        console.log('fff',file.rawFile);
         reader.readAsDataURL(file.rawFile);
 
         reader.onload = () => resolve(reader.result);

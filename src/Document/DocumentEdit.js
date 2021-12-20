@@ -3,7 +3,7 @@ import {
     Edit,
     SimpleForm,
     FileInput,
-    SelectInput,
+    FileField,
     TextInput,
 }
 from 'react-admin';
@@ -16,8 +16,10 @@ const DocumentEdit = props => (
         <SimpleForm>
             <TextInput label="کد سند" textAlgin="right" source="DocumentCode" />
             <TextInput label="نام سند" textAlgin="right" source="DocumentName" />
-            <RichTextInput label="توضیحات سند" textAlgin="right" source="DocumentDescription" toolbar={[ ['bold', 'italic', 'underline', 'link'] ]} />
-            <FileInput source="FileAddress" label="فایل سند" placeholder={<p>فایل خود را در اینجا بکشید و رها کنید</p>} />
+            <TextInput multiline label="توضیحات سند" textAlgin="right" source="DocumentDescription" />
+            <FileInput source="FileAddress" label="فایل سند" placeholder={<p>فایل خود را در اینجا بکشید و رها کنید</p>} >
+                <FileField source="src" title="title" />
+            </FileInput>
         </SimpleForm>
     </Edit>
 );

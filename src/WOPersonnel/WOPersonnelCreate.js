@@ -53,21 +53,25 @@ const WOPersonnelCreate = props => {
     const refresh = useRefresh();
     const redirect = useRedirect();
 
-    const { WorkOrderID: WorkOrderID_string } = parse(props.location.search);
-    const WorkOrderID = WorkOrderID_string ? parseInt(WorkOrderID_string, 10) : '';
+    const { WOTaskID: WOTaskID_string } = parse(props.location.search);
+    const WOTaskID = WOTaskID_string ? parseInt(WOTaskID_string, 10) : '';
 
     const onSuccess = () => {
         notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WOPersonnel/create?WorkOrderID=${WorkOrderID}`);
+        redirect(`/PMWorks/WOPersonnel/create?WOTaskID=${WOTaskID}`);
         refresh();
     };
 
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد پرسنل دستور کار">
-        <SimpleForm validate={validateError} initialValues={{ WorkOrderID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.width} label="کد درخواست‌کار" source="WorkOrderID" textAlgin="right" reference="PMWorks/WorkOrder">
-                <SelectInput source="WorkRequestID" optionText={<WorkOrderFormat />}/>
+        <SimpleForm validate={validateError} initialValues={{ WOTaskID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد فعالیت" textAlgin="right" source="WOTaskID" reference="PMWorks/WOTask">
+                <SelectInput optionText="TaskID__TaskCode"/>
             </ReferenceInput>
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام فعالیت" textAlgin="right" source="WOTaskID" reference="PMWorks/WOTask">
+                <SelectInput optionText="TaskID__TaskName"/>
+            </ReferenceInput>
+            <Separator/>
             <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                 <SelectInput optionText="PersonnelCode" />
             </ReferenceInput>

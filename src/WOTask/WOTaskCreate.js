@@ -29,8 +29,8 @@ const Separator = () => <Box pt="0em" />;
 
 const validateError = (values) => {
     const errors = {};
-    if (!values.SupplierID) {
-        errors.SupplierID = 'تامین‌کننده را وارد کنید';
+    if (!values.TaskID) {
+        errors.TaskID = 'وظیفه را وارد کنید';
     }
     return errors
 };
@@ -46,9 +46,9 @@ const WorkOrderFormat = ({ record }) => {
 };
 
 const freq = [
-    { _id: '1', full_name: 'انجام شده'},
-    { _id: '2', full_name: 'انجام نشده'},
-    { _id: '3', full_name: 'نیاز به انجام نمی‌باشد'}
+    { _id: 'D', full_name: 'انجام شده'},
+    { _id: 'ND', full_name: 'انجام نشده'},
+    { _id: 'N', full_name: 'نیاز به انجام نمی‌باشد'}
 ];
 
 const WOTaskCreate = props => {

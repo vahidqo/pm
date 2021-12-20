@@ -6,6 +6,7 @@ import BackIcon from '@material-ui/icons/ArrowBack'
 import BackButton from './Components/BackButton'
 import Clock from 'react-live-clock';
 import jMoment from 'moment-jalaali';
+import Logo from './logo';
 
 const styles = {
     title: {
@@ -15,7 +16,7 @@ const styles = {
         overflow: 'hidden',
     },
     spacer: {
-        flex: 1,
+        flex: 0.5,
     },
     tim:{
         marginBottom: '4px',
@@ -30,8 +31,10 @@ const MyAppBar = withStyles(styles)(({ classes, ...props }) => (
             className={classes.title}
             id="react-admin-title"
         />
+        <Logo />
+        <span className={classes.spacer} />
         <Clock
-          filter={date => jMoment(date).locale('fa').format('تاریخ: dddd jD jMMMM jYYYY ساعت: HH:mm')}
+          filter={date => jMoment(date).locale('fa').format('dddd jD jMMMM jYYYY - HH:mm')}
           format={'YYYY-M-D HH:mm'}
           ticking={true}
           className={classes.tim}

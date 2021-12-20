@@ -5,7 +5,7 @@ import { Title } from 'react-admin';
 
 export default () => (
     <Card>
-        <Title title="داشبورد نرم افزار PMWorks_II " />
+        <Title title="داشبورد نرم‌افزار نگهداری و تعمیرات آویژه" />
         <CardContent>صفحه اول نرم افزار شامل نمودارها و جداول مهم...</CardContent>
     </Card>
 );

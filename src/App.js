@@ -257,7 +257,7 @@ const messages = {
     'fa': farsiMessages,
 };
 
-//customRoutes={customRoutes} loginPage={MyLoginPage} authProvider={authProvider} dataProvider={drfProvider('http://127.0.0.1:8000')}
+//customRoutes={customRoutes} loginPage={MyLoginPage} authProvider={authProvider} dataProvider={myDataProvider} dataProvider={drfProvider('http://127.0.0.1:8000')}
 
 const theme = createMuiTheme({
     palette: {
@@ -384,6 +384,9 @@ const theme = createMuiTheme({
             },
             fullWidth:{
                 fontFamily: 'inherit',
+            },
+            wrapper:{
+                fontFamily: 'system-ui',
             },
         },
         MuiPickerModal:{

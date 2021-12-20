@@ -14,7 +14,9 @@ import {
     ExportButton,
     ListButton,
     List,
-    downloadCSV
+    downloadCSV,
+    ShowButton,
+    SelectField
 }
 from 'react-admin';
 import WorkOrderTitle from './WorkOrderTitle';
@@ -32,6 +34,8 @@ import WOTaskFilter from '../WOTask/WOTaskFilter';
 import jsonExport from 'jsonexport/dist';
 import WOStatusFilter from '../WOStatus/WOStatusFilter';
 import AddWOStatusButton from './AddWOStatusButton';
+import AddPersonnelButton from '../WOTask/AddPersonnelButton';
+import AddSparePartButton from '../WOTask/AddSparePartButton';
 
 const exporterSupplier = (data) => {
     const BOM = '\uFEFF'
@@ -184,9 +188,97 @@ const WorkOrderField = ({ record = {} }) => {
     return <span> {text} {texto} </span>;
 };
 
+const freq = [
+    { _id: 'D', full_name: 'انجام شده'},
+    { _id: 'ND', full_name: 'انجام نشده'},
+    { _id: 'N', full_name: 'نیاز به انجام نمی‌باشد'}
+];
+
 WorkOrderField.defaultProps = { label: 'کد دستور کار', addLabel: true };
 
 JalaaliDateField.defaultProps = { addLabel: true};
+
+const WOoSparePartActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddSparePartButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const WOoPersonnelActions = ({ basePath, data }) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <AddPersonnelButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+    </TopToolbar>
+);
+};
+
+const WOTaskList = (props) => {
+
+    const {
+        record
+    } = useShowController(props);
+
+    const classes = useStyles();
+
+    return(
+        <Show actions={null} {...props} title={false}>
+            <TabbedShowLayout syncWithLocation={false}>
+                <Tab label="قطعات یدکی" path="PMWorks/WOSparePart">
+                    <ReferenceManyField
+                        addLabel={false}
+                        reference="PMWorks/WOSparePart"
+                        target="WOTaskID"
+                        filter={{ WOTaskID: record.id }}
+                    >
+                    <List exporter={exporterSparePart} empty={false} filters={<WOSparePartFilter />} actions={<WOoSparePartActions data={record}/>}>
+                        <Datagrid>
+                            <ReferenceField label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
+                                <TextField source="SparePartCode" />
+                            </ReferenceField>
+                            <ReferenceField label="نام قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
+                                <TextField source="SparePartName" />
+                            </ReferenceField>
+                            <NumberField label="تعداد" textAlgin="right" source="SparePartAmount" />
+                        </Datagrid>
+                        </List>
+                    </ReferenceManyField>
+                </Tab>
+                <Tab label="پرسنل" path="PMWorks/WOPersonnel">
+                    <ReferenceManyField
+                        addLabel={false}
+                        reference="PMWorks/WOPersonnel"
+                        target="WOTaskID"
+                        filter={{ WOTaskID: record.id }}
+                    >
+                    <List exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOoPersonnelActions data={record}/>}>
+                        <Datagrid>
+                            <ReferenceField label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                                <TextField source="PersonnelName" />
+                            </ReferenceField>
+                            <ReferenceField label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                                <TextField source="PersonnelCode" />
+                            </ReferenceField>
+                            <JalaaliDateField label="تاریخ انجام" textAlgin="right" source="WorkDate"/>
+                            <NumberField label="مدت زمان انجام" textAlgin="right" source="WorkTime" />
+                        </Datagrid>
+                    </List>
+                    </ReferenceManyField>
+                </Tab>
+            </TabbedShowLayout>
+        </Show>
+    );
+};
+
 
 const WorkOrderShow = (props) => {
 
@@ -246,14 +338,15 @@ const WorkOrderShow = (props) => {
                     filter={{ WorkOrderID: record.id }}
                 >
                 <List exporter={exporterTask} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
-                    <Datagrid>
+                    <Datagrid expand={<WOTaskList />}>
                         <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
                             <TextField source="TaskName" />
                         </ReferenceField>
                         <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
                             <TextField source="TaskCode" />
                         </ReferenceField>
-                        <TextField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" />
+                        <SelectField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" choices={freq} optionText="full_name" optionValue="_id" />
+                        <ShowButton/>
                     </Datagrid>
                 </List>
                 </ReferenceManyField>

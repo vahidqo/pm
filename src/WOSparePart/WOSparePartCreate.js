@@ -30,20 +30,10 @@ const Separator = () => <Box pt="0em" />;
 
 const validateError = (values) => {
     const errors = {};
-    if (!values.SupplierID) {
-        errors.SupplierID = 'تامین‌کننده را وارد کنید';
+    if (!values.SparePartID) {
+        errors.SparePartID = 'قطعه را وارد کنید';
     }
     return errors
-};
-
-const WorkOrderFormat = ({ record }) => {
-    let str = record ? `${record.WorkRequestID}` : '';
-    str = str.padStart(4,0);
-    let text = "WR0".concat(str);
-    let stro = record ? `${record.id}` : '';
-    stro = stro.padStart(4,0);
-    let texto = "_WO0".concat(stro);
-    return <span> {text} {texto} </span>;
 };
 
 
@@ -54,30 +44,29 @@ const WOSparePartCreate = props => {
     const refresh = useRefresh();
     const redirect = useRedirect();
 
-    const { WorkOrderID: WorkOrderID_string } = parse(props.location.search);
-    const WorkOrderID = WorkOrderID_string ? parseInt(WorkOrderID_string, 10) : '';
+    const { WOTaskID: WOTaskID_string } = parse(props.location.search);
+    const WOTaskID = WOTaskID_string ? parseInt(WOTaskID_string, 10) : '';
 
     const onSuccess = () => {
         notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WOSparePart/create?WorkOrderID=${WorkOrderID}`);
+        redirect(`/PMWorks/WOSparePart/create?WOTaskID=${WOTaskID}`);
         refresh();
     };
 
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد قطعه دستور کار">
-        <SimpleForm validate={validateError} initialValues={{ WorkOrderID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.width} formClassName={classes.fir} label="کد درخواست‌کار" source="WorkOrderID" textAlgin="right" reference="PMWorks/WorkOrder">
-                <SelectInput source="WorkRequestID" optionText={<WorkOrderFormat />}/>
+        <SimpleForm validate={validateError} initialValues={{ WOTaskID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد فعالیت" textAlgin="right" source="WOTaskID" reference="PMWorks/WOTask">
+                <SelectInput optionText="TaskID__TaskCode"/>
+            </ReferenceInput>
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام فعالیت" textAlgin="right" source="WOTaskID" reference="PMWorks/WOTask">
+                <SelectInput optionText="TaskID__TaskName"/>
             </ReferenceInput>
             <Separator/>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/WOSparePart">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
                 <SelectInput optionText="SparePartCode" />
             </ReferenceInput>
-            <FormDataConsumer formClassName={classes.sec}>
-                {({ formData, ...rest }) => formData.WorkOrderID &&
-                    <SparePartRefrenceInput label="نام قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/WRSpare" filter={{ WorkOrderID: formData.WorkOrderID }} allowEmpty validate={required()} perPage={10000} />
-                }
-            </FormDataConsumer>
+            <SparePartRefrenceInput formClassName={classes.sec} label="نام قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart" allowEmpty validate={required()} perPage={10000} />
             <Separator/>
             <NumberInput formClassName={classes.fir} textAlgin="right" label="تعداد" source="SparePartAmount" />
         </SimpleForm>
