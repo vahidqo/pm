@@ -123,7 +123,7 @@ const AssetSubdivision5 = props => {
                 <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
-                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -152,7 +152,7 @@ const AssetSubdivision4 = props => {
                 <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
-                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -181,7 +181,7 @@ const AssetSubdivision3 = props => {
                 <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
-                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -210,7 +210,7 @@ const AssetSubdivision2 = props => {
                 <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
-                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -239,7 +239,7 @@ const AssetSubdivision = props => {
                 <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                     <TextField source="AssetName" />
                 </ReferenceField>
-                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+                <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
                 <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
@@ -260,7 +260,7 @@ const AssetSubdivisionList = props => (
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>

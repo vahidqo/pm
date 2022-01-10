@@ -6,7 +6,9 @@ import {
     Toolbar,
     useNotify,
     useRefresh,
-    useRedirect
+    useRedirect,
+    ReferenceInput,
+    SelectInput
 }
 from 'react-admin';
 import { parse } from 'query-string';
@@ -14,6 +16,7 @@ import { DateInput } from '../Components/JalaliDatePicker';
 import { DateInputtoday } from '../Components/JalaliDatePickertoday';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box } from '@material-ui/core';
+import DepartmentRefrenceInput from './DepartmentRefrenceInput';
 
 const useStyles = makeStyles({
     fir: { display: 'inline-block', verticalAlign: 'top' },
@@ -64,6 +67,11 @@ const WorkOrderCreate = props => {
             <Separator/>
             <DateInput formClassName={classes.fir} label="تاریخ شروع" source="DateOfPlanStart" />
             <DateInput formClassName={classes.sec} label="تاریخ پایان" source="DateOfPlanFinish" />
+            <Separator/>
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                <SelectInput optionText="DepartmentCode" />
+            </ReferenceInput>
+            <DepartmentRefrenceInput className={classes.sel} formClassName={classes.sec} label="نام دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" perPage={10000} />
             <Separator/>
             <TextInput formClassName={classes.fir} multiline className={classes.width} label="توضیحات" textAlgin="right" source="WODescription"/>
         </SimpleForm>

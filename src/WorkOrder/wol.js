@@ -151,6 +151,9 @@ class TabbedDatagrid extends React.Component {
                                 <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
                                     <TextField source="FailureModeName" />
                                 </ReferenceField>
+                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                                    <TextField source="DepartmentName" />
+                                </ReferenceField>
                                 <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
@@ -171,6 +174,9 @@ class TabbedDatagrid extends React.Component {
                                 </ReferenceField>
                                 <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
                                     <TextField source="FailureModeName" />
+                                </ReferenceField>
+                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                                    <TextField source="DepartmentName" />
                                 </ReferenceField>
                                 <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                                     <TextField source="StatusName" />

@@ -306,6 +306,9 @@ const theme = createMuiTheme({
                 textAlign: "right !important",
                 fontFamily: ' !important',
             },
+            subtitle1:{
+                fontFamily: ' !important',
+            },
         },
         MuiTableCell:{
             root:{
@@ -348,6 +351,14 @@ const theme = createMuiTheme({
         MuiButton:{
             root:{
                 fontFamily: ' !important',
+                padding: '5px 0px',
+            },
+            textSizeSmall:{
+                padding: '2px 0px',
+                fontFamily: 'inherit',
+            },
+            containedPrimary:{
+                fontFamily: 'inherit',
             },
         },
         MuiTablePagination:{
@@ -423,7 +434,8 @@ const theme = createMuiTheme({
         RaTabbedShowLayout:{
             content:{
                 paddingTop: '0px',
-                paddingRight: '0px'
+                paddingRight: '0px',
+                paddingLeft: '0px',
             },
         },
         RaLabeled:{
@@ -433,12 +445,18 @@ const theme = createMuiTheme({
         },
         MuiDialog:{
             paperWidthSm:{
-                maxWidth: '800px',
+                maxWidth: '868px',
             },
         },
         RaMenuItemLink:{
             active:{
                 backgroundColor: 'ghostwhite',
+            },
+        },
+        RaBulkActionsToolbar:{
+            icon:{
+                marginLeft: '2em',
+                marginRight: '-0.75em',
             },
         },
     },

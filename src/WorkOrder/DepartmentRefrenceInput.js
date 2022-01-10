@@ -3,7 +3,6 @@ import { useFormState } from 'react-final-form';
 import { ReferenceInput, SelectInput, useInput } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
-import QuickAddDepartmentButton from './QuickAddDepartmentButton';
 import QuickPreviewDepartmentButton from './QuickPreviewDepartmentButton';
 import QuickDepartmentSelectButton from './QuickDepartmentSelectButton';
 
@@ -32,7 +31,6 @@ const DepartmentRefrenceInput = props => {
             </ReferenceInput>
 
             <QuickDepartmentSelectButton {...props} id={values.DepartmentID} setId={(id) => onChange(id)} />        
-            <QuickAddDepartmentButton onChange={handleChange} />
             <QuickPreviewDepartmentButton id={values.DepartmentID} />
         </div>
     );

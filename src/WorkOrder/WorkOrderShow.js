@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Fragment } from 'react';
 import {
     Datagrid,
     TextField,
@@ -16,7 +17,13 @@ import {
     List,
     downloadCSV,
     ShowButton,
-    SelectField
+    SelectField,
+    useMutation,
+    useRefresh,
+    useNotify,
+    useUnselectAll,
+    BulkDeleteButton,
+    Button,
 }
 from 'react-admin';
 import WorkOrderTitle from './WorkOrderTitle';
@@ -36,6 +43,39 @@ import WOStatusFilter from '../WOStatus/WOStatusFilter';
 import AddWOStatusButton from './AddWOStatusButton';
 import AddPersonnelButton from '../WOTask/AddPersonnelButton';
 import AddSparePartButton from '../WOTask/AddSparePartButton';
+import QuickSelectTaskButton from './QuickSelectTaskButton';
+import DoneIcon from '@material-ui/icons/Done';
+
+const CustomTaskButton = ({ selectedIds }) => {
+    const refresh = useRefresh();
+    const notify = useNotify();
+    const unselectAll = useUnselectAll();
+    const [mutate] = useMutation();
+
+    const onSuccess = () => {
+        refresh();
+        notify('فعالیت‌ها تایید شدند');
+        unselectAll('PMWorks/WOTask');
+    };
+
+    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'update', resource: 'PMWorks/WOTask', payload: { id: selectedId, data: { WOTaskSituationOfDo: 'D',}} } )) }; onSuccess()};
+
+    return (
+        <Button
+            label='تایید فعالیت'
+            onClick={toggleDrawer}
+        >
+            <DoneIcon />
+        </Button>
+    );
+};
+
+const TaskBulkActionButtons = props => (
+    <Fragment>
+        <CustomTaskButton label="تایید فعالیت" {...props} />
+        <BulkDeleteButton {...props} />
+    </Fragment>
+);
 
 const exporterSupplier = (data) => {
     const BOM = '\uFEFF'
@@ -150,6 +190,7 @@ const WOTaskActions = ({ basePath, data }) => {
   
   return (
     <TopToolbar>
+        <QuickSelectTaskButton record={data}/>        
         <AddTaskButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
@@ -337,7 +378,7 @@ const WorkOrderShow = (props) => {
                     target="WorkOrderID"
                     filter={{ WorkOrderID: record.id }}
                 >
-                <List exporter={exporterTask} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
+                <List exporter={exporterTask} bulkActionButtons={<TaskBulkActionButtons />} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
                     <Datagrid expand={<WOTaskList />}>
                         <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
                             <TextField source="TaskName" />
@@ -346,7 +387,6 @@ const WorkOrderShow = (props) => {
                             <TextField source="TaskCode" />
                         </ReferenceField>
                         <SelectField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" choices={freq} optionText="full_name" optionValue="_id" />
-                        <ShowButton/>
                     </Datagrid>
                 </List>
                 </ReferenceManyField>
