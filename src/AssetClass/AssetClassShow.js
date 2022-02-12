@@ -35,6 +35,12 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import jsonExport from 'jsonexport/dist';
 
+const importOptions = {
+  parseConfig: {
+      encoding: 'ISO-8859-1'
+  },
+};
+
 const exporterAssetClassSubdivision = (data) => {
   const BOM = '\uFEFF'
 
@@ -87,19 +93,20 @@ const ShowActions = ({ basePath, data }) => (
     </TopToolbar>
 );
 
-const SpecificActions = ({ basePath, data }) => {
+const SpecificActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddSpecificDataButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetClassSpecificData" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const SubdivisionActions =  ({ basePath, data }) => {
+const SubdivisionActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -107,11 +114,12 @@ const SubdivisionActions =  ({ basePath, data }) => {
     <TopToolbar>
         <AddAssetClassSubdivisionButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetClassSubdivision" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const FailureActions = ({ basePath, data }) =>{
+const FailureActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -119,11 +127,12 @@ const FailureActions = ({ basePath, data }) =>{
     <TopToolbar>
         <AddFailureModeButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/FailureMode" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const DocumentActions = ({ basePath, data }) => {
+const DocumentActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -131,11 +140,12 @@ const DocumentActions = ({ basePath, data }) => {
     <TopToolbar>
         <AddDocumentButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetClassDocument" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const TaskActions = ({ basePath, data }) => {
+const TaskActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -143,6 +153,7 @@ const TaskActions = ({ basePath, data }) => {
     <TopToolbar>
         <AddTaskButton record={data} />
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetClassTask" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
@@ -291,7 +302,7 @@ const CreateChildButton = ({ record }) => (
         component={Link}
         to={{
             pathname: '/PMWorks/AssetClassSubdivision/create',
-            state: { record: { AssetClassFatherID: record.id } },
+            state: { record: { AssetClassFatherID: record.AssetClassChildID } },
         }}
         label="اضافه کردن زیرمجموعه"
         title="اضافه کردن زیرمجموعه"
@@ -373,10 +384,10 @@ const AssetClassShow = props => {
                 >
                     <List empty={false} exporter={exporterFailureMode} filters={<FailureModeFilter />} actions={<FailureActions data={record}/>}>
                         <Datagrid>
-                            <ReferenceField label="کد نوع خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeCode">
+                            <ReferenceField label="کد حالت خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeCode">
                                 <TextField source="FailureModeCode" />
                             </ReferenceField>
-                            <ReferenceField label="نام نوع خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeName">
+                            <ReferenceField label="عنوان حالت خرابی" textAlgin="right" source="id" reference="PMWorks/FailureMode" sortBy="FailureModeName">
                                 <TextField source="FailureModeName" />
                             </ReferenceField>
                         </Datagrid>
@@ -412,15 +423,15 @@ const AssetClassShow = props => {
                     <List empty={false} exporter={exporterAssetClassTask} actions={<TaskActions data={record}/>}>
                         <Datagrid>
                             <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
-                            <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />
+                            <TextField label="عنوان فعالیت" textAlgin="right" source="TaskName" />
                             <TextField label="تناوب" textAlgin="right" source="FrequencyName" />
                             <NumberField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
-                            <NumberField label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />
+                            <NumberField label="مدت زمان انجام (دقیقه)" textAlgin="right" source="DurationOfDo" />
                             <TextField label="مسئول" textAlgin="right" source="Functor" />
                             <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType">
                                 <TextField source="TaskTypeName" />
                             </ReferenceField>
-                            <ReferenceField label="شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
+                            <ReferenceField label="تخصیص" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
                                 <TextField source="JobCategoryName" />
                             </ReferenceField>
                         </Datagrid>

@@ -94,7 +94,7 @@ const LocationShow5 = props => {
         <List {...props} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <ShowButton />
             </Datagrid>
         </List>
@@ -114,7 +114,7 @@ const LocationShow4 = props => {
         <List {...props} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<LocationShow5 />}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -135,7 +135,7 @@ const LocationShow3 = props => {
         <List {...props} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<LocationShow4 />}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -156,7 +156,7 @@ const LocationShow2 = props => {
         <List {...props} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<LocationShow3 />}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -177,7 +177,7 @@ const LocationShow = props => {
         <List {...props} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<LocationShow2 />}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -190,7 +190,7 @@ const LocationList = props => (
     <List {...props} actions={<ListActions />} exporter={exporter} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان">
         <Datagrid expand={<LocationShow />}>
             <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-            <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+            <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
             <CreateChildButton />
             <ShowButton />
         </Datagrid>

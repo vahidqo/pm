@@ -21,6 +21,13 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core';
+import { ImportButton } from "react-admin-import-csv";
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
 
 const useStyles = makeStyles({
     head: {
@@ -39,14 +46,15 @@ const ShowActions = ({ basePath, data }) => (
     </TopToolbar>
 );
 
-const JobCategoryActions = ({ basePath, data }) => {
+const JobCategoryActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddJobButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/PersonnelJobCategory" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
@@ -94,7 +102,7 @@ const PersonnelShow = props =>  {
         </TabbedShowLayout>
     </Show>
 );
-    };
+};
 
 
 export default PersonnelShow;

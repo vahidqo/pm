@@ -22,6 +22,13 @@ import AddAssetCategoryButton from './AddAssetCategoryButton';
 import AddAssetClassAssetClassButton from './AddAssetClassAssetClassButton';
 import { makeStyles } from '@material-ui/core/styles';
 import jsonExport from 'jsonexport/dist';
+import { ImportButton } from "react-admin-import-csv";
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
 
 const exporterAssetCategory = (data) => {
   const BOM = '\uFEFF'
@@ -56,17 +63,19 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
-const AssetCategoryActions = ({ basePath, data }) => (
+const AssetCategoryActions = ({ basePath, data }, props) => (
     <TopToolbar>
         <AddAssetCategoryButton record={data}/>
         <ExportButton label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetCategory" {...props} {...importOptions}/>
     </TopToolbar>
 );
 
-const AssetClassActions =  ({ basePath, data }) => (
+const AssetClassActions = ({ basePath, data }, props) => (
     <TopToolbar>
         <AddAssetClassAssetClassButton record={data}/>
         <ExportButton label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetClass" {...props} {...importOptions}/>
     </TopToolbar>
 );
 

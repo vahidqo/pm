@@ -51,7 +51,7 @@ const Location5 = ({ setId, setShowPanel, ...props }) => {
         <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
@@ -71,7 +71,7 @@ const Location4 = ({ setId, setShowPanel, ...props }) => {
         <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location5 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
@@ -91,7 +91,7 @@ const Location3 = ({ setId, setShowPanel, ...props }) => {
         <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location4 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
@@ -111,7 +111,7 @@ const Location2 = ({ setId, setShowPanel, ...props }) => {
         <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location3 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
@@ -131,7 +131,7 @@ const Location = ({ setId, setShowPanel, ...props }) => {
         <List empty={false} {...props} bulkActionButtons={false} filter={{ LocationFatherID: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<Location2 setId={setId} setShowPanel={setShowPanel}/>}>
                 <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-                <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+                <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
                 <SelectButton setId={setId} setShowPanel={setShowPanel}/>
             </Datagrid>
         </List>
@@ -143,7 +143,7 @@ const LocList = ({ setId, setShowPanel, ...props }) => (
     <List {...props} bulkActionButtons={false} actions={<NoneActions />} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="تجهیزات ">
         <Datagrid expand={<Location setId={setId} setShowPanel={setShowPanel}/>}>
             <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
-            <TextField label="نام مکان" textAlgin="right" source="LocationName" />
+            <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
             <SelectButton setId={setId} setShowPanel={setShowPanel}/>
         </Datagrid>
     </List>

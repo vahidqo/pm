@@ -8,7 +8,7 @@ from 'react-admin';
 const LocationFilter = (props) => (
     <Filter {...props}>
         <TextInput label="کد مکان" textAlgin="right" source="LocationCode" alwaysOn resettable/>
-        <TextInput label="نام مکان" textAlgin="right" source="LocationName" alwaysOn resettable/>
+        <TextInput label="عنوان مکان" textAlgin="right" source="LocationName" alwaysOn resettable/>
     </Filter>
 );
 

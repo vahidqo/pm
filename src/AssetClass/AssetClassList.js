@@ -41,8 +41,8 @@ const useStyles = makeStyles({
 
 const ListActions = (props) => {
 
-    const classes = useStyles();
-  
+  const classes = useStyles();
+
   return (
     <TopToolbar>
       <CreateButton/>

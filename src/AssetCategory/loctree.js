@@ -36,8 +36,10 @@ const exporter = (data) => {
 }
 
 const ListActions = (props) => {
-    const classes = useStyles();
   
+  const classes = useStyles();
+
+
   return (
     <TopToolbar>
       <CreateButton/>

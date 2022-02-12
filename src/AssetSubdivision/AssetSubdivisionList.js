@@ -5,7 +5,6 @@ import {
     Datagrid,
     TextField,
     Show,
-    EditButton,
     CardActions,
     ReferenceField,
     useListContext,
@@ -22,6 +21,7 @@ import { makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import jsonExport from 'jsonexport/dist';
+import AssetSubdivisionFilter from './AssetSubdivisionFilter';
 
 const exporter = (data) => {
   const BOM = '\uFEFF'
@@ -124,7 +124,7 @@ const AssetSubdivision5 = props => {
                     <TextField source="AssetName" />
                 </ReferenceField>
                 <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
                 <AssetButton />
@@ -153,7 +153,7 @@ const AssetSubdivision4 = props => {
                     <TextField source="AssetName" />
                 </ReferenceField>
                 <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
                 <AssetButton />
@@ -182,7 +182,7 @@ const AssetSubdivision3 = props => {
                     <TextField source="AssetName" />
                 </ReferenceField>
                 <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
                 <AssetButton />
@@ -211,7 +211,7 @@ const AssetSubdivision2 = props => {
                     <TextField source="AssetName" />
                 </ReferenceField>
                 <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
                 <AssetButton />
@@ -240,7 +240,7 @@ const AssetSubdivision = props => {
                     <TextField source="AssetName" />
                 </ReferenceField>
                 <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-                <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                     <TextField source="AssetClassName" />
                 </ReferenceField>
                 <AssetButton />
@@ -252,7 +252,7 @@ const AssetSubdivision = props => {
 };
 
 const AssetSubdivisionList = props => (
-    <List empty={false} exporter={exporter} {...props} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
+    <List empty={false} exporter={exporter} {...props} filters={<AssetSubdivisionFilter />} actions={<ListActions />} filter={{ tree: 1 }} title="تجهیزات ">
         <Datagrid expand={<AssetSubdivision />}>
             <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetCode" />
@@ -261,7 +261,7 @@ const AssetSubdivisionList = props => (
                 <TextField source="AssetName" />
             </ReferenceField>
             <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
-            <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
+            <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
             <ShowButton />

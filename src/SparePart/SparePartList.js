@@ -20,7 +20,8 @@ import jsonExport from 'jsonexport/dist';
 
 const importOptions = {
   parseConfig: {
-      encoding: 'ISO-8859-1'
+      encoding: 'ISO-8859-1',
+      dynamicTyping: false
   },
 };
 

@@ -48,19 +48,19 @@ const AssetClassSubdivisionCreate = props => {
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد زیرکلاس">
         <SimpleForm initialValues={{ AssetClassFatherID}} redirect={redirectt} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled  className={classes.sel} formClassName={classes.fir} label="کد تجهیز" textAlgin="right" source="AssetClassFatherID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled  className={classes.sel} formClassName={classes.fir} label="کد خانواده تجهیز" textAlgin="right" source="AssetClassFatherID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <ReferenceInput  className={classes.sel} disabled formClassName={classes.sec} label="نام تجهیز" textAlgin="right" source="AssetClassFatherID" reference="PMWorks/AssetClass">
+            <ReferenceInput  className={classes.sel} disabled formClassName={classes.sec} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassFatherID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <Separator/>
-            <ReferenceInput  className={classes.sel} disabled formClassName={classes.fir} label="کد زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
+            <ReferenceInput  className={classes.sel} disabled formClassName={classes.fir} label="کد زیر تجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <AssetClassRefrenceInput className={classes.sel} formClassName={classes.sec} label="عنوان زیرتجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" perPage={10000} />
+            <AssetClassRefrenceInput className={classes.sel} formClassName={classes.sec} label="عنوان زیر تجهیز" textAlgin="right" source="AssetClassChildID" reference="PMWorks/AssetClass" perPage={10000} />
             <Separator/>
-            <TextInput className={classes.fir} label="تعداد" textAlgin="right" source="AssetClassChildNumber" />
+            <TextInput className={classes.fir} label="تعداد زیر تجهیز" textAlgin="right" source="AssetClassChildNumber" />
         </SimpleForm>
     </Create>
 );

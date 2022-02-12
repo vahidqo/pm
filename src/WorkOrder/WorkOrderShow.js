@@ -45,6 +45,13 @@ import AddPersonnelButton from '../WOTask/AddPersonnelButton';
 import AddSparePartButton from '../WOTask/AddSparePartButton';
 import QuickSelectTaskButton from './QuickSelectTaskButton';
 import DoneIcon from '@material-ui/icons/Done';
+import { ImportButton } from "react-admin-import-csv";
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
 
 const CustomTaskButton = ({ selectedIds }) => {
     const refresh = useRefresh();
@@ -138,30 +145,31 @@ const ShowActions = ({ basePath, data }) => (
     </TopToolbar>
 );
 
-const WOSupplierActions = ({ basePath, data }) => {
-
+const WOSupplierActions = ({ basePath, data }, props) => {
     const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddSupplierButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOSupplier" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WOPersonnelActions = ({ basePath, data }) => {
+const WOPersonnelActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
   return (
     <TopToolbar>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOPersonnel" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WODelayActions = ({ basePath, data }) => {
+const WODelayActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -169,22 +177,24 @@ const WODelayActions = ({ basePath, data }) => {
     <TopToolbar>
         <AddDelayButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WODelay" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WOSparePartActions = ({ basePath, data }) => {
+const WOSparePartActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
   return (
     <TopToolbar>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOSparePart" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WOTaskActions = ({ basePath, data }) => {
+const WOTaskActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -193,11 +203,12 @@ const WOTaskActions = ({ basePath, data }) => {
         <QuickSelectTaskButton record={data}/>        
         <AddTaskButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOTask" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WOStatusActions = ({ basePath, data }) => {
+const WOStatusActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
   
@@ -205,6 +216,7 @@ const WOStatusActions = ({ basePath, data }) => {
     <TopToolbar>
         <AddWOStatusButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOStatus" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };

@@ -20,6 +20,13 @@ import { makeStyles } from '@material-ui/core';
 import AssetSpecificDataFilter from '../AssetSpecificData/AssetSpecificDataFilter';
 import AssetSubdivisionSparePartFilter from '../AssetSubdivisionSparePart/AssetSubdivisionSparePartFilter';
 import AssetSubdivisionTitle from './AssetSubdivisionTitle';
+import { ImportButton } from "react-admin-import-csv";
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
 
 const ShowActions = ({ basePath, data }) => (
     <TopToolbar>
@@ -38,25 +45,27 @@ const useStyles = makeStyles({
     }
 });
 
-const AssetSpecificDataActions = ({ basePath, data }) => {
+const AssetSpecificDataActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetSpecificData" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const AssetSubdivisionSparePartActions = ({ basePath, data }) => {
+const AssetSubdivisionSparePartActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddAssetSubdivisionSparePartDataButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/AssetSubdivisionSparePart" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
@@ -128,7 +137,7 @@ const AssetSubdivisionShow = props => {
         </TabbedShowLayout>
     </Show>
 );
-    };
+};
 
 
 export default AssetSubdivisionShow;

@@ -29,6 +29,13 @@ import WorkOrderFilter from '../WorkOrder/WorkOrderFilter';
 import jsonExport from 'jsonexport/dist';
 import AddWRStatusButton from './AddWRStatusButton';
 import WRStatusFilter from '../WRStatus/WRStatusFilter';
+import { ImportButton } from "react-admin-import-csv";
+
+const importOptions = {
+    parseConfig: {
+        encoding: 'ISO-8859-1'
+    },
+};
 
 const exporterFailureCause = (data) => {
     const BOM = '\uFEFF'
@@ -64,38 +71,41 @@ const ShowActions = ({ basePath, data }) => (
     </TopToolbar>
 );
 
-const FailureCauseActions = ({ basePath, data }) => {
+const FailureCauseActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddFailureCauseButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOSupplier" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WorkOrderActions = ({ basePath, data }) => {
+const WorkOrderActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddWorkOrderButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WorkOrder" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };
 
-const WRStatusActions = ({ basePath, data }) => {
+const WRStatusActions = ({ basePath, data }, props) => {
 
-    const classes = useStyles();
+  const classes = useStyles();
   
   return (
     <TopToolbar>
         <AddWRStatusButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WRStatus" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };

@@ -36,7 +36,7 @@ const NoneActions = props => (
 const AssetClassList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<AssetClassFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List filters={<AssetClassFilter />} perPage={10} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
