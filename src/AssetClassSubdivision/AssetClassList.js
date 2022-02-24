@@ -5,6 +5,7 @@ import {
     TextField,
     CardActions,
     ReferenceField,
+    ResourceContextProvider
 }
 from 'react-admin';
 import Button from "@material-ui/core/Button";
@@ -36,7 +37,8 @@ const NoneActions = props => (
 const AssetClassList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<AssetClassFilter />} perPage={10} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <ResourceContextProvider value="PMWorks/AssetClass" >
+    <List syncWithLocation basePath="/PMWorks/AssetClass" filters={<AssetClassFilter />} bulkActionButtons={false} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
@@ -46,6 +48,7 @@ const AssetClassList = ({ setId, setShowPanel, ...props }) => {
             <SelectButton setId={setId} setShowPanel={setShowPanel} />
         </Datagrid>
     </List>
+    </ResourceContextProvider>
 );
     };
 

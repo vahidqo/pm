@@ -95,8 +95,8 @@ const AssetcategoryShow5 = props => {
     >
         <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }}>
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+                <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+                <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -116,8 +116,8 @@ const AssetcategoryShow4 = props => {
     >
         <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetcategoryShow5 />}>
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+                <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+                <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -137,8 +137,8 @@ const AssetcategoryShow3 = props => {
     >
         <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetcategoryShow4 />}>
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+                <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+                <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -158,8 +158,8 @@ const AssetcategoryShow2 = props => {
     >
         <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetcategoryShow3 />}>
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+                <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+                <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -179,8 +179,8 @@ const AssetcategoryShow = props => {
     >
         <List empty={false} {...props} filter={{ AssetClassFather: props.record.id }} actions={null} title=" ">
             <Datagrid classes={{ thead: classes.head }} expand={<AssetcategoryShow2 />}>
-                <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-                <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+                <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+                <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
                 <CreateChildButton />
                 <ShowButton />
             </Datagrid>
@@ -192,8 +192,8 @@ const AssetcategoryShow = props => {
 const AssetcategoryList = props => (
     <List {...props} exporter={exporter} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
         <Datagrid expand={<AssetcategoryShow />}>
-            <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
-            <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
+            <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
+            <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />
             <CreateChildButton />
             <ShowButton />
         </Datagrid>

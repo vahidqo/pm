@@ -3,10 +3,14 @@ import {
     Filter,
     TextInput,
     SelectInput,
-    ReferenceInput,
-    RadioButtonGroupInput
+    NumberInput
 }
 from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    width: { width: 135 },
+});
 
 const freq = [
     { _id: 'D', full_name: 'روزانه'},
@@ -16,29 +20,19 @@ const freq = [
     { _id: 'F', full_name: 'وظیفه‌ای'},
 ];
 
-const fun = [
-    { _id: 'O', full_name: 'اپراتور'},
-    { _id: 'T', full_name: 'تکنسین' },
-];
 
-
-const AssetClassTaskFilter = (props) => (
+const AssetClassTaskFilter = (props) => {
+    const classes = useStyles();
+    return(
     <Filter {...props}>
-        <TextInput label="کد فعالیت" textAlgin="right" source="TaskCode" />
-        <TextInput label="نام فعالیت" textAlgin="right" source="TaskName" />
-        <SelectInput label="مقدار تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
-        <RadioButtonGroupInput label="مسئول" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
-        <ReferenceInput label="نوع وظیفه" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType">
-            <SelectInput optionText="TaskTypeName" />
-        </ReferenceInput>
-        <ReferenceInput label="نوع شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
-            <SelectInput optionText="JobCategoryName" />
-        </ReferenceInput>
-        <ReferenceInput label="کلاس تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
-            <SelectInput optionText="AssetClassName" />
-        </ReferenceInput>
+        <TextInput className={classes.width} label="نام فعالیت" textAlgin="right" source="TaskName__icontains" alwaysOn resettable />
+        <SelectInput className={classes.width} label="تناوب" textAlgin="right" source="FrequencyName_exact" choices={freq} optionText="full_name" optionValue="_id" alwaysOn resettable/>
+        <NumberInput className={classes.width} label="مقدار تناوب" textAlgin="right" source="FrequencyAmount_exact" alwaysOn resettable/>
+        <TextInput className={classes.width} label="نوع فعالیت" textAlgin="right" source="TaskTypeID__TaskTypeName__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="شغل" textAlgin="right" source="JobCategoryID__JobCategoryName__icontains" alwaysOn resettable />
     </Filter>
 );
+    };
 
 
 export default AssetClassTaskFilter;

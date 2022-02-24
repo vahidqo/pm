@@ -27,6 +27,7 @@ import AddFailureModeButton from './AddFailureModeButton';
 import { makeStyles } from '@material-ui/core';
 import { ImportButton } from "react-admin-import-csv";
 import AssetClassSubdivisionFilter from '../AssetClassSubdivision/AssetClassSubdivisionFilter';
+import AssetClassTaskFilter from '../AssetClassTask/AssetClassTaskFilter';
 import AssetClassSpecificDataFilter from '../AssetClassSpecificData/AssetClassSpecificDataFilter';
 import FailureModeFilter from '../FailureMode/FailureModeFilter';
 import AssetClassDocumentFilter from '../AssetClassDocument/AssetClassDocumentFilter';
@@ -375,7 +376,7 @@ const AssetClassShow = props => {
                     </List>
                 </ReferenceManyField>
             </Tab>
-            <Tab label="استاندارسازی خرابی" path="PMWorks/FailureMode">
+            <Tab label="حالت‌های خرابی" path="PMWorks/FailureMode">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/FailureMode"
@@ -413,14 +414,14 @@ const AssetClassShow = props => {
                     </List>
                 </ReferenceManyField>
             </Tab>
-            <Tab label="فعالیت های نگهداشت" path="PMWorks/AssetClassTask">
+            <Tab label="فعالیت‌های نگهداشت" path="PMWorks/AssetClassTask">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/AssetClassTask"
                     target="AssetClassID"
                     filter={{ AssetClassID: record.id }}
                 >
-                    <List empty={false} exporter={exporterAssetClassTask} actions={<TaskActions data={record}/>}>
+                    <List empty={false} exporter={exporterAssetClassTask} filters={<AssetClassTaskFilter />} actions={<TaskActions data={record}/>}>
                         <Datagrid>
                             <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                             <TextField label="عنوان فعالیت" textAlgin="right" source="TaskName" />

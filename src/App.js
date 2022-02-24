@@ -482,7 +482,7 @@ const App = () => (
         <Resource name="paye" icon={SettingsOutlinedIcon} options={{ "label": "تنظیمات پایه", "isMenuParent": true }} />
         <Resource name="PMWorks/AssetClass" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
         <Resource name="PMWorks/AssetCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
-        <Resource name="PMWorks/SpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate} show={SpecificDataShow}/>
+        <Resource name="PMWorks/SpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی‌ خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate} show={SpecificDataShow}/>
         <Resource name="PMWorks/AssetClassSpecificData"  options={{ "label": "داده‌های ویژه" }} edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={ArrowLeftOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
         <Resource name="PMWorks/FailureCause" icon={ArrowLeftOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />

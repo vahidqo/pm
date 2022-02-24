@@ -16,7 +16,6 @@ import {
     ListButton,
     List,
     downloadCSV,
-    ShowButton,
     SelectField,
     useMutation,
     useRefresh,
@@ -28,7 +27,6 @@ import {
 from 'react-admin';
 import WorkOrderTitle from './WorkOrderTitle';
 import JalaaliDateField  from '../Components/JalaaliDateField';
-
 import AddSupplierButton from './AddSupplierButton';
 import AddDelayButton from './AddDelayButton';
 import AddTaskButton from './AddTaskButton';
@@ -46,6 +44,7 @@ import AddSparePartButton from '../WOTask/AddSparePartButton';
 import QuickSelectTaskButton from './QuickSelectTaskButton';
 import DoneIcon from '@material-ui/icons/Done';
 import { ImportButton } from "react-admin-import-csv";
+import ScrollDialog from './NewSpareTask';
 
 const importOptions = {
     parseConfig: {
@@ -74,6 +73,25 @@ const CustomTaskButton = ({ selectedIds }) => {
         >
             <DoneIcon />
         </Button>
+    );
+};
+
+const AddTaskSpaerButton = ({ selectedIds }) => {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => () => {
+        setOpen(true);
+    };
+
+    return (
+        <Fragment>
+            <Button
+                label="افزودن قطعه‌یدکی"
+            >
+                <DoneIcon />
+            </Button>
+            {open ? <ScrollDialog open={open} setOpen={setOpen} taskSelectedIds={selectedIds} /> : null}
+        </Fragment>
     );
 };
 
