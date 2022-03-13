@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -6,12 +6,12 @@ import { TextField, useRefresh, useUnselectAll,
          ReferenceField, Datagrid, List, useMutation, Button,
          useNotify, NumberInput, SimpleForm, ResourceContextProvider } from "react-admin";
 import AddIcon from '@material-ui/icons/Add';
-import SparePartFilter from '../SparePart/SparePartFilter';
-import Divider from '@material-ui/core/Divider';
+import PersonnelFilter from '../Personnel/PersonnelFilter';
+import { DateInput } from "../Components/JalaliDatePickerDialog"
 
 export default function ScrollDialog(props) {
     const [taskTime, setTaskTime] = React.useState(null);
-    const [showPanel, setShowPanel] = useState(false);
+    const [taskDate, setTaskDate] = React.useState(null);
 
     let { open, setOpen, taskSelectedIds } = props;
 
@@ -20,7 +20,6 @@ export default function ScrollDialog(props) {
         setOpen(false);
     };
 
-    const toggleDrawer = () => setShowPanel((showPanel) => !showPanel);
 
 
     const AddButton = ({ selectedIds }) => {
@@ -35,18 +34,19 @@ export default function ScrollDialog(props) {
             refresh();
             notify('قطعات اضافه شدند');
             unselectAll('PMWorks/WOTask');
-            unselectAlll('PMWorks/SparePart');
+            unselectAlll('PMWorks/Personnel');
         };
     
         const toggleDrawer = () => {{taskSelectedIds.map(taskId => selectedIds.map(personId =>
             mutate({
             type: 'create',
-            resource: 'PMWorks/WOSparePart',
+            resource: 'PMWorks/WOPersonnel',
             payload: {
                 data: {
                 WOTaskID: taskId,
-                SparePartID: personId,
-                SparePartAmount: parseInt(taskTime),
+                PersonnelID: personId,
+                WorkDate: taskDate,
+                WorkTime: parseInt(taskTime),
                 }
             }
             })
@@ -71,18 +71,18 @@ export default function ScrollDialog(props) {
     };
 
 
-    const PersonnalList = (...props) => {
+    const PersonnalList = () => {
         return (
-        <ResourceContextProvider value="PMWorks/SparePart" {...props}>
-            <List syncWithLocation basePath="PMWorks/SparePart" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<SparePartFilter />} exporter={false} actions={false} {...props}>
+        <ResourceContextProvider value="PMWorks/Personnel" >
+            <List syncWithLocation basePath="/PMWorks/Personnel" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<PersonnelFilter />} exporter={false} actions={false} >
             <Datagrid>
-                <TextField label="کد قطعه" textAlgin="right" source="SparePartCode" />
-                <TextField label="نام قطعه" textAlgin="right" source="SparePartName" />
-                <ReferenceField label="خانواده قطعه" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory">
-                    <TextField source="SparePartCategoryName" />
-                </ReferenceField>
-                <ReferenceField label="سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
-                    <TextField source="SparePartDimensionName" />
+                <TextField label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
+                <TextField label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
+                <TextField label="نام پرسنل" textAlgin="right" source="PersonnelName" />
+                <TextField label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
+                <TextField label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                    <TextField source="DepartmentName" />
                 </ReferenceField>
             </Datagrid>
             </List>
@@ -90,18 +90,28 @@ export default function ScrollDialog(props) {
         );
     };
 
+    const handleInputValue = (date) => {
+        setTaskDate(date.format('YYYY-MM-DD'))
+    };
+
     return (
         <Dialog
-        open={showPanel}
-        onClose={toggleDrawer}
+        open={open}
+        onClose={handleClose}
         fullWidth={true}
         maxWidth={"md"}
         >
+            <React.Fragment>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-description">
                 <SimpleForm toolbar={false}>
+                    <DateInput onChangeValue={handleInputValue} options={{ id: "DateInputEl001" }} isRequired={true} label={"تاریخ"} source={"WRDate"} />
                     <NumberInput isRequired={true} label={"تعداد"} source={"SparePartAmount"} value={taskTime} onChange={(e) => setTaskTime(e.target.value)} />
                 </SimpleForm>
-                <Divider />
                 <PersonnalList />
+                </DialogContentText>
+            </DialogContent>
+            </React.Fragment>
         </Dialog>
     );
 }

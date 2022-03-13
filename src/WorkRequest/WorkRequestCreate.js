@@ -9,7 +9,8 @@ import {
     ListButton,
     useNotify,
     useRefresh,
-    useRedirect
+    useRedirect,
+    TextInput
 }
 from 'react-admin';
 import AssetSubdivisionRefrenceInput from './AssetSubdivisionRefrenceInput';
@@ -48,6 +49,7 @@ const useStyles = makeStyles({
     sec: { display: 'inline-grid', marginRight: 0 },
     thi: { display: 'inline-grid', marginRight: 0 },
     sel: { '& svg': {display: 'none' }},
+    width: { display: 'inline-grid', width: 533, '& label': {marginRight: '25px'} },
 });
 
 const Separator = () => <Box pt="0em" />;
@@ -132,6 +134,11 @@ export const WorkRequestCreate = props => {
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
                     <TypeWrRefrenceInput label="نام نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" perPage={10000} {...rest} />
                  }
+                </FormDataConsumer>
+                <FormDataConsumer className={classes.width}>
+                 {({ formData, ...rest }) => formData.AssetSubdivisionID &&
+                    <TextInput multiline className={classes.width} label="توضیحات" textAlgin="right" source="WRDescription" {...rest}/>
+                }
                 </FormDataConsumer>
             </SimpleForm>
         </Create>

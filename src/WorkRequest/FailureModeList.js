@@ -3,8 +3,7 @@ import {
     List,
     Datagrid,
     TextField,
-    CardActions,
-    ReferenceField,
+    CardActions
 }
 from 'react-admin';
 import Button from "@material-ui/core/Button";

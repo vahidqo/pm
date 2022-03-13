@@ -31,7 +31,7 @@ const Separator = () => <Box pt="0em" />;
 const validateError = (values) => {
     const errors = {};
     if (!values.PersonnelID) {
-        errors.PersonnelID = 'پرسنل را وارد کنید';
+        errors.PersonnelID = 'نیروی انسانی را وارد کنید';
     }
     return errors
 };
@@ -63,7 +63,7 @@ const WOPersonnelCreate = props => {
     };
 
     return (
-    <Create onSuccess={onSuccess} {...props} title="ایجاد پرسنل دستور کار">
+    <Create onSuccess={onSuccess} {...props} title="ایجاد نیروی انسانی دستور کار">
         <SimpleForm validate={validateError} initialValues={{ WOTaskID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
             <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد فعالیت" textAlgin="right" source="WOTaskID" reference="PMWorks/WOTask">
                 <SelectInput optionText="TaskID__TaskCode"/>
@@ -72,10 +72,10 @@ const WOPersonnelCreate = props => {
                 <SelectInput optionText="TaskID__TaskName"/>
             </ReferenceInput>
             <Separator/>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد پرسنلی" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                 <SelectInput optionText="PersonnelCode" />
             </ReferenceInput>
-            <PersonnelRefrenceInput formClassName={classes.sec} label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel" allowEmpty validate={required()} perPage={10000} />
+            <PersonnelRefrenceInput formClassName={classes.sec} label="نام خانوادگی نیروی انسانی" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel" allowEmpty validate={required()} perPage={10000} />
             <Separator/>
             <DateInput formClassName={classes.fir} label="تاریخ انجام" source="WorkDate" />
             <NumberInput formClassName={classes.sec} textAlgin="right" label="مدت زمان انجام" source="WorkTime" />

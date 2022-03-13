@@ -33,8 +33,8 @@ const validateError = (values) => {
 const JobCategoryEdit = props => (
     <Edit actions={<EditActions />} title={<JobCategoryTitle />} {...props}>
         <SimpleForm validate={validateError} toolbar={<Toolbar alwaysEnableSaveButton />} redirect="show">
-            <TextInput label="کد شغل" textAlgin="right" source="JobCategoryCode" />
-            <TextInput label="نام شغل" textAlgin="right" source="JobCategoryName" />
+            <TextInput label="کد تخصص" textAlgin="right" source="JobCategoryCode" />
+            <TextInput label="عنوان تخصص" textAlgin="right" source="JobCategoryName" />
         </SimpleForm>
     </Edit>
 );

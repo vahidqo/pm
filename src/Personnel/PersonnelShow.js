@@ -71,11 +71,11 @@ const PersonnelShow = props =>  {
     <Show actions={<ShowActions/>} {...props}>
         <TabbedShowLayout>
             <Tab label="مشخصات">
-                <TextField className={classes.sho} label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
-                <TextField className={classes.sho} label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
-                <TextField className={classes.sho} label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-                <TextField className={classes.sho} label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
-                <TextField className={classes.sho} label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+                <TextField className={classes.sho} label="کد پرسنلی" textAlgin="right" source="PersonnelCode" />
+                <TextField className={classes.sho} label="کد نت نیروی انسانی" textAlgin="right" source="PersonnelNetCode" />
+                <TextField className={classes.sho} label="نام نیروی انسانی" textAlgin="right" source="PersonnelName" />
+                <TextField className={classes.sho} label="نام خانوادگی نیروی انسانی" textAlgin="right" source="PersonnelFamily" />
+                <TextField className={classes.sho} label="شماره نیروی انسانی" textAlgin="right" source="PersonnelMobile" />
                 <ReferenceField className={classes.sho} label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                     <TextField source="DepartmentName" />
                 </ReferenceField>

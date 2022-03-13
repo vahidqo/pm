@@ -169,6 +169,7 @@ const WorkRequestShow = (props) =>  {
                 <ReferenceField className={classes.sho} label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
                     <TextField source="TypeWrName" />
                 </ReferenceField>
+                <TextField className={classes.sho} label="توضیحات" textAlgin="right" source="WRDescription"/>
             </Tab>
             <Tab label="وضعیت" path="PMWorks/WRStatus">
                 <ReferenceManyField

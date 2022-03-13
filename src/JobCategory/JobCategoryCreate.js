@@ -41,10 +41,10 @@ const JobCategoryCreate = props => {
         refresh();
     };
 return(
-    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد شغل">
+    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد تخصص">
         <SimpleForm validate={validateError}>
-            <TextInput label="کد شغل" textAlgin="right" source="JobCategoryCode" />
-            <TextInput label="نام شغل" textAlgin="right" source="JobCategoryName" />
+            <TextInput label="کد تخصص" textAlgin="right" source="JobCategoryCode" />
+            <TextInput label="عنوان تخصص" textAlgin="right" source="JobCategoryName" />
         </SimpleForm>
     </Create>
 );

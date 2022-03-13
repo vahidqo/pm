@@ -30,9 +30,9 @@ const TaskTypeShow = (props) => {
     return(
     <Show actions={<ShowActions/>} title={<TaskTypeTitle />} {...props}>
         <SimpleShowLayout>
-                <TextField className={classes.sho} label="کد نوع وظیفه" textAlgin="right" source="TaskTypeCode" />
-                <TextField className={classes.sho} label="نام نوع وظیفه" textAlgin="right" source="TaskTypeName" />
-                <RichTextField className={classes.sho} label="توضیحات نوع وظیفه" textAlgin="right" source="TaskTypeDescription" />
+                <TextField className={classes.sho} label="کد نوع فعالیت" textAlgin="right" source="TaskTypeCode" />
+                <TextField className={classes.sho} label="عنوان نوع فعالیت" textAlgin="right" source="TaskTypeName" />
+                <RichTextField className={classes.sho} label="توضیحات نوع فعالیت" textAlgin="right" source="TaskTypeDescription" />
         </SimpleShowLayout>
     </Show>
 );

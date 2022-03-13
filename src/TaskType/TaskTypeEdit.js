@@ -33,9 +33,9 @@ const validateError = (values) => {
 const TaskTypeEdit = props => (
     <Edit actions={<EditActions />} title={<TaskTypeTitle />} {...props}>
         <SimpleForm validate={validateError} toolbar={<Toolbar alwaysEnableSaveButton />} redirect="show">
-            <TextInput label="کد نوع وظیفه" textAlgin="right" source="TaskTypeCode" />
-            <TextInput label="نام نوع وظیفه" textAlgin="right" source="TaskTypeName" />
-            <TextInput label="توضیحات نوع وظیفه" textAlgin="right" source="TaskTypeDescription" multiline />
+            <TextInput label="کد نوع فعالیت" textAlgin="right" source="TaskTypeCode" />
+            <TextInput label="عنوان نوع فعالیت" textAlgin="right" source="TaskTypeName" />
+            <TextInput label="توضیحات نوع فعالیت" textAlgin="right" source="TaskTypeDescription" multiline />
         </SimpleForm>
     </Edit>
 );

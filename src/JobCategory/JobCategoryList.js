@@ -52,15 +52,15 @@ const ListActions = (props) => {
 };
 
 const JobCategoryList = props => (
-    <List actions={<ListActions />} exporter={exporter} filters={<JobCategoryFilter />} {...props} title="شغل">
+    <List actions={<ListActions />} exporter={exporter} filters={<JobCategoryFilter />} {...props} title="تخصص">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.JobCategoryName} />
             }
             medium={
                 <Datagrid>
-                    <TextField label="کد شغل" textAlgin="right" source="JobCategoryCode" />
-                    <TextField label="نام شغل" textAlgin="right" source="JobCategoryName" />
+                    <TextField label="کد تخصص" textAlgin="right" source="JobCategoryCode" />
+                    <TextField label="عنوان تخصص" textAlgin="right" source="JobCategoryName" />
                     <ShowButton />
                 </Datagrid>
             }

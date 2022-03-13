@@ -67,25 +67,25 @@ const PersonnelCreate = props =>  {
         refresh();
     };
 return(
-    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد پرسنل">
+    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد نیروی انسانی">
         <SimpleForm validate={validateError}>
             <CodeInput formClassName={classes.fir} value={Value}  onChange={event => { let val = event.target.value;
                                                     val = val.replace(/[^\x00-\x7F]/ig, "");
                                                     setValue(val)
                                                     }}
-                label="کد پرسنل"
+                label="کد پرسنلی"
                 source="PersonnelCode" {...rest}/>
             <CodeInput formClassName={classes.sec} value={Valuen}  onChange={event => { let val = event.target.value;
                                                     val = val.replace(/[^\x00-\x7F]/ig, "");
                                                     setValuen(val)
                                                     }}
-                label="کد نت پرسنل"
+                label="کد نت نیروی انسانی"
                 source="PersonnelNetCode" {...rest}/>
             <Separator/>
-            <TextInput formClassName={classes.fir} label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-            <TextInput formClassName={classes.sec} label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
+            <TextInput formClassName={classes.fir} label="نام نیروی انسانی" textAlgin="right" source="PersonnelName" />
+            <TextInput formClassName={classes.sec} label="نام خانوادگی نیروی انسانی" textAlgin="right" source="PersonnelFamily" />
             <Separator/>
-            <TextInput className={classes.width} formClassName={classes.fir} label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+            <TextInput className={classes.width} formClassName={classes.fir} label="شماره نیروی انسانی" textAlgin="right" source="PersonnelMobile" />
             <UserRefrenceInput className={classes.sel} formClassName={classes.fir} label="کاربر" textAlgin="right" source="user" reference="PMWorks/User" perPage={10000} />
             <Separator/>
             <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">

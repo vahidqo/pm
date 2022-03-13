@@ -28,7 +28,7 @@ const PersonnelRefrenceInput = props => {
     return (
         <div className={classes.root}>
             <ReferenceInput disabled key={version} {...props}>
-                <SelectInput optionText="PersonnelName" />
+                <SelectInput optionText="PersonnelFamily" />
             </ReferenceInput>
 
             <QuickSelectPersonnelButton {...props} id={values.PersonnelID} setId={(id) => onChange(id)} />        

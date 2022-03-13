@@ -1,6 +1,6 @@
 import drfProvider, { fetchJsonWithAuthJWTToken } from 'ra-data-django-rest-framework';
 
-const dataProvider = drfProvider("http://185.231.115.209:8080", fetchJsonWithAuthJWTToken);
+const dataProvider = drfProvider("http://127.0.0.1:8000", fetchJsonWithAuthJWTToken);
 
 const myDataProvider = {
     ...dataProvider,

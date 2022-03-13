@@ -29,8 +29,8 @@ const JobCategoryShow = (props) => {
     return(
     <Show actions={<ShowActions/>} title={<JobCategoryTitle />} {...props}>
         <SimpleShowLayout>
-                <TextField className={classes.sho} label="کد شغل" textAlgin="right" source="JobCategoryCode" />
-                <TextField className={classes.sho} label="نام شغل" textAlgin="right" source="JobCategoryName" />
+                <TextField className={classes.sho} label="کد تخصص" textAlgin="right" source="JobCategoryCode" />
+                <TextField className={classes.sho} label="عنوان تخصص" textAlgin="right" source="JobCategoryName" />
         </SimpleShowLayout>
     </Show>
 );

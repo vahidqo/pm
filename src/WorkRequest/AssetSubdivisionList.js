@@ -57,7 +57,7 @@ const AssetSubdivision5 = ({ setId, setShowPanel, ...props }) => {
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
@@ -85,7 +85,7 @@ const AssetSubdivision4 = ({ setId, setShowPanel, ...props }) => {
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
@@ -113,7 +113,7 @@ const AssetSubdivision3 = ({ setId, setShowPanel, ...props }) => {
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
@@ -141,7 +141,7 @@ const AssetSubdivision2 = ({ setId, setShowPanel, ...props }) => {
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
@@ -169,7 +169,7 @@ const AssetSubdivision = ({ setId, setShowPanel, ...props }) => {
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>
@@ -192,7 +192,7 @@ return(
             <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetName" />
             </ReferenceField>
-            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationName" />
+            <TextField label="مکان" textAlgin="right" source="AssetID__LocationID__LocationNameChain" />
             <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetChildID" reference="PMWorks/AssetClass">
                 <TextField source="AssetClassName" />
             </ReferenceField>

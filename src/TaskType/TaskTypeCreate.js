@@ -40,11 +40,11 @@ const TaskTypeCreate = props => {
         refresh();
     };
 return(
-    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد وظیفه">
+    <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد نوع فعالیت">
         <SimpleForm validate={validateError}>
-            <TextInput label="کد وظیفه" textAlgin="right" source="TaskTypeCode" />
-            <TextInput label="نام وظیفه" textAlgin="right" source="TaskTypeName" />
-            <TextInput label="توضیحات نوع وظیفه" textAlgin="right" source="TaskTypeDescription" multiline />
+            <TextInput label="کد نوع فعالیت" textAlgin="right" source="TaskTypeCode" />
+            <TextInput label="عنوان نوع فعالیت" textAlgin="right" source="TaskTypeName" />
+            <TextInput label="توضیحات نوع فعالیت" textAlgin="right" source="TaskTypeDescription" multiline />
         </SimpleForm>
     </Create>
 );

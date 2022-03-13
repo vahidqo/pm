@@ -257,7 +257,7 @@ const messages = {
     'fa': farsiMessages,
 };
 
-//customRoutes={customRoutes} loginPage={MyLoginPage} authProvider={authProvider} dataProvider={myDataProvider} dataProvider={drfProvider('http://127.0.0.1:8000')}
+//customRoutes={customRoutes} loginPage={MyLoginPage} authProvider={authProvider} dataProvider={myDataProvider} dataProvider={drfProvider(http://185.231.115.209:8080'http://127.0.0.1:8000')}
 
 const theme = createMuiTheme({
     palette: {
@@ -463,7 +463,7 @@ const theme = createMuiTheme({
 });
 
 const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'fa');
-let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://185.231.115.209:8080/PMWorks/token/"});
+let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8000/PMWorks/token/"});
 
 const App = () => (
     <Admin disableTelemetry theme={theme} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >
@@ -483,6 +483,7 @@ const App = () => (
         <Resource name="PMWorks/AssetClass" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده تجهیز', "menuParent": "standard" }} list={AssetClassList} edit={AssetClassEdit} create={AssetClassCreate} show={AssetClassShow}/>
         <Resource name="PMWorks/AssetCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'گروه خانواده تجهیز', "menuParent": "standard" }} list={AssetcategoryList} edit={AssetcategoryEdit} create={AssetcategoryCreate} show={AssetCategoryShow} />
         <Resource name="PMWorks/SpecificData" icon={ArrowLeftOutlinedIcon} options={{ label: 'ویژگی‌ خانواده تجهیز', "menuParent": "standard"}} list={SpecificDataList} edit={SpecificDataEdit} create={SpecificDataCreate} show={SpecificDataShow}/>
+        <Resource name="PMWorks/TaskType" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع فعالیت', "menuParent": "standard"}} list={TaskTypeList} edit={TaskTypeEdit} create={TaskTypeCreate} show={TaskTypeShow}/>
         <Resource name="PMWorks/AssetClassSpecificData"  options={{ "label": "داده‌های ویژه" }} edit={AssetClassSpecificDataEdit} create={AssetClassSpecificDataCreate} show={AssetClassSpecificDataShow} />
         <Resource name="PMWorks/FailureMode" icon={ArrowLeftOutlinedIcon} options={{ label: 'نوع خرابی', "menuParent": "paye" }} edit={FailureModeEdit} create={FailureModeCreate} show={FailureModeShow} />
         <Resource name="PMWorks/FailureCause" icon={ArrowLeftOutlinedIcon} options={{ label: 'علت خرابی', "menuParent": "paye" }} edit={FailureCauseEdit} create={FailureCauseCreate} show={FailureCauseShow} />
@@ -498,10 +499,9 @@ const App = () => (
         <Resource name="PMWorks/SparePartDimension" icon={ArrowLeftOutlinedIcon} options={{ label: 'واحد اندازه‌گیری', "menuParent": "yadak"}} list={SparePartDimensionList} edit={SparePartDimensionEdit} create={SparePartDimensionCreate} show={SparePartDimensionShow}/>
         <Resource name="PMWorks/SparePartCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'خانواده قطعات', "menuParent": "yadak"}} list={SparePartCategoryList} edit={SparePartCategoryEdit} create={SparePartCategoryCreate} show={SparePartCategoryShow}/>
         <Resource name="PMWorks/SparePart" icon={ArrowLeftOutlinedIcon} options={{ label: 'قطعات یدکی', "menuParent": "yadak" }} list={SparePartList} edit={SparePartEdit} create={SparePartCreate} show={SparePartShow}/>
-        <Resource name="PMWorks/TaskType" icon={ArrowLeftOutlinedIcon} options={{ label: 'وظایف', "menuParent": "niro"}} list={TaskTypeList} edit={TaskTypeEdit} create={TaskTypeCreate} show={TaskTypeShow}/>
-        <Resource name="PMWorks/JobCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'شغل', "menuParent": "niro"}} list={JobCategoryList} edit={JobCategoryEdit} create={JobCategoryCreate} show={JobCategoryShow}/>
+        <Resource name="PMWorks/Personnel" icon={ArrowLeftOutlinedIcon} options={{ label: 'نیروی انسانی', "menuParent": "niro"}} list={PersonnelList} edit={PersonnelEdit} create={PersonnelCreate} show={PersonnelShow}/>
+        <Resource name="PMWorks/JobCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'تخصص', "menuParent": "niro"}} list={JobCategoryList} edit={JobCategoryEdit} create={JobCategoryCreate} show={JobCategoryShow}/>
         <Resource name="PMWorks/Department" icon={ArrowLeftOutlinedIcon} options={{ label: 'دپارتمان', "menuParent": "niro"}} list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} show={DepartmentShow}/>
-        <Resource name="PMWorks/Personnel" icon={ArrowLeftOutlinedIcon} options={{ label: 'پرسنل', "menuParent": "niro"}} list={PersonnelList} edit={PersonnelEdit} create={PersonnelCreate} show={PersonnelShow}/>
         <Resource name="PMWorks/PersonnelJobCategory" icon={ArrowLeftOutlinedIcon} options={{ label: 'شغل پرسنل'}} edit={PersonnelJobCategoryEdit} create={PersonnelJobCategoryCreate} show={PersonnelJobCategoryShow}/>
         <Resource name="PMWorks/TypeWr" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع درخواست کار', "menuParent": "paye"}} list={TypeWrList} edit={TypeWrEdit} create={TypeWrCreate} show={TypeWrShow}/>
         <Resource name="PMWorks/Delay" icon={ArrowLeftOutlinedIcon} options={{ label: 'تاخیرات', "menuParent": "paye"}} list={DelayList} edit={DelayEdit} create={DelayCreate} show={DelayShow}/>

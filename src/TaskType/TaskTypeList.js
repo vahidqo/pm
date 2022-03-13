@@ -52,15 +52,15 @@ const ListActions = (props) => {
 };
 
 const TaskTypeList = props => (
-    <List actions={<ListActions />} exporter={exporter} filters={<TaskTypeFilter />} {...props} title="انواع وظیفه">
+    <List actions={<ListActions />} exporter={exporter} filters={<TaskTypeFilter />} {...props} title="انواع فعالیت">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.TaskTypeName} />
             }
             medium={
                 <Datagrid>
-                    <TextField label="کد نوع وظیفه" textAlgin="right" source="TaskTypeCode" />
-                    <TextField label="نام نوع وظیفه" textAlgin="right" source="TaskTypeName" />
+                    <TextField label="کد نوع فعالیت" textAlgin="right" source="TaskTypeCode" />
+                    <TextField label="عنوان نوع فعالیت" textAlgin="right" source="TaskTypeName" />
                     <ShowButton />
                 </Datagrid>
             }

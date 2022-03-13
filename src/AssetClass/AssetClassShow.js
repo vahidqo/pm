@@ -435,6 +435,7 @@ const AssetClassShow = props => {
                             <ReferenceField label="تخصیص" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
                                 <TextField source="JobCategoryName" />
                             </ReferenceField>
+                            <EditButton/>
                         </Datagrid>
                     </List>
                 </ReferenceManyField>

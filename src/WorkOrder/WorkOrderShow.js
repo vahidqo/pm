@@ -45,6 +45,10 @@ import QuickSelectTaskButton from './QuickSelectTaskButton';
 import DoneIcon from '@material-ui/icons/Done';
 import { ImportButton } from "react-admin-import-csv";
 import ScrollDialog from './NewSpareTask';
+import ScrollDialogP from './NewPersonTask';
+import SettingsInputSvideoOutlinedIcon from '@material-ui/icons/SettingsInputSvideoOutlined';
+import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
+import QuickSelectSpareButton from './QuickSelectSpareButton';
 
 const importOptions = {
     parseConfig: {
@@ -76,7 +80,7 @@ const CustomTaskButton = ({ selectedIds }) => {
     );
 };
 
-const AddTaskSpaerButton = ({ selectedIds }) => {
+const AddTaskSpareButton = ({ selectedIds }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => () => {
@@ -87,16 +91,39 @@ const AddTaskSpaerButton = ({ selectedIds }) => {
         <Fragment>
             <Button
                 label="افزودن قطعه‌یدکی"
+                onClick={handleClickOpen()}
             >
-                <DoneIcon />
+                <SettingsInputSvideoOutlinedIcon />
             </Button>
             {open ? <ScrollDialog open={open} setOpen={setOpen} taskSelectedIds={selectedIds} /> : null}
         </Fragment>
     );
 };
 
+const AddTaskPersonnelButton = ({ selectedIds }) => {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => () => {
+        setOpen(true);
+    };
+
+    return (
+        <Fragment>
+            <Button
+                label="افزودن پرسنل"
+                onClick={handleClickOpen()}
+            >
+                <PermIdentityOutlinedIcon />
+            </Button>
+            {open ? <ScrollDialogP open={open} setOpen={setOpen} taskSelectedIds={selectedIds} /> : null}
+        </Fragment>
+    );
+};
+
 const TaskBulkActionButtons = props => (
     <Fragment>
+        <AddTaskPersonnelButton {...props} />
+        <QuickSelectSpareButton {...props} />
         <CustomTaskButton label="تایید فعالیت" {...props} />
         <BulkDeleteButton {...props} />
     </Fragment>
@@ -336,6 +363,9 @@ const WOTaskList = (props) => {
                             <ReferenceField label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                                 <TextField source="PersonnelName" />
                             </ReferenceField>
+                            <ReferenceField label="فامیل پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                                <TextField source="PersonnelFamily" />
+                            </ReferenceField>
                             <ReferenceField label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                                 <TextField source="PersonnelCode" />
                             </ReferenceField>
@@ -494,6 +524,9 @@ const WorkOrderShow = (props) => {
                     <Datagrid>
                         <ReferenceField label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                             <TextField source="PersonnelName" />
+                        </ReferenceField>
+                        <ReferenceField label="فامیل پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                                <TextField source="PersonnelFamily" />
                         </ReferenceField>
                         <ReferenceField label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                             <TextField source="PersonnelCode" />

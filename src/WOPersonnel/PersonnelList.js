@@ -36,13 +36,13 @@ const NoneActions = props => (
 const PersonnelList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<PersonnelFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List filters={<PersonnelFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="لیست نیروی انسانی ">
         <Datagrid>
-            <TextField label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
-            <TextField label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
-            <TextField label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-            <TextField label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
-            <TextField label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+            <TextField label="کد پرسنلی" textAlgin="right" source="PersonnelCode" />
+            <TextField label="کد نت نیروی انسانی" textAlgin="right" source="PersonnelNetCode" />
+            <TextField label="نام نیروی انسانی" textAlgin="right" source="PersonnelName" />
+            <TextField label="نام خانوادگی نیروی انسانی" textAlgin="right" source="PersonnelFamily" />
+            <TextField label="شماره نیروی انسانی" textAlgin="right" source="PersonnelMobile" />
             <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                 <TextField source="DepartmentName" />
             </ReferenceField>
