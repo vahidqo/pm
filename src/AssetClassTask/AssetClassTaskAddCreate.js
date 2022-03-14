@@ -34,7 +34,6 @@ const freq = [
     { _id: 'W', full_name: 'هفتگی'},
     { _id: 'M', full_name: 'ماهانه'},
     { _id: 'Y', full_name: 'سالانه'},
-    { _id: 'F', full_name: 'وظیفه‌ای'},
 ];
 
 const fun = [
@@ -55,10 +54,10 @@ const AssetClassTaskAddCreate = props => {
     return (
     <Create {...props} title="ایجاد فعالیت">
         <SimpleForm initialValues={{ AssetClassID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <Separator/>
@@ -77,7 +76,7 @@ const AssetClassTaskAddCreate = props => {
             <NumberInput formClassName={classes.fir} label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />
             <RadioButtonGroupInput formClassName={classes.sec} label="مسئول" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
             <Separator />
-            <TaskTypeRefrenceInput formClassName={classes.fir} label="کد فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" allowEmpty validate={required()} perPage={10000} />
+            <TaskTypeRefrenceInput formClassName={classes.fir} label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" allowEmpty validate={required()} perPage={10000} />
             <JobCategoryRefrenceInput formClassName={classes.last} label="کد شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory" allowEmpty validate={required()} perPage={10000} />
         </SimpleForm>
     </Create>

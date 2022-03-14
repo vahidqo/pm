@@ -429,10 +429,10 @@ const AssetClassShow = props => {
                             <NumberField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
                             <NumberField label="مدت زمان انجام (دقیقه)" textAlgin="right" source="DurationOfDo" />
                             <TextField label="مسئول" textAlgin="right" source="Functor" />
-                            <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType">
+                            <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" sortBy="TaskTypeID__TaskTypeName">
                                 <TextField source="TaskTypeName" />
                             </ReferenceField>
-                            <ReferenceField label="تخصیص" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory">
+                            <ReferenceField label="تخصیص" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory" sortBy="JobCategoryID__JobCategoryName">
                                 <TextField source="JobCategoryName" />
                             </ReferenceField>
                             <EditButton/>
