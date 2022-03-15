@@ -16,7 +16,7 @@ const AssetSubdivisionFilter = (props) =>{
     <Filter {...props}>
         <TextInput className={classes.width} source="AssetCode__icontains" label="کد تجهیز" textAlgin="right" alwaysOn resettable />
         <TextInput className={classes.width} source="AssetName__icontains" label="نام تجهیز" textAlgin="right" alwaysOn resettable />
-        <TextInput className={classes.width} source="LocationNameChain__icontains" label="مکان" textAlgin="right" alwaysOn resettable />
+        <TextInput className={classes.width} source="AssetID__LocationdID__LocationNameChain__icontains" label="مکان" textAlgin="right" alwaysOn resettable />
         <TextInput className={classes.width} source="AssetChildID__AssetClassName__icontains" label="خانواده تجهیز" alwaysOn resettable />
     </Filter>
 );
