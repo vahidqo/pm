@@ -15,7 +15,8 @@ import {
     TopToolbar,
     useShowController,
     ExportButton,
-    EditButton
+    EditButton,
+    SelectField
 }
 from 'react-admin';
 import AssetClassTitle from './AssetClassTitle';
@@ -314,6 +315,19 @@ const CreateChildButton = ({ record }) => (
     </Button>
 );
 
+const freq = [
+    { _id: 'H', full_name: 'ساعتی'},
+    { _id: 'D', full_name: 'روزانه'},
+    { _id: 'W', full_name: 'هفتگی'},
+    { _id: 'M', full_name: 'ماهانه'},
+    { _id: 'Y', full_name: 'سالانه'},
+];
+
+const fun = [
+    { _id: 'O', full_name: 'اپراتور'},
+    { _id: 'T', full_name: 'تکنسین' },
+];
+
 
 const AssetClassShow = props => {
 
@@ -425,10 +439,10 @@ const AssetClassShow = props => {
                         <Datagrid>
                             <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                             <TextField label="عنوان فعالیت" textAlgin="right" source="TaskName" />
-                            <TextField label="تناوب" textAlgin="right" source="FrequencyName" />
-                            <NumberField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
+                            <SelectField label="تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
+                            <TextField label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
                             <NumberField label="مدت زمان انجام (دقیقه)" textAlgin="right" source="DurationOfDo" />
-                            <TextField label="مسئول" textAlgin="right" source="Functor" />
+                            <SelectField label="مسئول" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
                             <ReferenceField label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" sortBy="TaskTypeID__TaskTypeName">
                                 <TextField source="TaskTypeName" />
                             </ReferenceField>

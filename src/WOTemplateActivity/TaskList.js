@@ -1,16 +1,11 @@
 import React from "react";
-import { Fragment } from 'react';
 import {
     List,
     Datagrid,
     TextField,
     CardActions,
     ReferenceField,
-    NumberField,
-    useMutation,
-    useRefresh,
-    useNotify,
-    useUnselectAll
+    NumberField
 }
 from 'react-admin';
 import Button from "@material-ui/core/Button";
@@ -21,25 +16,11 @@ const useStyles = makeStyles({
     fir: { fontFamily: 'inherit' },
 });
 
-const SelectButton = ({ selectedIds , setShowPanel, data }) =>{
-    const refresh = useRefresh();
-    const notify = useNotify();
-    const unselectAll = useUnselectAll();
-    const classes = useStyles();
-    const [mutate, { loading }] = useMutation();
+const SelectButton = ({ record, setId, setShowPanel }) =>{
 
-    //const [create, { loading }] = useCreate(
-     //   'posts',
-      //  selectedIds,
-       // { views: 0 },
-        //{
-    const onSuccess = () => {
-        refresh(`PMWorks/WorkOrder/${data.id}/show/PMWorks/WOTask`);
-        notify('فعالیت‌ها اضافه شدند');
-        setShowPanel((showPanel) => !showPanel);
-    };
- 
-    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'create', resource: 'PMWorks/WOTask', payload: { data: {WorkOrderID: data, TaskID: selectedId, WOTaskSituationOfDo: 'ND'}} } )) }; onSuccess()};
+    const classes = useStyles();
+
+    const toggleDrawer = () => {setShowPanel((showPanel) => !showPanel); setId(record.id)};
 
     return(
     <Button className={classes.fir} onClick={toggleDrawer} color="secondary">
@@ -48,20 +29,15 @@ const SelectButton = ({ selectedIds , setShowPanel, data }) =>{
   );
     };
 
-const BulkActionButtons = ({ setShowPanel, ...props }) => (
-        <Fragment>
-            <SelectButton setShowPanel={setShowPanel} {...props}/>
-        </Fragment>
-    );
 
 const NoneActions = props => (
     <CardActions />
 ); 
 
-const TaskList = ({ data, setShowPanel, ...props }) => {
+const TaskList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List basePath="PMWorks/AssetClassTask" filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List filters={<AssetClassTaskFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
                     <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                     <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />
@@ -78,6 +54,7 @@ const TaskList = ({ data, setShowPanel, ...props }) => {
                     <ReferenceField label="کلاس تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                         <TextField source="AssetClassName" />
                     </ReferenceField>
+            <SelectButton setId={setId} setShowPanel={setShowPanel} />
         </Datagrid>
     </List>
 );

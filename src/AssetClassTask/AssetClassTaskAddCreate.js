@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 });
 
 const freq = [
+    { _id: 'H', full_name: 'ساعتی'},
     { _id: 'D', full_name: 'روزانه'},
     { _id: 'W', full_name: 'هفتگی'},
     { _id: 'M', full_name: 'ماهانه'},
@@ -70,7 +71,7 @@ const AssetClassTaskAddCreate = props => {
             <TextInput formClassName={classes.sec} label="نام فعالیت" textAlgin="right" source="TaskName" />
             <TextInput className={classes.width} multiline label="توضیحات فعالیت" textAlgin="right" source="TaskDescription"/>
             <Separator />
-            <SelectInput formClassName={classes.fir} label="مقدار تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
+            <SelectInput formClassName={classes.fir} label="تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
             <NumberInput formClassName={classes.sec} label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
             <Separator />
             <NumberInput formClassName={classes.fir} label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />

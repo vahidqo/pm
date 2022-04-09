@@ -16,13 +16,20 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles({
+    but: { fontFamily: 'inherit',
+           marginBottom: '16px'
+    }
+});
 
 function QuickAddTaskButton({ onChange }) {
     const [showDialog, setShowDialog] = useState(false);
     const [create, { loading }] = useCreate('PMWorks/AssetClassTask');
     const notify = useNotify();
     const form = useForm();
+    const classes = useStyles();
 
     const handleClick = () => {
         setShowDialog(true);
@@ -40,7 +47,7 @@ function QuickAddTaskButton({ onChange }) {
                     setShowDialog(false);
                     // Update the comment form to target the newly created post
                     // Updating the ReferenceInput value will force it to reload the available posts
-                    form.change('AssetClassTaskID', data.id);
+                    form.change('TaskID', data.id);
                     onChange();
                 },
                 onFailure: ({ error }) => {
@@ -52,7 +59,7 @@ function QuickAddTaskButton({ onChange }) {
 
     return (
         <>
-            <Button onClick={handleClick} label="ra.action.create">
+            <Button className={classes.but} onClick={handleClick} label="ra.action.create">
                 <IconContentAdd />
             </Button>
             <Dialog

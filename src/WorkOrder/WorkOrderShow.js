@@ -23,6 +23,7 @@ import {
     useUnselectAll,
     BulkDeleteButton,
     Button,
+    ResourceContextProvider
 }
 from 'react-admin';
 import WorkOrderTitle from './WorkOrderTitle';
@@ -81,10 +82,10 @@ const CustomTaskButton = ({ selectedIds }) => {
 };
 
 const AddTaskSpareButton = ({ selectedIds }) => {
-    const [open, setOpen] = React.useState(false);
+    const [opens, setOpens] = React.useState(false);
 
     const handleClickOpen = () => () => {
-        setOpen(true);
+        setOpens(true);
     };
 
     return (
@@ -95,7 +96,7 @@ const AddTaskSpareButton = ({ selectedIds }) => {
             >
                 <SettingsInputSvideoOutlinedIcon />
             </Button>
-            {open ? <ScrollDialog open={open} setOpen={setOpen} taskSelectedIds={selectedIds} /> : null}
+            {opens ? <ScrollDialog open={opens} setOpen={setOpens} taskSelectedIds={selectedIds} /> : null}
         </Fragment>
     );
 };
@@ -123,7 +124,7 @@ const AddTaskPersonnelButton = ({ selectedIds }) => {
 const TaskBulkActionButtons = props => (
     <Fragment>
         <AddTaskPersonnelButton {...props} />
-        <QuickSelectSpareButton {...props} />
+        <AddTaskSpareButton {...props} />
         <CustomTaskButton label="تایید فعالیت" {...props} />
         <BulkDeleteButton {...props} />
     </Fragment>
@@ -382,15 +383,14 @@ const WOTaskList = (props) => {
 
 
 const WorkOrderShow = (props) => {
+    
 
-    const {
-        record
-    } = useShowController(props);
+    const record = props.id
 
     const classes = useStyles();
     return(
     <Show actions={<ShowActions/>} {...props} title={<WorkOrderTitle />}>
-        <TabbedShowLayout>
+        <TabbedShowLayout syncWithLocation={false}>
             <Tab label="مشخصات">
                 <WorkOrderField className={classes.sho} textAlgin="right" source="id" />
                 <JalaaliDateField className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
@@ -415,7 +415,7 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WOStatus"
                     target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
+                    filter={{ WorkOrderID: record }}
                 >
                 <List exporter={exporterWOStatus} empty={false} filters={<WOStatusFilter />} actions={<WOStatusActions data={record}/>}>
                     <Datagrid>
@@ -436,9 +436,10 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WOTask"
                     target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
+                    filter={{ WorkOrderID: record }}
                 >
-                <List exporter={exporterTask} bulkActionButtons={<TaskBulkActionButtons />} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
+                <ResourceContextProvider value="PMWorks/WOTask">
+                <List syncWithLocation basePath="PMWorks/WOTask" filterDefaultValues={{ WorkOrderID: record }} exporter={exporterTask} bulkActionButtons={<TaskBulkActionButtons />} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
                     <Datagrid expand={<WOTaskList />}>
                         <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
                             <TextField source="TaskName" />
@@ -449,6 +450,7 @@ const WorkOrderShow = (props) => {
                         <SelectField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" choices={freq} optionText="full_name" optionValue="_id" />
                     </Datagrid>
                 </List>
+                </ResourceContextProvider>
                 </ReferenceManyField>
             </Tab>
             <Tab label="تامین کننده" path="PMWorks/WOSupplier">
@@ -456,7 +458,7 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WOSupplier"
                     target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
+                    filter={{ WorkOrderID: record }}
                 >
                 <List exporter={exporterSupplier} empty={false} filters={<WOSupplierFilter />} actions={<WOSupplierActions data={record}/>}>
                     <Datagrid>
@@ -477,7 +479,7 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WODelay"
                     target="WorkOrderID"
-                    filter={{ WorkOrderID: record.id }}
+                    filter={{ WorkOrderID: record }}
                 >
                 <List exporter={exporterDelay} empty={false} filters={<WODelayFilter />} actions={<WODelayActions data={record}/>}>
                     <Datagrid>
@@ -498,7 +500,7 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WOSparePart"
                     target="WorkOrderID"
-                    filter={{ WOTask__WorkOrderID: record.id }}
+                    filter={{ WOTask__WorkOrderID: record }}
                 >
                 <List exporter={exporterSparePart} empty={false} filters={<WOSparePartFilter />} actions={<WOSparePartActions data={record}/>}>
                     <Datagrid>
@@ -518,7 +520,7 @@ const WorkOrderShow = (props) => {
                     addLabel={false}
                     reference="PMWorks/WOPersonnel"
                     target="WorkOrderID"
-                    filter={{ WOTask__WorkOrderID: record.id }}
+                    filter={{ WOTask__WorkOrderID: record }}
                 >
                 <List exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOPersonnelActions data={record}/>}>
                     <Datagrid>

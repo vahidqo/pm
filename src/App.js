@@ -231,11 +231,6 @@ import WOTemplateTypeCreate from './WOTemplateType/WOTemplateTypeCreate';
 import WOTemplateTypeEdit from './WOTemplateType/WOTemplateTypeEdit';
 import WOTemplateTypeShow from './WOTemplateType/WOTemplateTypeShow';
 
-import WOActivityTemplateList from './WOActivityTemplate/WOActivityTemplateList';
-import WOActivityTemplateCreate from './WOActivityTemplate/WOActivityTemplateCreate';
-import WOActivityTemplateEdit from './WOActivityTemplate/WOActivityTemplateEdit';
-import WOActivityTemplateShow from './WOActivityTemplate/WOActivityTemplateShow';
-
 import WOTemplateSchualingList from './WOTemplateSchualing/WOTemplateSchualingList';
 import WOTemplateSchualingCreate from './WOTemplateSchualing/WOTemplateSchualingCreate';
 import WOTemplateSchualingEdit from './WOTemplateSchualing/WOTemplateSchualingEdit';
@@ -249,6 +244,10 @@ import UserShow from './User/UserShow';
 import WRStatusCreate from './WRStatus/WRStatusCreate';
 
 import WOStatusCreate from './WOStatus/WOStatusCreate';
+
+import WOTemplateActivityCreate from './WOTemplateActivity/WOTemplateActivityCreate';
+
+import WOTemplateAssetCreate from './WOTemplateAsset/WOTemplateAssetCreate';
 
 import customRoutes from './customRoutes';
 
@@ -459,6 +458,11 @@ const theme = createMuiTheme({
                 marginRight: '-0.75em',
             },
         },
+        MuiGrid:{
+            "grid-xs-6":{
+                direction: 'ltr',
+            },
+        },
     },
 });
 
@@ -526,7 +530,6 @@ const App = () => (
         <Resource name="PMWorks/Frequency" />
         <Resource name="PMWorks/WOTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه‌ریزی دستورکار', "menuParent": "barnamenet" }} list={WOTemplateList} edit={WOTemplateEdit} create={WOTemplateCreate} show={WOTemplateShow}/>
         <Resource name="PMWorks/WOTemplateType" icon={ArrowLeftOutlinedIcon} options={{ label: 'انواع برنامه‌ریزی', "menuParent": "barnamenet" }} list={WOTemplateTypeList} edit={WOTemplateTypeEdit} create={WOTemplateTypeCreate} show={WOTemplateTypeShow}/>
-        <Resource name="PMWorks/WOActivityTemplate" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت برنامه ها'}} edit={WOActivityTemplateEdit} create={WOActivityTemplateCreate} show={WOActivityTemplateShow}/>
         <Resource name="PMWorks/WOTemplateSchualing" icon={ArrowLeftOutlinedIcon} options={{ label: 'برنامه ریزی'}} edit={WOTemplateSchualingEdit} create={WOTemplateSchualingCreate} show={WOTemplateSchualingShow}/>
         <Resource name="PMWorks/TemplateSchualingDate" />
         <Resource name="PMWorks/TaskTemp" />
@@ -534,6 +537,8 @@ const App = () => (
         <Resource name="PMWorks/Status" />
         <Resource name="PMWorks/WRStatus" options={{ label: 'وضعیت'}} create={WRStatusCreate}/>
         <Resource name="PMWorks/WOStatus" options={{ label: 'وضعیت'}} create={WOStatusCreate}/>
+        <Resource name="PMWorks/WOTemplateAsset" options={{ label: 'تجهیز برنامه'}} create={WOTemplateAssetCreate}/>
+        <Resource name="PMWorks/WOTemplateActivity" options={{ label: 'فعالیت تجهیز برنامه'}} create={WOTemplateActivityCreate}/>
         <Resource name="PMWorks/WRWORelationStatus" />
         <Resource name="PMWorks/WorkflowLevelStatus" />
         <Resource name="PMWorks/WorkflowLevel" />

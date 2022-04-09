@@ -15,11 +15,11 @@ import TaskTypeRefrenceInput from './TaskTypeRefrenceInput';
 import AssetClassRefrenceInput from './AssetClassRefrenceInput';
 
 const freq = [
+    { _id: 'H', full_name: 'ساعتی'},
     { _id: 'D', full_name: 'روزانه'},
     { _id: 'W', full_name: 'هفتگی'},
     { _id: 'M', full_name: 'ماهانه'},
     { _id: 'Y', full_name: 'سالانه'},
-    { _id: 'F', full_name: 'وظیفه‌ای'},
 ];
 
 const fun = [

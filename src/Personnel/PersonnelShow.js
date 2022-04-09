@@ -17,9 +17,7 @@ import {
 from 'react-admin';
 import AddJobButton from './AddJobButton';
 import PersonnelJobCategoryFilter from '../PersonnelJobCategory/PersonnelJobCategoryFilter';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
+
 import { makeStyles } from '@material-ui/core';
 import { ImportButton } from "react-admin-import-csv";
 

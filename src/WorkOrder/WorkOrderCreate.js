@@ -50,6 +50,8 @@ const WorkOrderCreate = props => {
     const refresh = useRefresh();
     const redirect = useRedirect();
 
+    const type = 0;
+
     const { WorkRequestID: WorkRequestID_string } = parse(props.location.search);
     const WorkRequestID = WorkRequestID_string ? parseInt(WorkRequestID_string, 10) : '';
     
@@ -61,7 +63,7 @@ const WorkOrderCreate = props => {
 
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد دستور کار">
-        <SimpleForm validate={validateError} redirect={redirect} initialValues={{ WODateOfRegistration: today, WorkRequestID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
+        <SimpleForm validate={validateError} redirect={redirect} initialValues={{ WODateOfRegistration: today, WorkOrderType: type, WorkRequestID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
             <TextInput formClassName={classes.fir} disabled label="کد درخواست‌کار" source="WorkRequestID" format={WorkRequestformat}/>
             <DateInputtoday formClassName={classes.sec} label="تاریخ ثبت" source="WODateOfRegistration" disabled/>
             <Separator/>

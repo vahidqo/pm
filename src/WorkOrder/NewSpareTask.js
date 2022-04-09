@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import { TextField, useRefresh, useUnselectAll,
          ReferenceField, Datagrid, List, useMutation, Button,
          useNotify, NumberInput, SimpleForm, ResourceContextProvider } from "react-admin";
@@ -11,7 +9,6 @@ import Divider from '@material-ui/core/Divider';
 
 export default function ScrollDialog(props) {
     const [taskTime, setTaskTime] = React.useState(null);
-    const [showPanel, setShowPanel] = useState(false);
 
     let { open, setOpen, taskSelectedIds } = props;
 
@@ -19,9 +16,6 @@ export default function ScrollDialog(props) {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const toggleDrawer = () => setShowPanel((showPanel) => !showPanel);
-
 
     const AddButton = ({ selectedIds }) => {
         const refresh = useRefresh();
@@ -74,7 +68,7 @@ export default function ScrollDialog(props) {
     const PersonnalList = (...props) => {
         return (
         <ResourceContextProvider value="PMWorks/SparePart" {...props}>
-            <List syncWithLocation basePath="PMWorks/SparePart" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<SparePartFilter />} exporter={false} actions={false} {...props}>
+            <List basePath="PMWorks/SparePart" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<SparePartFilter />} exporter={false} actions={false} {...props}>
             <Datagrid>
                 <TextField label="کد قطعه" textAlgin="right" source="SparePartCode" />
                 <TextField label="نام قطعه" textAlgin="right" source="SparePartName" />
@@ -92,8 +86,8 @@ export default function ScrollDialog(props) {
 
     return (
         <Dialog
-        open={showPanel}
-        onClose={toggleDrawer}
+        open={open}
+        onClose={handleClose}
         fullWidth={true}
         maxWidth={"md"}
         >

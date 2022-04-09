@@ -13,17 +13,17 @@ const styles = {
   }
 };
 
-const AddSchualingButton = ({ classes, record }) => (
+const AddAssetButton = ({ classes, record }) => (
   <Button
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOTemplateSchualing/create?WOTemplateID=${record.id}`}
+    to={`/PMWorks/WOTemplateAsset/create?WOTemplateID=${record.id}`}
     label="ایجاد"
-    title="اضافه کردن برنامه"
+    title="اضافه کردن تجهیز"
   >
     <AddIcon />
   </Button>
 );
 
-export default withStyles(styles)(AddSchualingButton);
+export default withStyles(styles)(AddAssetButton);

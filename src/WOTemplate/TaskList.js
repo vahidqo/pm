@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     fir: { fontFamily: 'inherit' },
 });
 
-const SelectButton = ({ selectedIds , setShowPanel, data }) =>{
+const SelectButton = ({ selectedIds , setShowPanel, data, dataa }) =>{
     const refresh = useRefresh();
     const notify = useNotify();
     const unselectAll = useUnselectAll();
@@ -34,12 +34,14 @@ const SelectButton = ({ selectedIds , setShowPanel, data }) =>{
        // { views: 0 },
         //{
     const onSuccess = () => {
-        refresh(`PMWorks/WorkOrder/${data.id}/show/PMWorks/WOTask`);
+        refresh(`PMWorks/WOTemplate/${dataa}/show/PMWorks/WOTemplateAsset`);
+        refresh(`PMWorks/WOTemplateActivity`);
         notify('فعالیت‌ها اضافه شدند');
         setShowPanel((showPanel) => !showPanel);
+        unselectAll('PMWorks/TaskTemp')
     };
  
-    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'create', resource: 'PMWorks/WOTask', payload: { data: {WorkOrderID: data, TaskID: selectedId, WOTaskSituationOfDo: 'ND'}} } )) }; onSuccess()};
+    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'create', resource: 'PMWorks/WOTemplateActivity', payload: { data: {WOTemplateAssetID: data, TaskID: selectedId}} } )) }; onSuccess()};
 
     return(
     <Button className={classes.fir} onClick={toggleDrawer} color="secondary">
@@ -58,10 +60,10 @@ const NoneActions = props => (
     <CardActions />
 ); 
 
-const TaskList = ({ data, setShowPanel, ...props }) => {
+const TaskList = ({ data, dataa, setShowPanel, ...props }) => {
 
     return(
-    <List basePath="PMWorks/AssetClassTask" filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List basePath="PMWorks/TaskTemp" filters={<AssetClassTaskFilter />} filterDefaultValues={{ WOTemplateAssetID: data }} bulkActionButtons={<BulkActionButtons data={data} dataa={dataa} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="فعالیت‌ها">
         <Datagrid>
                     <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                     <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />

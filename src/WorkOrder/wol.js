@@ -8,7 +8,8 @@ import {
     TopToolbar,
     ExportButton,
     Button,
-    downloadCSV
+    downloadCSV,
+    SelectField
 } from 'react-admin';
 import {
     makeStyles,
@@ -92,6 +93,11 @@ const useDatagridStyles = makeStyles({
     total: { fontWeight: 'bold' },
 });
 
+const freq = [
+    { _id: '0', full_name: 'WR'},
+    { _id: '1', full_name: 'PM'},
+];
+
 class TabbedDatagrid extends React.Component {
     tabs = [
         { id: '1', name: 'باز' },
@@ -154,6 +160,7 @@ class TabbedDatagrid extends React.Component {
                                 <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                                     <TextField source="DepartmentName" />
                                 </ReferenceField>
+                                <SelectField label="نوع" textAlgin="right" source="WorkOrderType" choices={freq} optionText="full_name" optionValue="_id" />
                                 <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
@@ -178,6 +185,7 @@ class TabbedDatagrid extends React.Component {
                                 <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                                     <TextField source="DepartmentName" />
                                 </ReferenceField>
+                                <SelectField label="نوع" textAlgin="right" source="WorkOrderType" choices={freq} optionText="full_name" optionValue="_id" />
                                 <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                                     <TextField source="StatusName" />
                                 </ReferenceField>

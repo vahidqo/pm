@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { useFormState } from 'react-final-form';
-import { ReferenceInput, SelectInput, useInput } from 'react-admin';
+import { ReferenceInput, SelectInput, useInput  } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 
-import QuickAddDepartmentButton from './QuickAddDepartmentButton';
-import QuickPreviewDepartmentButton from './QuickPreviewDepartmentButton';
-import QuickDepartmentSelectButton from './QuickDepartmentSelectButton';
+import QuickAddAssetSubdivisionButton from './QuickAddAssetSubdivisionButton';
+import QuickPreviewAssetSubdivisionButton from './QuickPreviewAssetSubdivisionButton';
 
 const useStyles = makeStyles({
     root: {
@@ -16,7 +15,7 @@ const useStyles = makeStyles({
 
 const spySubscription = { values: true };
 
-const DepartmentRefrenceInput = props => {
+const AssetSubdivisionRefrenceInput = props => {
     const classes = useStyles();
     const [version, setVersion] = useState(0);
     const { values } = useFormState({ subscription: spySubscription });
@@ -28,14 +27,12 @@ const DepartmentRefrenceInput = props => {
     return (
         <div className={classes.root}>
             <ReferenceInput disabled key={version} {...props}>
-                <SelectInput optionText="DepartmentName" />
+                <SelectInput optionText="AssetName" />
             </ReferenceInput>
-
-            <QuickDepartmentSelectButton {...props} id={values.DepartmentID} setId={(id) => onChange(id)} />        
-            <QuickAddDepartmentButton onChange={handleChange} />
-            <QuickPreviewDepartmentButton id={values.DepartmentID} />
+            <QuickPreviewAssetSubdivisionButton {...props} id={values.AssetSubdivisionID} setId={(id) => onChange(id)} />        
+            <QuickAddAssetSubdivisionButton id={values.AssetSubdivisionID} />
         </div>
     );
 };
 
-export default DepartmentRefrenceInput;
+export default AssetSubdivisionRefrenceInput;

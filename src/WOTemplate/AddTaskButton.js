@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
+import AddIcon from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from 'react-admin';
 
 const styles = {
   button: {
-    marginTop: '1em'
+    color: '#243261',
+    fontSize: '0.8125rem',
+    paddingLeft: '0px',
+    paddingTop: '3px'
   }
 };
 
@@ -15,11 +18,11 @@ const AddTaskButton = ({ classes, record }) => (
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOActivityTemplate/create?WOTemplateID=${record.id}`}
-    label="اضافه کردن فعالیت"
+    to={`/PMWorks/WOTemplateActivity/create?WOTemplateAssetID=${record}`}
+    label="ایجاد"
     title="اضافه کردن فعالیت"
   >
-    <ChatBubbleIcon />
+    <AddIcon />
   </Button>
 );
 
