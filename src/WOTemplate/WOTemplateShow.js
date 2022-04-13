@@ -32,6 +32,7 @@ import WOTemplateActivityFilter from '../WOTemplateActivity/WOTemplateActivityFi
 import AddTaskButton from './AddTaskButton';
 import { Link } from 'react-router-dom';
 import QuickSelectTaskButton from './QuickSelectTaskButton';
+import QuickSelectAssetButton from './QuickSelectAssetButton';
 
 
 const importOptions = {
@@ -53,7 +54,10 @@ const useStyles = makeStyles({
         fontSize: '0.8125rem',
         paddingLeft: '0px',
         paddingTop: '3px'
-      }
+    },
+    dis:{
+        display: 'none',
+    },
 });
 
 const ShowActions = ({ basePath, data }) => (
@@ -69,6 +73,7 @@ const WOTemplateAssetActions = ({ basePath, data }, props) => {
     
     return (
       <TopToolbar>
+          <QuickSelectAssetButton record={data}/>
           <AddAssetButton record={data}/>
           <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
           <ImportButton label="ورودی" resource="PMWorks/WOTemplateAsset" {...props} {...importOptions}/>
@@ -102,7 +107,10 @@ const WorkOrderShowButton = ({ record }) => {
 
     return(
     <ShowButton
-    className={classes.button}
+    className={{
+        [classes.dis]: record.WorkOrderID == null,
+        [classes.button]: record.WorkOrderID != null
+    }}
     variant="raised"
     component={Link}
     to={`/PMWorks/WorkOrder/${record.WorkOrderID}/show`}
@@ -121,7 +129,7 @@ const TemplateSchualing = props => (
         >
         <List {...props} actions={null} basePath="PMWorks/TemplateSchualingDate" title=" "  >
             <Datagrid>
-                <DateField label="تاریخ" source="TemplateSchualingDate" />
+                <DateField label="تاریخ" source="SchualingDate" />
                 <BooleanField label="وضعیت" source="StatusOfDo" />
                 <WorkOrderShowButton />
             </Datagrid>

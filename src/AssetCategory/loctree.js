@@ -9,7 +9,8 @@ import {
     TopToolbar,
     ExportButton,
     downloadCSV,
-    CreateButton
+    CreateButton,
+    useGetList
 }
 from 'react-admin';
 import Button from '@material-ui/core/Button';
@@ -26,24 +27,46 @@ const importOptions = {
     },
 };
 
-const exporter = (data) => {
-  const BOM = '\uFEFF'
+const CustomExportButton = (props) => {
+    const classes = useStyles();
 
-  jsonExport(data, (err, csv) => {
-    downloadCSV(`${BOM} ${csv}`, 'AssetcategoryList')
+    const BOM = '\uFEFF'
 
-  })
-}
+    const { data, ids, loading, error } = useGetList(
+      "PMWorks/AssetCategory",
+      { page: 1, perPage: 500 },
+      { field: "id", order: "ASC" }
+    );
+
+    console.log(data)
+
+    const dataForExport = ids.map(id => {
+        const {  ...dataForExport } = id; // omit backlinks and author
+        dataForExport.id = data[id].id;
+        dataForExport.AssetCategoryCode = data[id].AssetCategoryCode;
+        dataForExport.AssetCategoryName = data[id].AssetCategoryName;
+        dataForExport.AssetClassFather = data[id].AssetClassFather; // add a field
+        return dataForExport;
+    });
+  
+    const exporter = () => {
+        jsonExport(dataForExport, 
+            (err, csv) => {
+            downloadCSV(`${BOM} ${csv}`, 'AssetcategoryList')
+        
+          })
+    };
+  
+    return <ExportButton className={classes.ex} label="خروجی" exporter={exporter} />;
+  };
+
 
 const ListActions = (props) => {
-  
-  const classes = useStyles();
-
 
   return (
     <TopToolbar>
       <CreateButton/>
-      <ExportButton className={classes.ex} label="خروجی"/>
+      <CustomExportButton/>
       <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
@@ -190,7 +213,7 @@ const AssetcategoryShow = props => {
 };
 
 const AssetcategoryList = props => (
-    <List {...props} exporter={exporter} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
+    <List {...props} actions={<ListActions />} filters={<AssetCategoryFilter />} filter={{ AssetClassFather__isnull: true }} title="گروه خانواده تجهیز ">
         <Datagrid expand={<AssetcategoryShow />}>
             <TextField label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryCode" />
             <TextField label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryName" />

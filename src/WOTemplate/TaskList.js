@@ -36,6 +36,7 @@ const SelectButton = ({ selectedIds , setShowPanel, data, dataa }) =>{
     const onSuccess = () => {
         refresh(`PMWorks/WOTemplate/${dataa}/show/PMWorks/WOTemplateAsset`);
         refresh(`PMWorks/WOTemplateActivity`);
+        refresh(`PMWorks/WOTemplate/${dataa}`);
         notify('فعالیت‌ها اضافه شدند');
         setShowPanel((showPanel) => !showPanel);
         unselectAll('PMWorks/TaskTemp')

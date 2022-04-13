@@ -9,7 +9,8 @@ import {
     TopToolbar,
     ExportButton,
     CreateButton,
-    downloadCSV
+    downloadCSV,
+    useGetList
 }
 from 'react-admin';
 import Button from '@material-ui/core/Button';
@@ -25,23 +26,45 @@ const importOptions = {
         encoding: 'ISO-8859-1'
     },
 };
-  
-const exporter = (data) => {
+
+
+const CustomExportButton = (props) => {
+    const classes = useStyles();
+
     const BOM = '\uFEFF'
+
+    const { data, ids, loading, error } = useGetList(
+      "PMWorks/Location",
+      { page: 1, perPage: 500 },
+      { field: "id", order: "ASC" }
+    );
+
+    const dataForExport = ids.map(id => {
+        const {  ...dataForExport } = id; // omit backlinks and author
+        dataForExport.id = data[id].id;
+        dataForExport.LocationCode = data[id].LocationCode;
+        dataForExport.LocationName = data[id].LocationName;
+        dataForExport.LocationFatherID = data[id].LocationFatherID; // add a field
+        return dataForExport;
+    });
   
-    jsonExport(data, (err, csv) => {
-      downloadCSV(`${BOM} ${csv}`, 'LocationList')
+    const exporter = () => {
+        jsonExport(dataForExport, 
+            (err, csv) => {
+            downloadCSV(`${BOM} ${csv}`, 'LocationList')
+        
+          })
+    };
   
-    })
-};
+    return <ExportButton className={classes.ex} label="خروجی" exporter={exporter} />;
+  };
 
 const ListActions = (props) => {
-    const classes = useStyles();
-  
+      
   return (
     <TopToolbar>
       <CreateButton/>
-      <ExportButton className={classes.ex} label="خروجی"/>
+      <CustomExportButton />
       <ImportButton label="ورودی" {...props} {...importOptions}/>
     </TopToolbar>
   );
@@ -187,7 +210,7 @@ const LocationShow = props => {
 };
 
 const LocationList = props => (
-    <List {...props} actions={<ListActions />} exporter={exporter} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان">
+    <List {...props} actions={<ListActions />} filters={<LocationFilter />} filter={{ LocationFatherID__isnull: true }} title="مکان">
         <Datagrid expand={<LocationShow />}>
             <TextField label="کد مکان" textAlgin="right" source="LocationCode" />
             <TextField label="عنوان مکان" textAlgin="right" source="LocationName" />
