@@ -69,7 +69,7 @@ const WOTemplateSchualingCreate = props => {
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد برنامه ریزی">
         <SimpleForm validate={validateError} initialValues={{ WOTemplateID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <DateTimeInput formClassName={classes.fir} label="زمان شروع" source="WOTemplateSchualingStartDate" />
+            <DateTimeInput formClassName={classes.fir} onChangeValue={handleInputValue} label="زمان شروع" source="WOTemplateSchualingStartDate" />
             <DateTimeInput formClassName={classes.sec} label="زمان پایان" source="WOTemplateSchualingFinishDate" />
             <Separator/>
             <NumberInput formClassName={classes.fir} label="مقدار تناوب" textAlgin="right" source="AmountFrequency"/>

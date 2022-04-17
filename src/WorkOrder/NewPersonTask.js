@@ -114,7 +114,7 @@ export default function ScrollDialog(props) {
         >
                 <SimpleForm toolbar={false}>
                     <DateInput formClassName={classes.fir} onChangeValue={handleInputValue} options={{ id: "DateInputEl001" }} isRequired={true} label={"تاریخ"} source={"WRDate"} />
-                    <NumberInput formClassName={classes.sec} isRequired={true} label={"تعداد"} source={"SparePartAmount"} value={taskTime} onChange={(e) => setTaskTime(e.target.value)} />
+                    <NumberInput formClassName={classes.sec} isRequired={true} label={"زمان (دقیقه)"} source={"SparePartAmount"} value={taskTime} onChange={(e) => setTaskTime(e.target.value)} />
                 </SimpleForm>
                 <Separator />
                 <Divider />
