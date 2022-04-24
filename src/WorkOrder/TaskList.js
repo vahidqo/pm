@@ -61,7 +61,7 @@ const NoneActions = props => (
 const TaskList = ({ data, setShowPanel, ...props }) => {
 
     return(
-    <List basePath="PMWorks/AssetClassTask" filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List basePath="PMWorks/WRTask" filter={{ WorkOrderID: data }} filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
                     <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                     <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />

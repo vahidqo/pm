@@ -184,7 +184,7 @@ const AssetSubdivisionList = ({ setId, setShowPanel, ...props }) => {
     const classes = useStyles();
 
 return(
-    <List {...props} bulkActionButtons={false} filters={<AssetSubdivisionFilter />} actions={<NoneActions />} filter={{ tree: 1 }} title="تجهیزات ">
+    <List {...props} perPage={10} bulkActionButtons={false} filters={<AssetSubdivisionFilter />} actions={<NoneActions />} filter={{ tree: 1 }} title="تجهیزات ">
         <Datagrid expand={<AssetSubdivision setId={setId} setShowPanel={setShowPanel}/>}>
         <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetID" reference="PMWorks/Asset">
                 <TextField source="AssetCode" />

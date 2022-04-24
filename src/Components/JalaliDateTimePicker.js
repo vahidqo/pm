@@ -19,7 +19,7 @@ const Picker = ({ PickerComponent, ...fieldProps }) => {
   const { input } = useInput({ source });
 
   const handleChange = useCallback(
-    (value) => (Date.parse(value) ? input.onChange(value.toISOString()) : input.onChange(null)),
+    (value) => (Date.parse(value) ? input.onChange((new Date(value - (new Date()).getTimezoneOffset() * 60000)).toISOString().slice(0, -1)) : input.onChange(null)),
     [input],
   );
   const classes = useStyles();

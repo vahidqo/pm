@@ -155,7 +155,7 @@ const TaskActions = ({ basePath, data }, props) => {
     <TopToolbar>
         <AddTaskButton record={data} />
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
-        <ImportButton label="ورودی" resource="PMWorks/AssetClassTask" {...props} {...importOptions}/>
+        <ImportButton label="ورودی" resource="PMWorks/AssetClassTaskAdd" {...props} {...importOptions}/>
     </TopToolbar>
 );
 };

@@ -37,7 +37,7 @@ const NoneActions = props => (
 const TaskList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<AssetClassTaskFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List perPage={10} filters={<AssetClassTaskFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
                     <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                     <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />
