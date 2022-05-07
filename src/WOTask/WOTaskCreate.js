@@ -35,16 +35,6 @@ const validateError = (values) => {
     return errors
 };
 
-const WorkOrderFormat = ({ record }) => {
-    let str = record ? `${record.WorkRequestID}` : '';
-    str = str.padStart(4,0);
-    let text = "WR0".concat(str);
-    let stro = record ? `${record.id}` : '';
-    stro = stro.padStart(4,0);
-    let texto = "_WO0".concat(stro);
-    return <span> {text} {texto} </span>;
-};
-
 const freq = [
     { _id: 'D', full_name: 'انجام شده'},
     { _id: 'ND', full_name: 'انجام نشده'},
@@ -57,20 +47,20 @@ const WOTaskCreate = props => {
     const refresh = useRefresh();
     const redirect = useRedirect();
 
-    const { WorkOrderID: WorkOrderID_string } = parse(props.location.search);
-    const WorkOrderID = WorkOrderID_string ? parseInt(WorkOrderID_string, 10) : '';
+    const { WOAssetSubdivisionID: WOAssetSubdivisionID_string } = parse(props.location.search);
+    const WOAssetSubdivisionID = WOAssetSubdivisionID_string ? parseInt(WOAssetSubdivisionID_string, 10) : '';
 
     const onSuccess = () => {
         notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WOTask/create?WorkOrderID=${WorkOrderID}`);
+        redirect(`/PMWorks/WOTask/create?WorkOrderID=${WOAssetSubdivisionID}`);
         refresh();
     };
 
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد وظیفه دستور کار">
-        <SimpleForm validate={validateError} initialValues={{ WorkOrderID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.width} formClassName={classes.fir} label="کد درخواست‌کار" source="WorkOrderID" textAlgin="right" reference="PMWorks/WorkOrder">
-                <SelectInput source="WorkRequestID" optionText={<WorkOrderFormat />}/>
+        <SimpleForm validate={validateError} initialValues={{ WOAssetSubdivisionID}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
+            <ReferenceInput disabled className={classes.width} formClassName={classes.fir} label="تجهیز" source="WOAssetSubdivisionID" textAlgin="right" reference="PMWorks/WorkOrder">
+                <SelectInput source="AssetSubdivisionID"/>
             </ReferenceInput>
             <Separator/>
             <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد وظیفه" textAlgin="right" source="TaskID" reference="PMWorks/WRTask">

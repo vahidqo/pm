@@ -34,12 +34,12 @@ const SelectButton = ({ selectedIds , setShowPanel, data }) =>{
        // { views: 0 },
         //{
     const onSuccess = () => {
-        refresh(`PMWorks/WorkOrder/${data.id}/show/PMWorks/WOTask`);
+        refresh(`PMWorks/WorkOrder/${data.WorkOrderID}/show/PMWorks/WOTask`);
         notify('فعالیت‌ها اضافه شدند');
         setShowPanel((showPanel) => !showPanel);
     };
  
-    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'create', resource: 'PMWorks/WOTask', payload: { data: {WorkOrderID: data, TaskID: selectedId, WOTaskSituationOfDo: 'ND'}} } )) }; onSuccess()};
+    const toggleDrawer = () => {{selectedIds.map(selectedId => mutate({ type: 'create', resource: 'PMWorks/WOTask', payload: { data: {WOAssetSubdivisionID: data, TaskID: selectedId, WOTaskSituationOfDo: 'ND'}} } )) }; onSuccess()};
 
     return(
     <Button className={classes.fir} onClick={toggleDrawer} color="secondary">
@@ -61,7 +61,7 @@ const NoneActions = props => (
 const TaskList = ({ data, setShowPanel, ...props }) => {
 
     return(
-    <List basePath="PMWorks/WRTask" filter={{ WorkOrderID: data }} filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List basePath="PMWorks/WRTask" filter={{ WOAssetSubdivisionID: data }} filters={<AssetClassTaskFilter />} bulkActionButtons={<BulkActionButtons data={data} setShowPanel={setShowPanel}/>} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
                     <TextField label="کد فعالیت" textAlgin="right" source="TaskCode" />
                     <TextField label="نام فعالیت" textAlgin="right" source="TaskName" />

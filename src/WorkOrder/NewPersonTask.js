@@ -37,6 +37,7 @@ export default function ScrollDialog(props) {
             notify('پرسنل اضافه شدند');
             unselectAll('PMWorks/WOTask');
             unselectAlll('PMWorks/Personnel');
+            unselectAll('PMWorks/WOTaskk');
         };
     
         const toggleDrawer = () => {{taskSelectedIds.map(taskId => selectedIds.map(personId =>

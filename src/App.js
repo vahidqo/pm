@@ -545,6 +545,8 @@ const App = () => (
         <Resource name="PMWorks/StatusWR" options={{ label: 'وضعیت'}}/>
         <Resource name="PMWorks/StatusWO" options={{ label: 'وضعیت'}}/>
         <Resource name="PMWorks/WorkOrderNew" options={{ label: 'درخواست کار'}} create={WorkOrderCreate} />
+        <Resource name="PMWorks/WOAssetSubdivision" options={{ label: 'تجهیزات دستورکار'}}/>
+	    <Resource name="PMWorks/WOTaskOrder" icon={ArrowLeftOutlinedIcon} options={{ label: 'فعالیت‌های دستورکار'}} edit={WOTaskEdit} create={WOTaskCreate} show={WOTaskShow}/>
     </Admin>
 );
 

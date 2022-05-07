@@ -18,7 +18,7 @@ const AddTaskButton = ({ classes, record }) => (
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOTask/create?WorkOrderID=${record}`}
+    to={`/PMWorks/WOTask/create?WOAssetSubdivisionID=${record}`}
     label="ایجاد"
     title="اضافه کردن فعالیت"
   >

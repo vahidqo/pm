@@ -50,6 +50,7 @@ import ScrollDialogP from './NewPersonTask';
 import SettingsInputSvideoOutlinedIcon from '@material-ui/icons/SettingsInputSvideoOutlined';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import QuickSelectSpareButton from './QuickSelectSpareButton';
+import WOAssetSubdivisionFilter from '../WOAssetSubdivision/WOAssetSubdivisionFilter';
 
 const importOptions = {
     parseConfig: {
@@ -139,6 +140,15 @@ const exporterSupplier = (data) => {
     })
 };
 
+const exporterWOAssetSubdivision = (data) => {
+    const BOM = '\uFEFF'
+  
+    jsonExport(data, (err, csv) => {
+      downloadCSV(`${BOM} ${csv}`, 'WOAssetSubdivisionList')
+  
+    })
+};
+
 const exporterPersonnel = (data) => {
     const BOM = '\uFEFF'
   
@@ -215,6 +225,18 @@ const WOPersonnelActions = ({ basePath, data }, props) => {
 );
 };
 
+const WOAssetSubdivisionActions = ({ basePath, data }, props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOAssetSubdivision" {...props} {...importOptions}/>
+    </TopToolbar>
+);
+};
+
 const WODelayActions = ({ basePath, data }, props) => {
 
     const classes = useStyles();
@@ -248,6 +270,18 @@ const WOTaskActions = ({ basePath, data }, props) => {
     <TopToolbar>
         <QuickSelectTaskButton record={data}/>        
         <AddTaskButton record={data}/>
+        <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
+        <ImportButton label="ورودی" resource="PMWorks/WOTask" {...props} {...importOptions}/>
+    </TopToolbar>
+);
+};
+
+const WOTaskListActions = ({ basePath, data }, props) => {
+
+    const classes = useStyles();
+  
+  return (
+    <TopToolbar>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
         <ImportButton label="ورودی" resource="PMWorks/WOTask" {...props} {...importOptions}/>
     </TopToolbar>
@@ -339,7 +373,7 @@ const WOTaskList = (props) => {
                         target="WOTaskID"
                         filter={{ WOTaskID: record.id }}
                     >
-                    <List exporter={exporterSparePart} empty={false} filters={<WOSparePartFilter />} actions={<WOoSparePartActions data={record}/>}>
+                    <List syncWithLocation exporter={exporterSparePart} empty={false} filters={<WOSparePartFilter />} actions={<WOoSparePartActions data={record}/>}>
                         <Datagrid>
                             <ReferenceField label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
                                 <TextField source="SparePartCode" />
@@ -359,7 +393,7 @@ const WOTaskList = (props) => {
                         target="WOTaskID"
                         filter={{ WOTaskID: record.id }}
                     >
-                    <List exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOoPersonnelActions data={record}/>}>
+                    <List syncWithLocation exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOoPersonnelActions data={record}/>}>
                         <Datagrid>
                             <ReferenceField label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                                 <TextField source="PersonnelName" />
@@ -379,6 +413,29 @@ const WOTaskList = (props) => {
             </TabbedShowLayout>
         </Show>
     );
+};
+
+const WOTask = props => {
+
+    return(
+    <ReferenceManyField
+                addLabel={false}
+                reference="PMWorks/WOTask"
+                target="WOAssetSubdivisionID"
+                filter={{ WOAssetSubdivisionID: props.record.id }}
+    >
+    <List {...props} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={props.record.id}/>} basePath="PMWorks/WOTask" title=" "  >
+        <Datagrid>
+            <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                <TextField source="TaskCode" />
+            </ReferenceField>
+            <ReferenceField label="عنوان فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                <TextField source="TaskName" />
+            </ReferenceField>
+        </Datagrid>
+    </List>
+    </ReferenceManyField>
+);
 };
 
 
@@ -431,16 +488,50 @@ const WorkOrderShow = (props) => {
                     </List>
                 </ReferenceManyField>
             </Tab>
-            <Tab label="فعالیت ها" path="PMWorks/WOTask">
+            <Tab label="تجهیزات" path="PMWorks/WOAssetSubdivision">
                 <ReferenceManyField
                     addLabel={false}
-                    reference="PMWorks/WOTask"
+                    reference="PMWorks/WOAssetSubdivision"
                     target="WorkOrderID"
                     filter={{ WorkOrderID: record }}
                 >
-                <ResourceContextProvider value="PMWorks/WOTask">
-                <List syncWithLocation basePath="PMWorks/WOTask" filterDefaultValues={{ WorkOrderID: record }} exporter={exporterTask} bulkActionButtons={<TaskBulkActionButtons />} empty={false} filters={<WOTaskFilter />} actions={<WOTaskActions data={record}/>}>
+                    <List empty={false} exporter={exporterWOAssetSubdivision} filters={<WOAssetSubdivisionFilter />} actions={<WOAssetSubdivisionActions data={record}/>}>
+                    <Datagrid expand={<WOTask/>}>
+                        <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetCode" />
+                        </ReferenceField>
+                        <ReferenceField label="عنوان تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetName" />
+                        </ReferenceField>
+                        <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetClassNameChain" />
+                        </ReferenceField>
+                        <ReferenceField label="مکان" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetID__LocationID__LocationNameChain" />
+                        </ReferenceField>
+                    </Datagrid>
+                    </List>
+                </ReferenceManyField>
+            </Tab>
+            <Tab label="فعالیت ها" path="PMWorks/WOTaskOrder">
+                <ReferenceManyField
+                    addLabel={false}
+                    reference="PMWorks/WOTaskOrder"
+                    target="WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOAssetSubdivisionID__WorkOrderID: record }}
+                >
+                <ResourceContextProvider value="PMWorks/WOTaskOrder">
+                <List syncWithLocation basePath="PMWorks/WOTaskOrder" filterDefaultValues={{ WOAssetSubdivisionID__WorkOrderID: record }} exporter={exporterTask} bulkActionButtons={<TaskBulkActionButtons />} empty={false} filters={<WOTaskFilter />} actions={<WOTaskListActions data={record}/>}>
                     <Datagrid expand={<WOTaskList />}>
+                        <ReferenceField label="کد تجهیز" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetCode" />
+                        </ReferenceField>
+                        <ReferenceField label="عنوان تجهیز" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetName" />
+                        </ReferenceField>
+                        <ReferenceField label="مکان" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetID__LocationID__LocationNameChain" />
+                        </ReferenceField>
                         <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
                             <TextField source="TaskName" />
                         </ReferenceField>
@@ -499,8 +590,8 @@ const WorkOrderShow = (props) => {
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/WOSparePart"
-                    target="WorkOrderID"
-                    filter={{ WOTask__WorkOrderID: record }}
+                    target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
                 >
                 <List exporter={exporterSparePart} empty={false} filters={<WOSparePartFilter />} actions={<WOSparePartActions data={record}/>}>
                     <Datagrid>
@@ -519,8 +610,8 @@ const WorkOrderShow = (props) => {
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/WOPersonnel"
-                    target="WorkOrderID"
-                    filter={{ WOTask__WorkOrderID: record }}
+                    target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
                 >
                 <List exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOPersonnelActions data={record}/>}>
                     <Datagrid>

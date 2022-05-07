@@ -38,6 +38,7 @@ const QuickSelectSpareButton = ({ ...props }) => {
         notify('قطعات اضافه شدند');
         unselectAll('PMWorks/WOTask');
         unselectAlll('PMWorks/SparePart');
+        unselectAll('PMWorks/WOTaskk');
     };
 
     const toggleDrawer2 = () => {{taskSelectedIds.map(taskId => selectedIds.map(personId =>
