@@ -7,8 +7,8 @@ from 'react-admin';
 
 const SupplierSpecificFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="کد ویژگی تامین کننده" textAlgin="right" source="SupplierSpecificCode" />
-        <TextInput label="نام ویژگی تامین کننده" textAlgin="right" source="SupplierSpecificName" />
+        <TextInput label="کد ویژگی تامین کننده" textAlgin="right" source="SupplierSpecificCode" alwaysOn resettable />
+        <TextInput label="نام ویژگی تامین کننده" textAlgin="right" source="SupplierSpecificName" alwaysOn resettable />
     </Filter>
 );
 
