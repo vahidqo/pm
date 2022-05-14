@@ -111,6 +111,9 @@ const WorkOrderList = props => {
             <WorkOrderField textAlgin="right" source="id" />
             <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
             <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+            <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                <TextField source="DepartmentName" />
+            </ReferenceField>
             <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                 <TextField source="StatusName" />
             </ReferenceField>
@@ -226,25 +229,26 @@ class TabbedDatagrid extends React.Component {
                             >
                                 <WorkRequestField textAlgin="right" source="id"  label="کد" />
                                 <JalaaliDateField textAlgin="right" source="WRDate" label="تاریخ" />
-                                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetCode">
                                     <TextField source="AssetCode" />
                                 </ReferenceField>
-                                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetName">
                                     <TextField source="AssetName" />
                                 </ReferenceField>
-                                <ReferenceField label="نام کلاس تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetClassNameChain">
                                     <TextField source="AssetClassNameChain" />
                                 </ReferenceField>
-                                <ReferenceField label="خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
+                                <ReferenceField label="خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode" sortBy="FailureModeID__FailureModeName">
                                     <TextField source="FailureModeName" />
                                 </ReferenceField>
-                                <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority">
+                                <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" sortBy="WorkPriorityID__WorkPriorityName">
                                     <TextField source="WorkPriorityName" />
                                 </ReferenceField>
-                                <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
+                                <TextField label="توضیحات" textAlgin="right" source="WRDescription" />
+                                <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" sortBy="TypeWrID__TypeWrName">
                                     <TextField source="TypeWrName" />
                                 </ReferenceField>
-                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" sortBy="StatusID__StatusName">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
                                 <WRStatusButton/>
@@ -255,25 +259,26 @@ class TabbedDatagrid extends React.Component {
                             <Datagrid {...props} ids={this.state.cl} expand={<WorkOrderList />}>
                                 <WorkRequestField textAlgin="right" source="id"  label="کد" />
                                 <JalaaliDateField textAlgin="right" source="WRDate" label="تاریخ" />
-                                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetCode">
                                     <TextField source="AssetCode" />
                                 </ReferenceField>
-                                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetName">
                                     <TextField source="AssetName" />
                                 </ReferenceField>
-                                <ReferenceField label="نام کلاس تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="AssetSubdivisionID__AssetClassNameChain">
                                     <TextField source="AssetClassNameChain" />
                                 </ReferenceField>
-                                <ReferenceField label="خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode">
+                                <ReferenceField label="خرابی" textAlgin="right" source="FailureModeID" reference="PMWorks/FailureMode" sortBy="FailureModeID__FailureModeName">
                                     <TextField source="FailureModeName" />
                                 </ReferenceField>
-                                <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority">
+                                <ReferenceField label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" sortBy="WorkPriorityID__WorkPriorityName">
                                     <TextField source="WorkPriorityName" />
                                 </ReferenceField>
-                                <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr">
+                                <TextField label="توضیحات" textAlgin="right" source="WRDescription" />
+                                <ReferenceField label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" sortBy="TypeWrID__TypeWrName">
                                     <TextField source="TypeWrName" />
                                 </ReferenceField>
-                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" sortBy="StatusID__StatusName">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
                                 <ShowButton />

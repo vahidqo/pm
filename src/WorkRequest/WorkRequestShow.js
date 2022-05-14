@@ -14,14 +14,13 @@ import {
     useRecordContext,
     ExportButton,
     List,
-    downloadCSV,
-    NumberField
+    downloadCSV
 }
 from 'react-admin';
 import WorkRequestTitle from './WorkRequestTitle';
 import JalaaliDateField  from '../Components/JalaaliDateField';
+import JalaaliTimeField  from '../Components/JalaaliTimeField';
 import AddFailureCauseButton from './AddFailureCauseButton';
-import DateField from '../Components/JalaaliDateField';
 import AddWorkOrderButton from './AddWorkOrderButton';
 import { makeStyles } from '@material-ui/core';
 import FailureCauseFilter from '../FailureCause/FailureCauseFilter';
@@ -187,7 +186,7 @@ const WorkRequestShow = (props) =>  {
                             <TextField source="StatusName" />
                         </ReferenceField>
                         <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
-                        <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
+                        <JalaaliTimeField label="زمان ثبت" textAlgin="right" source="StatusTime" />
                     </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -202,9 +201,9 @@ const WorkRequestShow = (props) =>  {
                 <List exporter={exporterWorkOrder} empty={false} filters={<WorkOrderFilter />} actions={<WorkOrderActions data={record}/>}>
                     <Datagrid>
                         <WorkOrderField textAlgin="right" source="id" />
-                        <DateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
-                        <DateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
-                        <DateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
+                        <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
+                        <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
                     </Datagrid>
                     </List>
                 </ReferenceManyField>

@@ -71,12 +71,12 @@ export default function ScrollDialog(props) {
         <ResourceContextProvider value="PMWorks/SparePart" {...props}>
             <List basePath="PMWorks/SparePart" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<SparePartFilter />} exporter={false} actions={false} {...props}>
             <Datagrid>
-                <TextField label="کد قطعه" textAlgin="right" source="SparePartCode" />
-                <TextField label="نام قطعه" textAlgin="right" source="SparePartName" />
-                <ReferenceField label="خانواده قطعه" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory">
+                <TextField label="کد" textAlgin="right" source="SparePartCode" />
+                <TextField label="عنوان" textAlgin="right" source="SparePartName" />
+                <ReferenceField label="خانواده" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory">
                     <TextField source="SparePartCategoryName" />
                 </ReferenceField>
-                <ReferenceField label="سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
+                <ReferenceField label="واحد اندازه‌گیری" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
                     <TextField source="SparePartDimensionName" />
                 </ReferenceField>
             </Datagrid>

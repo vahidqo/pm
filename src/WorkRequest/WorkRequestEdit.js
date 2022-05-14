@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     fir: { display: 'inline-block' },
     sec: { display: 'inline-block', marginRight: 64 },
     thi: { display: 'inline-block', marginRight: 0 },
-
+    width: { display: 'inline-grid', width: 533, '& label': {marginRight: '25px'} },
 });
 
 const Separator = () => <Box pt="0em" />;
@@ -32,7 +32,7 @@ const WorkRequestEdit = props => {
 
     return (
     <Edit title={<WorkRequestTitle />} {...props}>
-        <SimpleForm>
+        <SimpleForm redirect="show">
                 <DateInputtoday formClassName={classes.fir} label="تاریخ ثبت" source="WRDateOfRegistration" disabled/>
                 <DateInput formClassName={classes.sec} label="تاریخ" source="WRDate" />
                 <Separator2 />
@@ -52,6 +52,11 @@ const WorkRequestEdit = props => {
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
                     <TypeWrRefrenceInput label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" perPage={10000} {...rest} />
                  }
+                </FormDataConsumer>
+                <FormDataConsumer className={classes.width}>
+                 {({ formData, ...rest }) => formData.AssetSubdivisionID &&
+                    <TextInput multiline className={classes.width} label="توضیحات" textAlgin="right" source="WRDescription" {...rest}/>
+                }
                 </FormDataConsumer>
         </SimpleForm>
     </Edit>

@@ -66,9 +66,9 @@ const WOStatusCreate = props => {
     };
 
     return (
-    <Create onSuccess={onSuccess} {...props} title="ایجاد وضعیت درخواست کار">
+    <Create onSuccess={onSuccess} {...props} title="ایجاد وضعیت دستور کار">
         <SimpleForm validate={validateError} initialValues={{ WorkOrderID, StatusDate: today, StatusTime: time}} redirect={redirect} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.width} label="کد درخواست‌کار" source="WorkOrderID" textAlgin="right" reference="PMWorks/WorkOrder">
+            <ReferenceInput disabled className={classes.width} label="کد دستور‌کار" source="WorkOrderID" textAlgin="right" reference="PMWorks/WorkOrder">
                 <SelectInput source="WorkRequestID" optionText={<WorkOrderFormat />}/>
             </ReferenceInput>
             <Separator/>

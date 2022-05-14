@@ -20,11 +20,12 @@ const JobCategoryRefrenceInput = props => {
     const [version, setVersion] = useState(0);
     const { values } = useFormState({ subscription: spySubscription });
     const handleChange = useCallback(() => setVersion(version + 1), [version]);
+    const FullNameField = ({ record }) => <span>{record.JobCategoryCode}_{record.JobCategoryName}</span>;
 
     return (
         <div className={classes.root}>
             <ReferenceInput key={version} {...props}>
-                <SelectInput optionText="JobCategoryCode" />
+                <SelectInput optionText={<FullNameField />} />
             </ReferenceInput>
 
             <QuickAddJobCategoryButton onChange={handleChange} />

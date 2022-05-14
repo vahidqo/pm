@@ -148,20 +148,21 @@ class TabbedDatagrid extends React.Component {
                                 <WorkOrderField textAlgin="right" source="id" />
                                 <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                                 <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
-                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="WorkRequestID__AssetSubdivisionID__AssetCode">
                                     <TextField source="AssetCode" />
                                 </ReferenceField>
-                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="WorkRequestID__AssetSubdivisionID__AssetName">
                                     <TextField source="AssetName" />
                                 </ReferenceField>
-                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode" sortBy="WorkRequestID__FailureModeID__FailureModeName">
                                     <TextField source="FailureModeName" />
                                 </ReferenceField>
-                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" sortBy="DepartmentID__DepartmentName">
                                     <TextField source="DepartmentName" />
                                 </ReferenceField>
+                                <TextField label="توضیحات" textAlgin="right" source="WODescription" />
                                 <SelectField label="نوع" textAlgin="right" source="WorkOrderType" choices={freq} optionText="full_name" optionValue="_id" />
-                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" sortBy="StatusID__StatusName">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
                                 <WOStatusButton/>                            
@@ -173,20 +174,21 @@ class TabbedDatagrid extends React.Component {
                                 <WorkOrderField textAlgin="right" source="id" />
                                 <JalaaliDateField label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
                                 <JalaaliDateField label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
-                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="WorkRequestID__AssetSubdivisionID__AssetCode">
                                     <TextField source="AssetCode" />
                                 </ReferenceField>
-                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision" sortBy="WorkRequestID__AssetSubdivisionID__AssetName">
                                     <TextField source="AssetName" />
                                 </ReferenceField>
-                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode" sortBy="WorkRequestID__FailureModeID__FailureModeName">
                                     <TextField source="FailureModeName" />
                                 </ReferenceField>
-                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
+                                <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" sortBy="DepartmentID__DepartmentName">
                                     <TextField source="DepartmentName" />
                                 </ReferenceField>
+                                <TextField label="توضیحات" textAlgin="right" source="WODescription" />
                                 <SelectField label="نوع" textAlgin="right" source="WorkOrderType" choices={freq} optionText="full_name" optionValue="_id" />
-                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" sortBy="StatusID__StatusName">
                                     <TextField source="StatusName" />
                                 </ReferenceField>
                                 <ShowButton />

@@ -20,11 +20,12 @@ const TaskTypeRefrenceInput = props => {
     const [version, setVersion] = useState(0);
     const { values } = useFormState({ subscription: spySubscription });
     const handleChange = useCallback(() => setVersion(version + 1), [version]);
+    const FullNameField = ({ record }) => <span>{record.TaskTypeCode}_{record.TaskTypeName}</span>;
 
     return (
         <div className={classes.root}>
             <ReferenceInput key={version} {...props}>
-                <SelectInput optionText="TaskTypeCode" />
+                <SelectInput optionText={<FullNameField />} />
             </ReferenceInput>
 
             <QuickAddTaskTypeButton onChange={handleChange} />

@@ -18,7 +18,7 @@ const AddDelayButton = ({ classes, record }) => (
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WODelay/create?WorkOrderID=${record.id}`}
+    to={`/PMWorks/WODelay/create?WorkOrderID=${record}`}
     label="ایجاد"
     title="اضافه کردن تاخیر"
   >

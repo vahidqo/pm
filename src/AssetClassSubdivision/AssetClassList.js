@@ -38,7 +38,7 @@ const AssetClassList = ({ setId, setShowPanel, ...props }) => {
 
     return(
     <ResourceContextProvider value="PMWorks/AssetClass" >
-    <List syncWithLocation basePath="/PMWorks/AssetClass" filters={<AssetClassFilter />} bulkActionButtons={false} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List basePath="PMWorks/AssetClass" filters={<AssetClassFilter />} bulkActionButtons={false} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
             <TextField label="کد خانواده تجهیز" textAlgin="right" source="AssetClassCode" />
             <TextField label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />

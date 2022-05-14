@@ -7,9 +7,6 @@ import {
     FormDataConsumer,
     TopToolbar,
     ListButton,
-    useNotify,
-    useRefresh,
-    useRedirect,
     TextInput
 }
 from 'react-admin';
@@ -38,8 +35,20 @@ const validateError = (values) => {
     if (!values.AssetSubdivisionID) {
         errors.AssetSubdivisionID = 'تجهیز را وارد کنید';
     }
-    if (!values.AssetSubdivisionID) {
-        errors.AssetSubdivisionID = 'کلاس تجهیز را وارد کنید';
+    if (!values.FailureModeID) {
+        errors.FailureModeID = 'خرابی را وارد کنید';
+    }
+    if (!values.WorkPriorityID) {
+        errors.WorkPriorityID = 'اولویت را وارد کنید';
+    }
+    if (!values.TypeWrID) {
+        errors.TypeWrID = 'نوع را وارد کنید';
+    }
+    if (!values.WRDate) {
+        errors.WRDate = 'تاریخ را وارد کنید';
+    }
+    if (!values.WRTime) {
+        errors.WRTime = 'ساعت را وارد کنید';
     }
     return errors
 };
@@ -58,19 +67,12 @@ export const WorkRequestCreate = props => {
     const classes = useStyles();
     var today = new Date();
     var time = moment().format("HH:mm");
-    const notify = useNotify();
-    const refresh = useRefresh();
-    const redirect = useRedirect();
-    const onSuccess = () => {
-        notify(`دیتا ذخیره شد`)
-        redirect('/PMWorks/WorkRequest');
-        redirect('/PMWorks/WorkRequest/create');
-        refresh();
-    };
+    const FullNameField = ({ record }) => <span>{record.WorkPriorityCode}_{record.WorkPriorityName}</span>;
+    const FullNameField1 = ({ record }) => <span>{record.TypeWrCode}_{record.TypeWrName}</span>;
 
     return (
-        <Create actions={<CreateActions />} onSuccess={onSuccess} {...props} title="ایجاد درخواست کار">
-            <SimpleForm validate={validateError} initialValues={{ WRDateOfRegistration: today, WRDate: today, WRTimeOfRegistration: time, WRTime: time}}>
+        <Create actions={<CreateActions />} {...props} title="ایجاد درخواست کار">
+            <SimpleForm redirect="show" validate={validateError} initialValues={{ WRDateOfRegistration: today, WRDate: today, WRTimeOfRegistration: time, WRTime: time}}>
                 <DateInputtoday formClassName={classes.fir} label="تاریخ ثبت" source="WRDateOfRegistration" disabled/>
                 <TimeInputNow formClassName={classes.sec} label="ساعت ثبت" textAlgin="right" source="WRTimeOfRegistration"/>
                 <Separator />
@@ -110,29 +112,18 @@ export const WorkRequestCreate = props => {
                  }
                 </FormDataConsumer>
                 <Separator />
-                <FormDataConsumer className={classes.sel} formClassName={classes.fir}>
+                <FormDataConsumer formClassName={classes.fir}>
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <ReferenceInput className={classes.sel} disabled label="کد اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" {...rest}>
-                        <SelectInput optionText="WorkPriorityCode" />
+                    <ReferenceInput label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" {...rest}>
+                        <SelectInput optionText={<FullNameField />} />
                     </ReferenceInput>
                  }
                 </FormDataConsumer>
                 <FormDataConsumer formClassName={classes.sec}>
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <WorkPriorityRefrenceInput label="نام اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" perPage={10000} {...rest} />
-                 }
-                </FormDataConsumer>
-                <Separator />
-                <FormDataConsumer className={classes.sel} formClassName={classes.fir}>
-                 {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <ReferenceInput className={classes.sel} disabled label="کد نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" {...rest}>
-                        <SelectInput optionText="TypeWrCode" />
+                    <ReferenceInput label="اولویت" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" {...rest}>
+                        <SelectInput optionText={<FullNameField1 />} />
                     </ReferenceInput>
-                 }
-                </FormDataConsumer>
-                <FormDataConsumer formClassName={classes.sec}>
-                 {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <TypeWrRefrenceInput label="نام نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" perPage={10000} {...rest} />
                  }
                 </FormDataConsumer>
                 <FormDataConsumer className={classes.width}>

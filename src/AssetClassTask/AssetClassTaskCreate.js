@@ -28,10 +28,10 @@ const fun = [
 ];
 
 const AssetClassTaskCreate = props => (
-    <Create {...props} title="ایجاد فعالیت کلاس تجهیز">
+    <Create {...props} title="ایجاد فعالیت خانواده تجهیز">
         <SimpleForm>
             <TextInput label="کد فعالیت" textAlgin="right" source="TaskCode" />
-            <TextInput label="نام فعالیت" textAlgin="right" source="TaskName" />
+            <TextInput label="عنوان فعالیت" textAlgin="right" source="TaskName" />
             <RichTextInput label="توضیحات فعالیت" textAlgin="right" source="TaskDescription" toolbar={[ ['bold', 'italic', 'underline', 'link'] ]} />
             <SelectInput label="مقدار تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
             <NumberInput label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
@@ -39,7 +39,7 @@ const AssetClassTaskCreate = props => (
             <RadioButtonGroupInput label="مسئول" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
             <TaskTypeRefrenceInput label="کد فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" allowEmpty validate={required()} perPage={10000} />
             <JobCategoryRefrenceInput label="کد شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory" allowEmpty validate={required()} perPage={10000} />
-            <AssetClassRefrenceInput label="کلاس تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass" perPage={10000} />
+            <AssetClassRefrenceInput label="کد خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass" perPage={10000} />
         </SimpleForm>
     </Create>
 );
