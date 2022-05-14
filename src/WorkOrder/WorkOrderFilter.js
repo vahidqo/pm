@@ -3,16 +3,37 @@ import {
     ReferenceInput,
     SelectInput,
     Filter,
+    TextInput
 }
 from 'react-admin';
 
-const AssetClassFilter = (props) => (
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    width: { width: 125 },
+});
+
+const  WorkOrderFilter = (props) => {
+    const freq = [
+        { _id: '0', full_name: 'WR'},
+        { _id: '1', full_name: 'PM'},
+    ];
+    const classes = useStyles();
+    return(
     <Filter {...props}>
-        <ReferenceInput label="نام خانواده تجهیز" source="id" reference="PMWorks/AssetCategory" allowEmpty>
-            <SelectInput optionText="AssetCategoryName" />
+        <TextInput className={classes.width} label="کد دستور کار" textAlgin="right" source="id__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID__AssetName__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID__FailureModeName__icontains" alwaysOn resettable />
+        <ReferenceInput className={classes.width} formClassName={classes.width} label="اولویت" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" alwaysOn resettable>
+            <SelectInput className={classes.width} optionText="DepartmentName" />
+        </ReferenceInput>
+        <SelectInput className={classes.width} label="نوع" textAlgin="right" source="WorkOrderType" choices={freq} optionText="full_name" optionValue="_id" alwaysOn resettable/>
+        <ReferenceInput className={classes.width} formClassName={classes.width} label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" alwaysOn resettable>
+            <SelectInput className={classes.width} optionText="StatusName" />
         </ReferenceInput>
     </Filter>
 );
+};
 
 
-export default AssetClassFilter;
+export default WorkOrderFilter;

@@ -51,6 +51,7 @@ import SettingsInputSvideoOutlinedIcon from '@material-ui/icons/SettingsInputSvi
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import QuickSelectSpareButton from './QuickSelectSpareButton';
 import WOAssetSubdivisionFilter from '../WOAssetSubdivision/WOAssetSubdivisionFilter';
+import JalaaliTimeField  from '../Components/JalaaliTimeField';
 
 const importOptions = {
     parseConfig: {
@@ -483,7 +484,7 @@ const WorkOrderShow = (props) => {
                             <TextField source="StatusName" />
                         </ReferenceField>
                         <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
-                        <NumberField label="زمان ثبت" textAlgin="right" source="StatusTime" />
+                        <JalaaliTimeField label="زمان ثبت" textAlgin="right" source="StatusTime" />
                     </Datagrid>
                     </List>
                 </ReferenceManyField>
@@ -606,7 +607,7 @@ const WorkOrderShow = (props) => {
                 </List>
                 </ReferenceManyField>
             </Tab>
-            <Tab label="پرسنل" path="PMWorks/WOPersonnel">
+            <Tab label="نیروی انسانی" path="PMWorks/WOPersonnel">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/WOPersonnel"
@@ -615,14 +616,17 @@ const WorkOrderShow = (props) => {
                 >
                 <List exporter={exporterPersonnel} empty={false} filters={<WOPersonnelFilter />} actions={<WOPersonnelActions data={record}/>}>
                     <Datagrid>
-                        <ReferenceField label="نام پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                        <ReferenceField label="نام" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                             <TextField source="PersonnelName" />
                         </ReferenceField>
-                        <ReferenceField label="فامیل پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                        <ReferenceField label="نام‌خانوادگی" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                                 <TextField source="PersonnelFamily" />
                         </ReferenceField>
-                        <ReferenceField label="کد پرسنل" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                        <ReferenceField label="کد" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                             <TextField source="PersonnelCode" />
+                        </ReferenceField>
+                        <ReferenceField label="کد نت" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                            <TextField source="PersonnelNetCode" />
                         </ReferenceField>
                         <JalaaliDateField label="تاریخ انجام" textAlgin="right" source="WorkDate"/>
                         <NumberField label="مدت زمان انجام" textAlgin="right" source="WorkTime" />

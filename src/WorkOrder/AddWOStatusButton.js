@@ -18,7 +18,7 @@ const AddWOStatusButton = ({ classes, record }) => (
     className={classes.button}
     variant="raised"
     component={Link}
-    to={`/PMWorks/WOStatus/create?WorkOrderID=${record.id}`}
+    to={`/PMWorks/WOStatus/create?WorkOrderID=${record}`}
     label="ایجاد"
     title="اضافه کردن وضعیت"
   >

@@ -77,13 +77,12 @@ export default function ScrollDialog(props) {
     const PersonnalList = () => {
         return (
         <ResourceContextProvider value="PMWorks/Personnel" >
-            <List basePath="PMWorks/Personnel" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<PersonnelFilter />} exporter={false} actions={false} >
+            <List filterDefaultValues={{ PersonnelNetCode__isempty: false }} basePath="PMWorks/Personnel" bulkActionButtons={<PersonnelBulkActionButtons />} filters={<PersonnelFilter />} exporter={false} actions={false} >
             <Datagrid>
-                <TextField label="کد پرسنل" textAlgin="right" source="PersonnelCode" />
-                <TextField label="نام نت پرسنل" textAlgin="right" source="PersonnelNetCode" />
-                <TextField label="نام پرسنل" textAlgin="right" source="PersonnelName" />
-                <TextField label="فامیل پرسنل" textAlgin="right" source="PersonnelFamily" />
-                <TextField label="شماره پرسنل" textAlgin="right" source="PersonnelMobile" />
+                <TextField label="کد پرسنلی" textAlgin="right" source="PersonnelCode" />
+                <TextField label="کد نت" textAlgin="right" source="PersonnelNetCode" />
+                <TextField label="نام" textAlgin="right" source="PersonnelName" />
+                <TextField label="نام‌خانوادگی" textAlgin="right" source="PersonnelFamily" />
                 <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                     <TextField source="DepartmentName" />
                 </ReferenceField>

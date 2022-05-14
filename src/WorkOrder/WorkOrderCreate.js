@@ -4,9 +4,6 @@ import {
     TextInput,
     Create,
     Toolbar,
-    useNotify,
-    useRefresh,
-    useRedirect,
     ReferenceInput,
     SelectInput
 }
@@ -46,24 +43,15 @@ const validateError = (values) => {
 const WorkOrderCreate = props => {
     var today = new Date();
     const classes = useStyles();
-    const notify = useNotify();
-    const refresh = useRefresh();
-    const redirect = useRedirect();
 
     const type = 0;
 
     const { WorkRequestID: WorkRequestID_string } = parse(props.location.search);
     const WorkRequestID = WorkRequestID_string ? parseInt(WorkRequestID_string, 10) : '';
     
-    const onSuccess = () => {
-        notify(`دیتا ذخیره شد`)
-        redirect(`/PMWorks/WorkOrder/create?WorkRequestID=${WorkRequestID}`);
-        refresh();
-    };
-
     return (
-    <Create onSuccess={onSuccess} {...props} title="ایجاد دستور کار">
-        <SimpleForm validate={validateError} redirect={redirect} initialValues={{ WODateOfRegistration: today, WorkOrderType: type, WorkRequestID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
+    <Create {...props} title="ایجاد دستور کار">
+        <SimpleForm validate={validateError} redirect="show" initialValues={{ WODateOfRegistration: today, WorkOrderType: type, WorkRequestID}} toolbar={<Toolbar alwaysEnableSaveButton />}>
             <TextInput formClassName={classes.fir} disabled label="کد درخواست‌کار" source="WorkRequestID" format={WorkRequestformat}/>
             <DateInputtoday formClassName={classes.sec} label="تاریخ ثبت" source="WODateOfRegistration" disabled/>
             <Separator/>

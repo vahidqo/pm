@@ -68,17 +68,17 @@ const AssetClassTaskAddCreate = props => {
                                                     }}
                 label="کد فعالیت"
                 source="TaskCode" {...rest}/>
-            <TextInput formClassName={classes.sec} label="نام فعالیت" textAlgin="right" source="TaskName" />
+            <TextInput formClassName={classes.sec} label="عنوان فعالیت" textAlgin="right" source="TaskName" />
             <TextInput className={classes.width} multiline label="توضیحات فعالیت" textAlgin="right" source="TaskDescription"/>
             <Separator />
             <SelectInput formClassName={classes.fir} label="تناوب" textAlgin="right" source="FrequencyName" choices={freq} optionText="full_name" optionValue="_id" />
             <NumberInput formClassName={classes.sec} label="مقدار تناوب" textAlgin="right" source="FrequencyAmount" />
             <Separator />
-            <NumberInput formClassName={classes.fir} label="مدت زمان انجام" textAlgin="right" source="DurationOfDo" />
-            <RadioButtonGroupInput formClassName={classes.sec} label="مسئول" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
+            <NumberInput formClassName={classes.fir} label="مدت زمان انجام(دقیقه)" textAlgin="right" source="DurationOfDo" />
+            <RadioButtonGroupInput formClassName={classes.sec} label="انجام دهنده" textAlgin="right" source="Functor" choices={fun} optionText="full_name" optionValue="_id" />
             <Separator />
             <TaskTypeRefrenceInput formClassName={classes.fir} label="نوع فعالیت" textAlgin="right" source="TaskTypeID" reference="PMWorks/TaskType" allowEmpty validate={required()} perPage={10000} />
-            <JobCategoryRefrenceInput formClassName={classes.last} label="کد شغل" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory" allowEmpty validate={required()} perPage={10000} />
+            <JobCategoryRefrenceInput formClassName={classes.last} label="تخصص مورد نیاز" textAlgin="right" source="JobCategoryID" reference="PMWorks/JobCategory" allowEmpty validate={required()} perPage={10000} />
         </SimpleForm>
     </Create>
     );

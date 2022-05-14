@@ -2,17 +2,35 @@ import * as React from "react";
 import {
     Filter,
     TextInput,
-    NumberInput
+    ReferenceInput,
+    SelectInput
 }
 from 'react-admin';
+import { makeStyles } from '@material-ui/core/styles';
 
-const  WorkRequestFilter = (props) => (
+const useStyles = makeStyles({
+    width: { width: 125 },
+});
+
+const  WorkRequestFilter = (props) => {
+    const classes = useStyles();
+    return(
     <Filter {...props}>
-        <TextInput label="کد اولویت" textAlgin="right" source=" WorkRequestCode" />
-        <TextInput label="نام اولویت" textAlgin="right" source=" WorkRequestName" />
-        <NumberInput label="مقدار اولویت" textAlgin="right" source=" WorkRequestValue" />
+        <TextInput className={classes.width} label="کد درخواست کار" textAlgin="right" source="id__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID__AssetName__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="خرابی" textAlgin="right" source="FailureModeID__FailureModeName__icontains" alwaysOn resettable />
+        <ReferenceInput className={classes.width} formClassName={classes.width} label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" alwaysOn resettable>
+            <SelectInput className={classes.width} optionText="WorkPriorityName" />
+        </ReferenceInput>
+        <ReferenceInput className={classes.width} formClassName={classes.width} label="نوع" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" alwaysOn resettable>
+            <SelectInput className={classes.width} optionText="TypeWrName" />
+        </ReferenceInput>
+        <ReferenceInput className={classes.width} formClassName={classes.width} label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status" alwaysOn resettable>
+            <SelectInput className={classes.width} optionText="StatusName" />
+        </ReferenceInput>
     </Filter>
 );
+};
 
 
 export default  WorkRequestFilter;
