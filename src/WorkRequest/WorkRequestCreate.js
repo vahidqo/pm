@@ -121,7 +121,7 @@ export const WorkRequestCreate = props => {
                 </FormDataConsumer>
                 <FormDataConsumer formClassName={classes.sec}>
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <ReferenceInput label="اولویت" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" {...rest}>
+                    <ReferenceInput label="نوع درخواست" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" {...rest}>
                         <SelectInput optionText={<FullNameField1 />} />
                     </ReferenceInput>
                  }
