@@ -22,7 +22,7 @@ const  WorkOrderFilter = (props) => {
     return(
     <Filter {...props}>
         <TextInput className={classes.width} label="کد دستور کار" textAlgin="right" source="id__icontains" alwaysOn resettable />
-        <TextInput className={classes.width} label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID__AssetName__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID__AssetCode__icontains" alwaysOn resettable />
         <TextInput className={classes.width} label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID__FailureModeName__icontains" alwaysOn resettable />
         <ReferenceInput className={classes.width} formClassName={classes.width} label="اولویت" textAlgin="right" source="DepartmentID" reference="PMWorks/Department" alwaysOn resettable>
             <SelectInput className={classes.width} optionText="DepartmentName" />

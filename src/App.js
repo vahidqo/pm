@@ -467,7 +467,7 @@ const theme = createMuiTheme({
 });
 
 const i18nProvider = polyglotI18nProvider(locale => messages[locale], 'fa');
-let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://127.0.0.1:8000/PMWorks/token/"});
+let authProvider = jwtTokenAuthProvider({obtainAuthTokenUrl: "http://185.231.115.209:8080/PMWorks/token/"});
 
 const App = () => (
     <Admin disableTelemetry theme={theme} layout={(props) => <Layout {...props} menu={TreeMenu} appBar={MyAppBar} />} customReducers={{ tree }} catchAll={NotFound} dashboard={Dashboard} title="PMWorks_II" authProvider={authProvider} dataProvider={myDataProvider} i18nProvider={i18nProvider} >

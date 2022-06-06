@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useContext, useRef, forwardRef } from 'react';
 import { Fragment } from 'react';
 import {
     Datagrid,
@@ -23,7 +23,10 @@ import {
     useUnselectAll,
     BulkDeleteButton,
     Button,
-    ResourceContextProvider
+    ResourceContextProvider,
+    SimpleShowLayout,
+    useGetOne,
+    FunctionField
 }
 from 'react-admin';
 import WorkOrderTitle from './WorkOrderTitle';
@@ -45,13 +48,14 @@ import AddSparePartButton from '../WOTask/AddSparePartButton';
 import QuickSelectTaskButton from './QuickSelectTaskButton';
 import DoneIcon from '@material-ui/icons/Done';
 import { ImportButton } from "react-admin-import-csv";
-import ScrollDialog from './NewSpareTask';
 import ScrollDialogP from './NewPersonTask';
-import SettingsInputSvideoOutlinedIcon from '@material-ui/icons/SettingsInputSvideoOutlined';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
-import QuickSelectSpareButton from './QuickSelectSpareButton';
 import WOAssetSubdivisionFilter from '../WOAssetSubdivision/WOAssetSubdivisionFilter';
 import JalaaliTimeField  from '../Components/JalaaliTimeField';
+import ReactToPrint from 'react-to-print';
+import PrintIcon from '@material-ui/icons/Print';
+import IconButton from '@material-ui/core/IconButton';
+import jMoment from 'moment-jalaali';
 
 const importOptions = {
     parseConfig: {
@@ -83,26 +87,6 @@ const CustomTaskButton = ({ selectedIds }) => {
     );
 };
 
-const AddTaskSpareButton = ({ selectedIds }) => {
-    const [opens, setOpens] = React.useState(false);
-
-    const handleClickOpen = () => () => {
-        setOpens(true);
-    };
-
-    return (
-        <Fragment>
-            <Button
-                label="افزودن قطعه‌یدکی"
-                onClick={handleClickOpen()}
-            >
-                <SettingsInputSvideoOutlinedIcon />
-            </Button>
-            {opens ? <ScrollDialog open={opens} setOpen={setOpens} taskSelectedIds={selectedIds} /> : null}
-        </Fragment>
-    );
-};
-
 const AddTaskPersonnelButton = ({ selectedIds }) => {
     const [open, setOpen] = React.useState(false);
 
@@ -126,7 +110,6 @@ const AddTaskPersonnelButton = ({ selectedIds }) => {
 const TaskBulkActionButtons = props => (
     <Fragment>
         <AddTaskPersonnelButton {...props} />
-        <AddTaskSpareButton {...props} />
         <CustomTaskButton label="تایید فعالیت" {...props} />
         <BulkDeleteButton {...props} />
     </Fragment>
@@ -194,13 +177,6 @@ const exporterWOStatus = (data) => {
   
     })
 };
-
-const ShowActions = ({ basePath, data }) => (
-    <TopToolbar>
-        <ListButton basePath={basePath} />
-        <EditButton basePath={basePath} record={data}/>
-    </TopToolbar>
-);
 
 const WOSupplierActions = ({ basePath, data }, props) => {
     const classes = useStyles();
@@ -309,26 +285,17 @@ const useStyles = makeStyles({
     sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
     ex: {
         fontFamily: 'inherit',
-    }
+    },
+    page:{
+        direction: 'rtl',
+    },
 });
-
-const WorkOrderField = ({ record = {} }) => {
-    let str = record.WorkRequestID ? `${record.WorkRequestID}` : `${record.WOTemplateCode}`;
-    str = record.WorkRequestID ? str.padStart(4,0) : str;
-    let text = record.WorkRequestID ? "WR0".concat(str) : "PM".concat(str);
-    let stro = record ? `${record.id}` : '';
-    stro = stro.padStart(4,0);
-    let texto = "_WO0".concat(stro);
-    return <span> {text} {texto} </span>;
-};
 
 const freq = [
     { _id: 'D', full_name: 'انجام شده'},
     { _id: 'ND', full_name: 'انجام نشده'},
     { _id: 'N', full_name: 'نیاز به انجام نمی‌باشد'}
 ];
-
-WorkOrderField.defaultProps = { label: 'کد دستور کار', addLabel: true };
 
 JalaaliDateField.defaultProps = { addLabel: true};
 
@@ -441,19 +408,47 @@ const WOTask = props => {
 
 
 const WorkOrderShow = (props) => {
-    
 
-    const record = props.id
+    const componentRef = useRef();
+
+    const ShowActions = ({ basePath, data }) => (
+        <TopToolbar>
+            <ReactToPrint
+              trigger={() => <IconButton><PrintIcon/></IconButton>}
+              content={() =>  componentRef.current}
+            />
+            <ListButton basePath={basePath} />
+            <EditButton basePath={basePath} record={data}/>
+        </TopToolbar>
+    );
+
+    const record = props.id;
+
+    const { data } = useGetOne('PMWorks/WorkOrder', record);
+
+    const WorkOrderField = ({ data }) => {
+        let str = data.WorkRequestID ? `${data.WorkRequestID}` : `${data.WOTemplateCode}`;
+        str = data.WorkRequestID ? str.padStart(4,0) : str;
+        let text = data.WorkRequestID ? "WR0".concat(str) : "PM".concat(str);
+        let stro = data ? `${data.id}` : '';
+        stro = stro.padStart(4,0);
+        let texto = "_WO0".concat(stro);
+        return <span> {text} {texto} </span>;
+    };
+
+    WorkOrderField.defaultProps = { label: 'کد دستور کار', addLabel: true };
 
     const classes = useStyles();
     return(
     <Show actions={<ShowActions/>} {...props} title={<WorkOrderTitle />}>
         <TabbedShowLayout syncWithLocation={false}>
             <Tab label="مشخصات">
-                <WorkOrderField className={classes.sho} textAlgin="right" source="id" />
-                <JalaaliDateField className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
-                <JalaaliDateField className={classes.sho} label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
-                <JalaaliDateField className={classes.sho} label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />
+            <div ref={componentRef} className={classes.page}>
+            <SimpleShowLayout>
+                <WorkOrderField data={data} className={classes.sho} textAlgin="right" source="id" />
+                <FunctionField render={record => jMoment(data.WODateOfRegistration).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
+                <FunctionField render={record => jMoment(data.DateOfPlanStart).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
+                <FunctionField render={record => jMoment(data.DateOfPlanFinish).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />                
                 <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                     <TextField source="AssetCode" />
                 </ReferenceField>
@@ -467,6 +462,120 @@ const WorkOrderShow = (props) => {
                     <TextField source="StatusName" />
                 </ReferenceField>
                 <TextField className={classes.sho} label="توضیحات" textAlgin="right" source="WODescription"/>
+                <ReferenceManyField
+                    label="لیست وضعیت"
+                    reference="PMWorks/WOStatus"
+                    target="WorkOrderID"
+                    filter={{ WorkOrderID: record }}
+                >
+                    <Datagrid>
+                        <ReferenceField label="کد وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusCode" />
+                        </ReferenceField>
+                        <ReferenceField label="نام وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                            <TextField source="StatusName" />
+                        </ReferenceField>
+                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
+                        <JalaaliTimeField label="زمان ثبت" textAlgin="right" source="StatusTime" />
+                    </Datagrid>
+                </ReferenceManyField>
+                <ReferenceManyField
+                    label="لیست تجهیزات"
+                    reference="PMWorks/WOAssetSubdivision"
+                    target="WorkOrderID"
+                    filter={{ WorkOrderID: record }}
+                >
+                    <List empty={false} actions={null} pagination={null}>
+                    <Datagrid>
+                        <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetCode" />
+                        </ReferenceField>
+                        <ReferenceField label="عنوان تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetName" />
+                        </ReferenceField>
+                        <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetClassNameChain" />
+                        </ReferenceField>
+                        <ReferenceField label="مکان" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetID__LocationID__LocationNameChain" />
+                        </ReferenceField>
+                    </Datagrid>
+                    </List>
+                </ReferenceManyField>
+                <ReferenceManyField
+                    label="لیست فعالیت‌ها"
+                    reference="PMWorks/WOTaskOrder"
+                    target="WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOAssetSubdivisionID__WorkOrderID: record }}
+                >
+                <ResourceContextProvider value="PMWorks/WOTaskOrder">
+                <List syncWithLocation basePath="PMWorks/WOTaskOrder" filterDefaultValues={{ WOAssetSubdivisionID__WorkOrderID: record }} empty={false} actions={null} pagination={null}>
+                    <Datagrid>
+                        <ReferenceField label="کد تجهیز" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetCode" />
+                        </ReferenceField>
+                        <ReferenceField label="عنوان تجهیز" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetName" />
+                        </ReferenceField>
+                        <ReferenceField label="مکان" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
+                            <TextField source="AssetID__LocationID__LocationNameChain" />
+                        </ReferenceField>
+                        <ReferenceField label="نام فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                            <TextField source="TaskName" />
+                        </ReferenceField>
+                        <ReferenceField label="کد فعالیت" textAlgin="right" source="TaskID" reference="PMWorks/AssetClassTask">
+                            <TextField source="TaskCode" />
+                        </ReferenceField>
+                        <SelectField label="وضعیت انجام" textAlgin="right" source="WOTaskSituationOfDo" choices={freq} optionText="full_name" optionValue="_id" />
+                    </Datagrid>
+                </List>
+                </ResourceContextProvider>
+                </ReferenceManyField>
+                <ReferenceManyField
+                    label="لیست قطعات یدکی"
+                    reference="PMWorks/WOSparePart"
+                    target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
+                >
+                <List empty={false} actions={null} pagination={null}>
+                    <Datagrid>
+                        <ReferenceField label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
+                            <TextField source="SparePartCode" />
+                        </ReferenceField>
+                        <ReferenceField label="نام قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
+                            <TextField source="SparePartName" />
+                        </ReferenceField>
+                        <NumberField label="تعداد" textAlgin="right" source="SparePartAmount" />
+                    </Datagrid>
+                </List>
+                </ReferenceManyField>
+                <ReferenceManyField
+                    label="لیست نیروی انسانی"
+                    reference="PMWorks/WOPersonnel"
+                    target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
+                    filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
+                >
+                <List empty={false} actions={null} pagination={null}>
+                    <Datagrid>
+                        <ReferenceField label="نام" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                            <TextField source="PersonnelName" />
+                        </ReferenceField>
+                        <ReferenceField label="نام‌خانوادگی" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                                <TextField source="PersonnelFamily" />
+                        </ReferenceField>
+                        <ReferenceField label="کد" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                            <TextField source="PersonnelCode" />
+                        </ReferenceField>
+                        <ReferenceField label="کد نت" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
+                            <TextField source="PersonnelNetCode" />
+                        </ReferenceField>
+                        <JalaaliDateField label="تاریخ انجام" textAlgin="right" source="WorkDate"/>
+                        <NumberField label="مدت زمان انجام" textAlgin="right" source="WorkTime" />
+                    </Datagrid>
+                </List>
+                </ReferenceManyField>
+            </SimpleShowLayout>
+            </div>
             </Tab>
             <Tab label="وضعیت" path="PMWorks/WOStatus">
                 <ReferenceManyField
