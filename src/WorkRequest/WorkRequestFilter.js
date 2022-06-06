@@ -17,7 +17,7 @@ const  WorkRequestFilter = (props) => {
     return(
     <Filter {...props}>
         <TextInput className={classes.width} label="کد درخواست کار" textAlgin="right" source="id__icontains" alwaysOn resettable />
-        <TextInput className={classes.width} label="نام تجهیز" textAlgin="right" source="AssetSubdivisionID__AssetName__icontains" alwaysOn resettable />
+        <TextInput className={classes.width} label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID__AssetCode__icontains" alwaysOn resettable />
         <TextInput className={classes.width} label="خرابی" textAlgin="right" source="FailureModeID__FailureModeName__icontains" alwaysOn resettable />
         <ReferenceInput className={classes.width} formClassName={classes.width} label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" alwaysOn resettable>
             <SelectInput className={classes.width} optionText="WorkPriorityName" />
