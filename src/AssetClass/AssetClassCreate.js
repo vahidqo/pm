@@ -74,10 +74,10 @@ return(
                 source="AssetClassCode" {...rest}/>
             <TextInput formClassName={classes.sec} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
             <Separator/>
-            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد خانواده تجهیز پدر" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
                 <SelectInput optionText="AssetCategoryCode" />
             </ReferenceInput>
-            <AssetCategoryRefrenceInput formClassName={classes.sec} label="نام گروه خانواده تجهیز پدر" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory" perPage={10000} />
+            <AssetCategoryRefrenceInput formClassName={classes.sec} label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory" perPage={10000} />
         </SimpleForm>
     </Create>
 );

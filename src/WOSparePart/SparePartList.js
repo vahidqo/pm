@@ -36,7 +36,7 @@ const NoneActions = props => (
 const SparePartList = ({ setId, setShowPanel, ...props }) => {
 
     return(
-    <List filters={<SparePartFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
+    <List perPage={15} filters={<SparePartFilter />} bulkActionButtons={false} {...props} actions={<NoneActions />} title="خانواده تجهیز ">
         <Datagrid>
             <TextField label="کد قطعه" textAlgin="right" source="SparePartCode" />
             <TextField label="نام قطعه" textAlgin="right" source="SparePartName" />

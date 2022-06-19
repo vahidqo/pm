@@ -35,6 +35,24 @@ const validateError = (values) => {
     if (!values.WOTemplateName) {
         errors.WOTemplateName = 'نام را وارد کنید';
     }
+    if (!values.WOTemplateDurationDay) {
+        errors.WOTemplateDurationDay = 'روز تناوب را وارد کنید';
+    }
+    if (!values.WOTemplateDurationHour) {
+        errors.WOTemplateDurationHour = 'ساعت تناوب را وارد کنید';
+    }
+    if (!values.WOTemplateAlarmDay) {
+        errors.WOTemplateAlarmDay = 'روز اعلام را وارد کنید';
+    }
+    if (!values.WOTemplateAlarmHour) {
+        errors.WOTemplateAlarmHour = 'ساعت اعلام را وارد کنید';
+    }
+    if (!values.WOTemplateTypeID) {
+        errors.WOTemplateTypeID = 'نوع را وارد کنید';
+    }
+    if (!values.DepartmentID) {
+        errors.DepartmentID = 'دپارتمان را وارد کنید';
+    }
     return errors
 };
 
@@ -71,11 +89,11 @@ const WOTemplateCreate = props => {
             source="WOTemplateCode" {...rest}/>
             <TextInput formClassName={classes.sec} label="نام" textAlgin="right" source="WOTemplateName"/>
             <Separator />
-            <NumberInput formClassName={classes.fir} label="روز تناوب" textAlgin="right" source="WOTemplateDurationDay"/>
-            <NumberInput formClassName={classes.sec} label="ساعت تناوب" textAlgin="right" source="WOTemplateDurationHour"/>
+            <NumberInput formClassName={classes.fir} label="مدت انجام(روز)" textAlgin="right" source="WOTemplateDurationDay"/>
+            <NumberInput formClassName={classes.sec} label="مدت انجام(ساعت)" textAlgin="right" source="WOTemplateDurationHour"/>
             <Separator />
-            <NumberInput formClassName={classes.fir} label="روز اعلام" textAlgin="right" source="WOTemplateAlarmDay"/>
-            <NumberInput formClassName={classes.sec} label="ساعت اعلام" textAlgin="right" source="WOTemplateAlarmHour"/>
+            <NumberInput formClassName={classes.fir} label="بازه ایجاد(روز)" textAlgin="right" source="WOTemplateAlarmDay"/>
+            <NumberInput formClassName={classes.sec} label="بازه ایجاد(ساعت)" textAlgin="right" source="WOTemplateAlarmHour"/>
             <Separator />
             <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد نوع" textAlgin="right" source="WOTemplateTypeID" reference="PMWorks/WOTemplateType">
                 <SelectInput optionText="WOTemplateTypeCode" />

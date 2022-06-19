@@ -11,7 +11,7 @@ from 'react-admin';
 import SupplierFilter from './SupplierFilter';
 
 const SupplierList = props => (
-    <List filters={<SupplierFilter />} {...props} title="تامیین کنندگان">
+    <List filters={<SupplierFilter />} {...props} title="تامین کنندگان">
         <Responsive
             small={
                 <SimpleList linkType="show" primaryText={record => record.SupplierName} />

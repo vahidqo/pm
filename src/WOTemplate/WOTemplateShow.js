@@ -125,7 +125,7 @@ const TemplateSchualing = props => (
                     reference="PMWorks/TemplateSchualingDate"
                     target="WOTemplateSchualingID"
                     filter={{ WOTemplateSchualingID: props.record.id }}
-                    sort={{ field: 'TemplateSchualingDate', order: 'ASC' }}
+                    sort={{ field: 'SchualingDate', order: 'ASC' }}
         >
         <List {...props} actions={null} basePath="PMWorks/TemplateSchualingDate" title=" "  >
             <Datagrid>
@@ -188,11 +188,11 @@ const WOTemplateShow = (props) => {
         <TabbedShowLayout>
             <Tab label="مشخصات">
                 <TextField className={classes.sho} label="کد" textAlgin="right" source="WOTemplateCode" />
-                <TextField className={classes.sho} label="نام" textAlgin="right" source="WOTemplateName" />
-                <NumberField className={classes.sho} label="روز تناوب" textAlgin="right" source="WOTemplateDurationDay" />
-                <NumberField className={classes.sho} label="ساعت تناوب" textAlgin="right" source="WOTemplateDurationHour" />
-                <TextField className={classes.sho} label="روز اعلام تناوب" textAlgin="right" source="WOTemplateAlarmDay" />
-                <NumberField className={classes.sho} label="ساعت اعلام تناوب" textAlgin="right" source="WOTemplateAlarmHour" />
+                <TextField className={classes.sho} label="عنوان" textAlgin="right" source="WOTemplateName" />
+                <NumberField className={classes.sho} label="مدت انجام(روز)" textAlgin="right" source="WOTemplateDurationDay" />
+                <NumberField className={classes.sho} label="مدت انجام(ساعت)" textAlgin="right" source="WOTemplateDurationHour" />
+                <TextField className={classes.sho} label="بازه ایجاد(روز)" textAlgin="right" source="WOTemplateAlarmDay" />
+                <NumberField className={classes.sho} label="بازه ایجاد(ساعت)" textAlgin="right" source="WOTemplateAlarmHour" />
                 <ReferenceField className={classes.sho} label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                     <TextField source="DepartmentName" />
                 </ReferenceField>
@@ -225,7 +225,7 @@ const WOTemplateShow = (props) => {
                     </List>
                 </ReferenceManyField>
             </Tab>
-            <Tab label="برنامه ریزی" path="PMWorks/WOTemplateSchualing">
+            <Tab label="زمان بندی" path="PMWorks/WOTemplateSchualing">
                 <ReferenceManyField
                     addLabel={false}
                     reference="PMWorks/WOTemplateSchualing"

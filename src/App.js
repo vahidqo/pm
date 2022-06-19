@@ -460,7 +460,7 @@ const theme = createMuiTheme({
         },
         MuiGrid:{
             "grid-xs-6":{
-                direction: 'ltr',
+                direction: 'rtl',
             },
         },
     },

@@ -9,12 +9,25 @@ import {
     ShowButton,
     Toolbar,
     useEditController,
-    
+    ReferenceInput,
+    SelectInput    
 }
 from 'react-admin';
 import AssetClassTitle from './AssetClassTitle';
 import AssetCategoryRefrenceInput from './AssetCategoryRefrenceInput';
 import CodeInput from '../Components/CodeInput';
+import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    fir: { display: 'inline-block', verticalAlign: 'top' },
+    sec: { display: 'inline-block' },
+    width: { width: 712 },
+    last: { display: 'inline-block', marginRight: 0 },
+    sel: { '& svg': {display: 'none' }},
+});
+
+const Separator = () => <Box pt="0em" />;
 
 const EditActions = ({ basePath, data, resource }) => (
     <TopToolbar>
@@ -36,6 +49,7 @@ const validateError = (values) => {
 
 const AssetClassEdit = props => {
     const {source, ...rest} = props;
+    const classes = useStyles();
 
     const controllerProps = useEditController(props);
     const {
@@ -46,14 +60,18 @@ const AssetClassEdit = props => {
     return(
     <Edit actions={<EditActions />} title={<AssetClassTitle />} {...props}>
         <SimpleForm  validate={validateError} toolbar={<Toolbar alwaysEnableSaveButton />} redirect="show">
-            <CodeInput value={Value}  onChange={event => { let val = event.target.value;
+            <CodeInput formClassName={classes.fir} value={Value}  onChange={event => { let val = event.target.value;
                                                     val = val.replace(/[^\x00-\x7F]/ig, "");
                                                     setValue(val)
                                                     }}
-                label="کد کلاس تجهیز"
+                label="کد خانواده تجهیز"
                 source="AssetClassCode" {...rest}/>
-            <TextInput label="نام کلاس تجهیز" textAlgin="right" source="AssetClassName" />
-            <AssetCategoryRefrenceInput label="خانواده تجهیز" textAlgin="right" source="AssetClassFather" reference="PMWorks/AssetCategory" perPage={10000} />
+            <TextInput formClassName={classes.sec} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassName" />
+            <Separator/>
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory">
+                <SelectInput optionText="AssetCategoryCode" />
+            </ReferenceInput>
+            <AssetCategoryRefrenceInput formClassName={classes.sec} label="نام گروه خانواده تجهیز" textAlgin="right" source="AssetCategoryID" reference="PMWorks/AssetCategory" perPage={10000} />
         </SimpleForm>
     </Edit>
 );

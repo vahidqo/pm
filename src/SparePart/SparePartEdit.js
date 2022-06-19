@@ -68,19 +68,19 @@ const SparePartEdit = props => {
                                                     val = val.replace(/[^\x00-\x7F]/ig, "");
                                                     setValue(val)
                                                     }}
-                                                    label="کد قطعه"
+                                                    label="کد"
                 source="SparePartCode" {...rest}/>
-            <TextInput formClassName={classes.sec} label="نام قطعه" textAlgin="right" source="SparePartName" />
+            <TextInput formClassName={classes.sec} label="نام" textAlgin="right" source="SparePartName" />
             <Separator/>
             <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد خانواده قطعه" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory">
                 <SelectInput optionText="SparePartCategoryCode" />
             </ReferenceInput>
             <SparePartCategoryRefrenceInput formClassName={classes.sec} label="نام خانواده قطعه" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory" perPage={10000} />
             <Separator/>
-            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد واحد اندازه‌گیری" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
                 <SelectInput optionText="SparePartDimensionCode" />
             </ReferenceInput>
-            <SparePartDimensionRefrenceInput formClassName={classes.sec} label="نام سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension" perPage={10000} />
+            <SparePartDimensionRefrenceInput formClassName={classes.sec} label="نام واحد اندازه‌گیری" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension" perPage={10000} />
         </SimpleForm>
     </Edit>
 );

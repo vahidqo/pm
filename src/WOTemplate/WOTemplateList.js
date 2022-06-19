@@ -61,11 +61,11 @@ const WOTemplateList = props => (
             medium={
                 <Datagrid>
                     <TextField label="کد" textAlgin="right" source="WOTemplateCode" />
-                    <TextField label="نام" textAlgin="right" source="WOTemplateName" />
-                    <NumberField label="روز تناوب" textAlgin="right" source="WOTemplateDurationDay" />
-                    <NumberField label="ساعت تناوب" textAlgin="right" source="WOTemplateDurationHour" />
-                    <TextField label="روز اعلام تناوب" textAlgin="right" source="WOTemplateAlarmDay" />
-                    <NumberField label="ساعت اعلام تناوب" textAlgin="right" source="WOTemplateAlarmHour" />
+                    <TextField label="عنوان" textAlgin="right" source="WOTemplateName" />
+                    <NumberField label="مدت انجام(روز)" textAlgin="right" source="WOTemplateDurationDay" />
+                    <NumberField label="مدت انجام(ساعت)" textAlgin="right" source="WOTemplateDurationHour" />
+                    <NumberField label="بازه ایجاد(روز)" textAlgin="right" source="WOTemplateAlarmDay" />
+                    <NumberField label="بازه ایجاد(ساعت)" textAlgin="right" source="WOTemplateAlarmHour" />
                     <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                         <TextField source="DepartmentName" />
                     </ReferenceField>
