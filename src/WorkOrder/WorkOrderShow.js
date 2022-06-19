@@ -49,6 +49,7 @@ import QuickSelectTaskButton from './QuickSelectTaskButton';
 import DoneIcon from '@material-ui/icons/Done';
 import { ImportButton } from "react-admin-import-csv";
 import ScrollDialogP from './NewPersonTask';
+import ScrollDialog from './NewSpareTask';
 import PermIdentityOutlinedIcon from '@material-ui/icons/PermIdentityOutlined';
 import WOAssetSubdivisionFilter from '../WOAssetSubdivision/WOAssetSubdivisionFilter';
 import JalaaliTimeField  from '../Components/JalaaliTimeField';
@@ -56,6 +57,17 @@ import ReactToPrint from 'react-to-print';
 import PrintIcon from '@material-ui/icons/Print';
 import IconButton from '@material-ui/core/IconButton';
 import jMoment from 'moment-jalaali';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 const importOptions = {
     parseConfig: {
@@ -97,12 +109,32 @@ const AddTaskPersonnelButton = ({ selectedIds }) => {
     return (
         <Fragment>
             <Button
-                label="افزودن پرسنل"
+                label="افزودن نیروی انسانی"
                 onClick={handleClickOpen()}
             >
                 <PermIdentityOutlinedIcon />
             </Button>
             {open ? <ScrollDialogP open={open} setOpen={setOpen} taskSelectedIds={selectedIds} /> : null}
+        </Fragment>
+    );
+};
+
+const AddTaskSpareButton = ({ record }) => {
+    const [opens, setOpens] = React.useState(false);
+
+    const handleClickOpen = () => () => {
+        setOpens(true);
+    };
+
+    return (
+        <Fragment>
+            <Button
+                label="انتخاب"
+                onClick={handleClickOpen()}
+            >
+                <TouchAppIcon />
+            </Button>
+            {opens ? <ScrollDialog open={opens} setOpen={setOpens} record={record} /> : null}
         </Fragment>
     );
 };
@@ -282,13 +314,16 @@ const useStyles = makeStyles({
     head: {
         display: 'none',
     },
-    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }},
+    sho: {'& label': { fontSize: '20px', color:'rgb(36 50 97)' }, display: 'inline-block'},
     ex: {
         fontFamily: 'inherit',
     },
     page:{
         direction: 'rtl',
+        backgroundColor: 'white',
     },
+    fir: { display: 'inline-block', verticalAlign: 'top' },
+    sec: { display: 'inline-block', marginRight: '50px', textAlignLast: 'left' },
 });
 
 const freq = [
@@ -305,7 +340,7 @@ const WOoSparePartActions = ({ basePath, data }) => {
   
   return (
     <TopToolbar>
-        <AddSparePartButton record={data}/>
+        <AddTaskSpareButton record={data}/>
         <ExportButton className={classes.ex} label="خروجی" basePath={basePath} />
     </TopToolbar>
 );
@@ -414,11 +449,10 @@ const WorkOrderShow = (props) => {
     const ShowActions = ({ basePath, data }) => (
         <TopToolbar>
             <ReactToPrint
-              trigger={() => <IconButton><PrintIcon/></IconButton>}
+              trigger={() => <IconButton style={{color: '#243261', paddingTop: '2px', paddingLeft: '10px'}}><PrintIcon/></IconButton>}
               content={() =>  componentRef.current}
             />
             <ListButton basePath={basePath} />
-            <EditButton basePath={basePath} record={data}/>
         </TopToolbar>
     );
 
@@ -438,78 +472,132 @@ const WorkOrderShow = (props) => {
 
     WorkOrderField.defaultProps = { label: 'کد دستور کار', addLabel: true };
 
+    const Empty = () => {
+   
+    function createData(name, calories, fat, carbs, protein) {
+        return { name, calories, fat, carbs, protein };};
+
+    const rows = [
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+          ];
+    return (
+        <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">کد قطعه</TableCell>
+            <TableCell align="right">نام قطعه</TableCell>
+            <TableCell align="right">تعداد</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    );
+};
+
+const EmptyP = () => {
+   
+    function createData(name, calories, fat, carbs, protein) {
+        return { name, calories, fat, carbs, protein };};
+
+    const rows = [
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+            createData(' ',' ',' ',' ',' '),
+          ];
+    return (
+        <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">نام</TableCell>
+            <TableCell align="right">نام خانوادگی</TableCell>
+            <TableCell align="right">کد</TableCell>
+            <TableCell align="right">کد نت</TableCell>
+            <TableCell align="right">تاریخ انجام</TableCell>
+            <TableCell align="right">مدت زمان انجام</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    );
+};
+
     const classes = useStyles();
+    
     return(
     <Show actions={<ShowActions/>} {...props} title={<WorkOrderTitle />}>
         <TabbedShowLayout syncWithLocation={false}>
             <Tab label="مشخصات">
             <div ref={componentRef} className={classes.page}>
             <SimpleShowLayout>
+                <Typography variant="h4" style={{marginRight: '40%'}}>
+                فرم دستور کار
+                </Typography>
+                <Divider style={{marginRight: '30%', width: '50%'}}/>
                 <WorkOrderField data={data} className={classes.sho} textAlgin="right" source="id" />
-                <FunctionField render={record => jMoment(data.WODateOfRegistration).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
-                <FunctionField render={record => jMoment(data.DateOfPlanStart).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
-                <FunctionField render={record => jMoment(data.DateOfPlanFinish).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />                
-                <ReferenceField label="کد تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                    <TextField source="AssetCode" />
-                </ReferenceField>
-                <ReferenceField label="نام تجهیز" textAlgin="right" source="WorkRequestID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                    <TextField source="AssetName" />
-                </ReferenceField>
-                <ReferenceField label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
+                <FunctionField className={classes.sec} render={record => jMoment(data.WODateOfRegistration).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ ثبت" textAlgin="right" source="WODateOfRegistration" />
+                <FunctionField className={classes.sec} render={record => jMoment(data.DateOfPlanStart).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ شروع" textAlgin="right" source="DateOfPlanStart" />
+                <FunctionField className={classes.sec} render={record => jMoment(data.DateOfPlanFinish).locale('fa').format('jD jMMMM jYYYY')} className={classes.sho} label="تاریخ پایان" textAlgin="right" source="DateOfPlanFinish" />                
+                <ReferenceField className={classes.sec} label="خرابی" textAlgin="right" source="WorkRequestID__FailureModeID" reference="PMWorks/FailureMode">
                     <TextField source="FailureModeName" />
                 </ReferenceField>
-                <ReferenceField label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
+                <ReferenceField className={classes.sec} label="وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
                     <TextField source="StatusName" />
                 </ReferenceField>
                 <TextField className={classes.sho} label="توضیحات" textAlgin="right" source="WODescription"/>
+                <Divider />
+                <Grid container spacing={1}>
+                <Grid item xs={12}>
+                <Typography variant="h7" style={{marginRight: '40%'}}>
+                لیست فعالیت‌ها
+                </Typography>
+                </Grid>
+                <Divider style={{marginRight: '30%', width: '50%'}}/>
+                <Grid item xs={12}>
                 <ReferenceManyField
-                    label="لیست وضعیت"
-                    reference="PMWorks/WOStatus"
-                    target="WorkOrderID"
-                    filter={{ WorkOrderID: record }}
-                >
-                    <Datagrid>
-                        <ReferenceField label="کد وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
-                            <TextField source="StatusCode" />
-                        </ReferenceField>
-                        <ReferenceField label="نام وضعیت" textAlgin="right" source="StatusID" reference="PMWorks/Status">
-                            <TextField source="StatusName" />
-                        </ReferenceField>
-                        <JalaaliDateField label="تاریخ ثبت" textAlgin="right" source="StatusDate" />
-                        <JalaaliTimeField label="زمان ثبت" textAlgin="right" source="StatusTime" />
-                    </Datagrid>
-                </ReferenceManyField>
-                <ReferenceManyField
-                    label="لیست تجهیزات"
-                    reference="PMWorks/WOAssetSubdivision"
-                    target="WorkOrderID"
-                    filter={{ WorkOrderID: record }}
-                >
-                    <List empty={false} actions={null} pagination={null}>
-                    <Datagrid>
-                        <ReferenceField label="کد تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                            <TextField source="AssetCode" />
-                        </ReferenceField>
-                        <ReferenceField label="عنوان تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                            <TextField source="AssetName" />
-                        </ReferenceField>
-                        <ReferenceField label="خانواده تجهیز" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                            <TextField source="AssetClassNameChain" />
-                        </ReferenceField>
-                        <ReferenceField label="مکان" textAlgin="right" source="AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
-                            <TextField source="AssetID__LocationID__LocationNameChain" />
-                        </ReferenceField>
-                    </Datagrid>
-                    </List>
-                </ReferenceManyField>
-                <ReferenceManyField
-                    label="لیست فعالیت‌ها"
+                    addLabel={false}
                     reference="PMWorks/WOTaskOrder"
                     target="WOAssetSubdivisionID__WorkOrderID"
                     filter={{ WOAssetSubdivisionID__WorkOrderID: record }}
                 >
                 <ResourceContextProvider value="PMWorks/WOTaskOrder">
-                <List syncWithLocation basePath="PMWorks/WOTaskOrder" filterDefaultValues={{ WOAssetSubdivisionID__WorkOrderID: record }} empty={false} actions={null} pagination={null}>
+                <List perPage={1000} syncWithLocation basePath="PMWorks/WOTaskOrder" filterDefaultValues={{ WOAssetSubdivisionID__WorkOrderID: record }} empty={false} actions={null} pagination={null}>
                     <Datagrid>
                         <ReferenceField label="کد تجهیز" textAlgin="right" source="WOAssetSubdivisionID__AssetSubdivisionID" reference="PMWorks/AssetSubdivision">
                             <TextField source="AssetCode" />
@@ -531,13 +619,29 @@ const WorkOrderShow = (props) => {
                 </List>
                 </ResourceContextProvider>
                 </ReferenceManyField>
+                <Divider />
+                </Grid>
+                <Divider />
+                <Grid item xs={6}>
+                <Typography variant="h7" style={{marginRight: '40%'}}>
+                لیست قطعات یدکی
+                </Typography>
+                <Divider style={{marginRight: '30%', width: '50%'}}/>
+                </Grid>
+                <Grid item xs={6}>
+                <Typography variant="h7" style={{marginRight: '40%'}}>
+                لیست نیروی انسانی
+                </Typography>
+                <Divider style={{marginRight: '30%', width: '50%'}}/>
+                </Grid>
+                <Grid item xs={6}>
                 <ReferenceManyField
-                    label="لیست قطعات یدکی"
+                    addLabel={false}
                     reference="PMWorks/WOSparePart"
                     target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
                     filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
                 >
-                <List empty={false} actions={null} pagination={null}>
+                <List empty={<Empty />} actions={null} pagination={null}>
                     <Datagrid>
                         <ReferenceField label="کد قطعه" textAlgin="right" source="SparePartID" reference="PMWorks/SparePart">
                             <TextField source="SparePartCode" />
@@ -549,13 +653,15 @@ const WorkOrderShow = (props) => {
                     </Datagrid>
                 </List>
                 </ReferenceManyField>
+                </Grid>
+                <Grid item xs={6}>
                 <ReferenceManyField
-                    label="لیست نیروی انسانی"
+                    addLabel={false}
                     reference="PMWorks/WOPersonnel"
                     target="WOTaskID__WOAssetSubdivisionID__WorkOrderID"
                     filter={{ WOTaskID__WOAssetSubdivisionID__WorkOrderID: record }}
                 >
-                <List empty={false} actions={null} pagination={null}>
+                <List empty={<EmptyP />} actions={null} pagination={null}>
                     <Datagrid>
                         <ReferenceField label="نام" textAlgin="right" source="PersonnelID" reference="PMWorks/Personnel">
                             <TextField source="PersonnelName" />
@@ -574,6 +680,8 @@ const WorkOrderShow = (props) => {
                     </Datagrid>
                 </List>
                 </ReferenceManyField>
+                </Grid>
+                </Grid>
             </SimpleShowLayout>
             </div>
             </Tab>

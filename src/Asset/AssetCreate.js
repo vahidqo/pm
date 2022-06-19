@@ -93,10 +93,10 @@ return(
             </ReferenceInput>
             <LocationRefrenceInput formClassName={classes.sec} label="نام مکان" textAlgin="right" source="LocationID" reference="PMWorks/Location" allowEmpty validate={required()} perPage={10000} />
             <Separator/>
-            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد کلاس تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <AssetClassRefrenceInput formClassName={classes.sec} label="نام کلاس تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass" allowEmpty validate={required()} perPage={10000} />
+            <AssetClassRefrenceInput formClassName={classes.sec} label="عنوان خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass" allowEmpty validate={required()} perPage={10000} />
         </SimpleForm>
     </Create>
  );

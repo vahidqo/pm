@@ -114,14 +114,14 @@ export const WorkRequestCreate = props => {
                 <Separator />
                 <FormDataConsumer formClassName={classes.fir}>
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <ReferenceInput label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" {...rest}>
+                    <ReferenceInput label="اولویت" textAlgin="right" source="WorkPriorityID" reference="PMWorks/WorkPriority" sort={{ field: 'id', order: 'ASC' }} {...rest}>
                         <SelectInput optionText={<FullNameField />} />
                     </ReferenceInput>
                  }
                 </FormDataConsumer>
                 <FormDataConsumer formClassName={classes.sec}>
                  {({ formData, ...rest }) => formData.AssetSubdivisionID &&
-                    <ReferenceInput label="نوع درخواست" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" {...rest}>
+                    <ReferenceInput label="نوع درخواست" textAlgin="right" source="TypeWrID" reference="PMWorks/TypeWr" sort={{ field: 'id', order: 'ASC' }} {...rest}>
                         <SelectInput optionText={<FullNameField1 />} />
                     </ReferenceInput>
                  }

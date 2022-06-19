@@ -82,10 +82,10 @@ const SparePartCreate = props => {
             </ReferenceInput>
             <SparePartCategoryRefrenceInput formClassName={classes.sec} label="نام خانواده قطعه" textAlgin="right" source="SparePartCategoryID" reference="PMWorks/SparePartCategory" perPage={10000} />
             <Separator/>
-            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
+            <ReferenceInput className={classes.sel} disabled formClassName={classes.fir} label="کد واحد اندازه‌گیری" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension">
                 <SelectInput optionText="SparePartDimensionCode" />
             </ReferenceInput>
-            <SparePartDimensionRefrenceInput formClassName={classes.sec} label="نام سطح قطعه" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension" perPage={10000} />
+            <SparePartDimensionRefrenceInput formClassName={classes.sec} label="نام واحد اندازه‌گیری" textAlgin="right" source="SparePartDimensionID" reference="PMWorks/SparePartDimension" perPage={10000} />
         </SimpleForm>
     </Create>
 );

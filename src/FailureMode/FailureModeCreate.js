@@ -62,10 +62,10 @@ const FailureModeCreate = props => {
     return (
     <Create onSuccess={onSuccess} {...props} title="ایجاد نوع خرابی">
         <SimpleForm validate={validateError} initialValues={{ AssetClassID}} redirect={redirectt} toolbar={<Toolbar alwaysEnableSaveButton />}>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.fir} label="کد خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassCode" />
             </ReferenceInput>
-            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام نجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
+            <ReferenceInput disabled className={classes.sel} formClassName={classes.sec} label="نام خانواده تجهیز" textAlgin="right" source="AssetClassID" reference="PMWorks/AssetClass">
                 <SelectInput optionText="AssetClassName" />
             </ReferenceInput>
             <Separator/>
@@ -73,11 +73,11 @@ const FailureModeCreate = props => {
                                                     val = val.replace(/[^\x00-\x7F]/ig, "");
                                                     setValue(val)
                                                     }}
-                label="کد نوع خرابی"
+                label="کد حالت خرابی"
                 source="FailureModeCode" {...rest}/>
-            <TextInput formClassName={classes.sec} label="نام نام خرابی" textAlgin="right" source="FailureModeName" />
+            <TextInput formClassName={classes.sec} label="نام حالت خرابی" textAlgin="right" source="FailureModeName" />
             <Separator/>
-            <TextInput className={classes.width} multiline label="توضیحات نوع خرابی" textAlgin="right" source="FailureModeDescription" />
+            <TextInput className={classes.width} multiline label="توضیحات حالت خرابی" textAlgin="right" source="FailureModeDescription" />
         </SimpleForm>
     </Create>
     );

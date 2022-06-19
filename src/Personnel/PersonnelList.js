@@ -61,14 +61,14 @@ const PersonnelList = props => (
             medium={
                 <Datagrid>
                     <TextField label="کد پرسنلی" textAlgin="right" source="PersonnelCode" />
-                    <TextField label="کد نت نیروی انسانی" textAlgin="right" source="PersonnelNetCode" />
-                    <TextField label="نام نیروی انسانی" textAlgin="right" source="PersonnelName" />
-                    <TextField label="نام خانوادگی نیروی انسانی" textAlgin="right" source="PersonnelFamily" />
-                    <TextField label="شماره نیروی انسانی" textAlgin="right" source="PersonnelMobile" />
+                    <TextField label="کد" textAlgin="right" source="PersonnelNetCode" />
+                    <TextField label="نام" textAlgin="right" source="PersonnelName" />
+                    <TextField label="نام خانوادگی" textAlgin="right" source="PersonnelFamily" />
+                    <TextField label="شماره همراه" textAlgin="right" source="PersonnelMobile" />
                     <ReferenceField label="دپارتمان" textAlgin="right" source="DepartmentID" reference="PMWorks/Department">
                         <TextField source="DepartmentName" />
                     </ReferenceField>
-                    <ReferenceField label="کاربر" textAlgin="right" source="user" reference="PMWorks/User">
+                    <ReferenceField label="نام کاربر" textAlgin="right" source="user" reference="PMWorks/User">
                         <TextField source="username" />
                     </ReferenceField>
                     <ShowButton />
