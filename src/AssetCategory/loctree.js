@@ -38,8 +38,6 @@ const CustomExportButton = (props) => {
       { field: "id", order: "ASC" }
     );
 
-    console.log(data)
-
     const dataForExport = ids.map(id => {
         const {  ...dataForExport } = id; // omit backlinks and author
         dataForExport.id = data[id].id;
