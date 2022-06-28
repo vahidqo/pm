@@ -25,6 +25,7 @@ import jsonExport from 'jsonexport/dist';
 import JalaaliDateField  from '../Components/JalaaliDateField';
 import { ImportButton } from "react-admin-import-csv";
 import { Link } from 'react-router-dom';
+import jMoment from 'moment-jalaali';
 
 const importOptions = {
     parseConfig: {
@@ -32,14 +33,87 @@ const importOptions = {
     },
 };
   
-const exporter = (data) => {
-    const BOM = '\uFEFF'
-  
-    jsonExport(data, (err, csv) => {
-      downloadCSV(`${BOM} ${csv}`, 'WorkRequestList')
-  
-    })
-};
+const exporter = (records, fetchRelatedRecords) => {
+    // will call dataProvider.getMany('posts', { ids: records.map(record => record.post_id) }), ignoring duplicate and empty post_id
+    fetchRelatedRecords(records, "AssetSubdivisionID", "PMWorks/AssetSubdivision").then((AssetSubdivision) => {
+        const data1s = records.map((record) => ({
+        ...record,
+        AssetCode: record.AssetSubdivisionID ? AssetSubdivision[record.AssetSubdivisionID].AssetCode : null,
+        AssetName: record.AssetSubdivisionID ? AssetSubdivision[record.AssetSubdivisionID].AssetName : null,
+        AssetClassCodeChain: record.AssetSubdivisionID ? AssetSubdivision[record.AssetSubdivisionID].AssetClassCodeChain : null,
+        AssetClassNameChain: record.AssetSubdivisionID ? AssetSubdivision[record.AssetSubdivisionID].AssetClassNameChain : null,
+        fakelocation: record.AssetSubdivisionID ? AssetSubdivision[record.AssetSubdivisionID].fakelocation : null
+      }));
+    fetchRelatedRecords(data1s, "fakelocation", "PMWorks/Location").then((Location) => {
+        const data2s = data1s.map((data1) => ({
+        ...data1,
+        LocationCode: data1.fakelocation ? Location[data1.fakelocation].LocationCode : '',
+        LocationName: data1.fakelocation ? Location[data1.fakelocation].LocationName : ''
+    }));
+    fetchRelatedRecords(data2s, "FailureModeID", "PMWorks/FailureMode").then((FailureMode) => {
+        const data3s = data2s.map((data2) => ({
+        ...data2,
+        FailureModeCode: data2.FailureModeID ? FailureMode[data2.FailureModeID].FailureModeCode : '',
+        FailureModeName: data2.FailureModeID ? FailureMode[data2.FailureModeID].FailureModeName : ''
+    }));
+    fetchRelatedRecords(data3s, "WorkPriorityID", "PMWorks/WorkPriority").then((WorkPriority) => {
+        const data4s = data3s.map((data3) => ({
+        ...data3,
+        WorkPriorityCode: data3.WorkPriorityID ? WorkPriority[data3.WorkPriorityID].WorkPriorityCode : '',
+        WorkPriorityName: data3.WorkPriorityID ? WorkPriority[data3.WorkPriorityID].WorkPriorityName : ''
+    }));
+    fetchRelatedRecords(data4s, "TypeWrID", "PMWorks/TypeWr").then((TypeWr) => {
+        const data5s = data4s.map((data4) => ({
+        ...data4,
+        TypeWrCode: data4.TypeWrID ? TypeWr[data4.TypeWrID].TypeWrCode : '',
+        TypeWrName: data4.TypeWrID ? TypeWr[data4.TypeWrID].TypeWrName : ''
+    }));
+    fetchRelatedRecords(data5s, "StatusID", "PMWorks/Status").then((Status) => {
+        const data6s = data5s.map((data5) => ({
+        ...data5,
+        StatusCode: data5.StatusID ? Status[data5.StatusID].StatusCode : '',
+        StatusName: data5.StatusID ? Status[data5.StatusID].StatusName : ''
+    }));
+    var r = 1;
+    const BOM = "\uFEFF";
+    const postsForExport = data6s.map((data6) => {
+        const { backlinks, id, WRTime, WRDateOfRegistration, WRDescription, WRTimeOfRegistration, TypeWrID, WorkPriorityID, StatusCode, StatusName, TypeWrCode, TypeWrName, WorkPriorityCode, WorkPriorityName, WorkRequestID, StatusID, AssetSubdivisionID, FailureModeID, WOTemplateCode, FailureModeCode, FailureModeName, WRDate, AssetCode, AssetName, AssetClassCodeChain, AssetClassNameChain, LocationCode, LocationName, fakelocation, ...postForExport } = data6; // omit backlinks and author
+        let str = data6 ? `${data6.id}` : '';
+        str = str.padStart(4,0);
+        let text = "WR0".concat(str);
+        postForExport.ردیف = r;
+        postForExport.کد_درخواست_کار = `${text}`;
+        postForExport.تاریخ_خرابی = jMoment(data6.WRDate).locale('fa').format('jYYYY/jM/jD');
+        postForExport.زمان_خرابی = jMoment(data6.WRTime, "HH:mm:ss").locale('fa').format('HH:mm');
+        postForExport.تاریخ_ثبت = jMoment(data6.WRDateOfRegistration).locale('fa').format('jYYYY/jM/jD');
+        postForExport.زمان_ثبت = jMoment(data6.WRTimeOfRegistration, "HH:mm:ss").locale('fa').format('HH:mm');
+        postForExport.کد_تجهیز = data6.AssetCode;
+        postForExport.نام_تجهیز = data6.AssetName;
+        postForExport.کد_خانواده_تجهیز = data6.AssetClassCodeChain;
+        postForExport.نام_خانواده_تجهیز = data6.AssetClassNameChain;
+        postForExport.کد_مکان = data6.LocationCode;
+        postForExport.نام_مکان = data6.LocationName;
+        postForExport.کد_خرابی = data6.FailureModeCode;
+        postForExport.نام_خرابی = data6.FailureModeName;
+        postForExport.کد_اولویت = data6.WorkPriorityCode;
+        postForExport.نام_اولویت = data6.WorkPriorityName;
+        postForExport.کد_نوع = data6.TypeWrCode;
+        postForExport.نام_نوع = data6.TypeWrName;
+        postForExport.توضیحات = data6.WRDescription;  
+        postForExport.کد_وضعیت = data6.StatusCode;
+        postForExport.نام_وضعیت = data6.StatusName;   
+        
+        r = r + 1;
+        return postForExport;
+      });
+      jsonExport(
+        postsForExport,
+        (err, csv) => {
+            downloadCSV(`${BOM} ${csv}`, 'WorkRequestList');
+        }
+      );
+    });});});});});});
+  };
 
 const useStyles = makeStyles({
     ex: {
